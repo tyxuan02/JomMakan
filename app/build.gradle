@@ -4,12 +4,12 @@ plugins {
 
 android {
     namespace 'com.example.jommakan'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.example.jommakan"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -29,11 +29,17 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support.appcompat-v7:28.0.0'
+
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.navigation:navigation-fragment:2.5.3'
+    implementation 'androidx.navigation:navigation-ui:2.5.3'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+
+    def nav_version = '2.1.0-alpha06'
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
 }
