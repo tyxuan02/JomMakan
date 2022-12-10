@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/DestHome">
+
+    <fragment
+        android:id="@+id/DestHome"
+        android:name="com.example.jommakan.HomeFragment"
+        android:label="JomMakan"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/DestMenu"
+        android:name="com.example.jommakan.MenuFragment"
+        android:label="MENU"
+        tools:layout="@layout/fragment_menu" />
+
+    <fragment
+        android:id="@+id/DestCart"
+        android:name="com.example.jommakan.CartFragment"
+        android:label="CART"
+        tools:layout="@layout/fragment_cart" />
+
+    <fragment
+        android:id="@+id/DestAccount"
+        android:name="com.example.jommakan.AccountFragment"
+        android:label="ACCOUNT"
+        tools:layout="@layout/fragment_account" />
+</navigation>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="toolbar_text_main" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textColor">#6D5C4D</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="toolbar_text_secondary" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+        <item name="android:textColor">#B2967D</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="toolbar_text_tertiary" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">@font/caudex_bold</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+</resources>
