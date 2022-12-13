@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="20dp"
-    android:layout_marginEnd="20dp"
-    android:layout_marginTop="20dp"
+    android:layout_margin="20dp"
     android:orientation="vertical"
     tools:context=".HomeFragment">
 
@@ -122,4 +120,65 @@
             android:layout_marginTop="10dp"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/location_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textSize="25sp"
+                android:fontFamily="@font/montserrat_bold"
+                android:lineSpacingExtra="10sp"
+                android:textColor="#000000"
+                android:layout_marginRight="0dp">
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/location_view_all_layout"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="right">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View all"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/montserrat_bold">
+                </TextView>
+
+                <ImageButton
+                    android:id="@+id/location_view_all_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/view_all_icon"
+                    android:background="@drawable/view_all_shape"
+                    android:backgroundTint="@color/location_view_all_color"
+                    android:padding="3dp">
+                </ImageButton>
+            </LinearLayout>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_location_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
 </LinearLayout>

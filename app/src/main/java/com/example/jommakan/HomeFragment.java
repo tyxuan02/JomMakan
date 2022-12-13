@@ -33,6 +33,11 @@ public class HomeFragment extends Fragment {
     ArrayList<Food> food_list;
     HomeMenuItemAdapter homeMenuItemAdapter;
 
+    // Home Location
+    RecyclerView home_location_recycle_view;
+    ArrayList<Location> location_list;
+    HomeLocationItemAdapter homeLocationItemAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,6 +55,7 @@ public class HomeFragment extends Fragment {
             toolbar_title.setText("JomMakan");
         }
 
+
         // Top 5 Slider (Needs to fetch data from database, will implement soon)
         sliderAdapter = new SliderAdapter(top_5_images);
         top_5_image_slider = view.findViewById(R.id.top_5_image_slider);
@@ -58,6 +64,7 @@ public class HomeFragment extends Fragment {
         top_5_image_slider.setIndicatorAnimation(IndicatorAnimationType.WORM);
         top_5_image_slider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
         top_5_image_slider.startAutoCycle();
+
 
         // Home Menu (Needs to fetch data from database, will implement soon)
         food_list = new ArrayList<>();
@@ -72,5 +79,20 @@ public class HomeFragment extends Fragment {
         home_menu_recycle_view.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         home_menu_recycle_view.setHasFixedSize(true);
         home_menu_recycle_view.setNestedScrollingEnabled(false);
+
+
+        // Home Location (Needs to fetch data from database, will implement soon)
+        location_list = new ArrayList<>();
+        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, new String[]{"Restoran Famidah", "Restoran ABC"}));
+        location_list.add(new Location("Kolej Kediaman Kinabalu", R.drawable.fsktm_image, new String[]{"Restoran Famidah", "Restoran ABC"}));
+        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, new String[]{"Restoran Famidah", "Restoran ABC"}));
+
+        homeLocationItemAdapter = new HomeLocationItemAdapter(getActivity(), location_list);
+
+        home_location_recycle_view = view.findViewById(R.id.home_location_recycle_view);
+        home_location_recycle_view.setAdapter(homeLocationItemAdapter);
+        home_location_recycle_view.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
+        home_location_recycle_view.setHasFixedSize(true);
+        home_location_recycle_view.setNestedScrollingEnabled(false);
     }
 }

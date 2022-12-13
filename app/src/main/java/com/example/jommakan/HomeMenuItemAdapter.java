@@ -26,7 +26,7 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_menu_horizontal_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_menu_item, parent, false);
         return new ViewHolder(view);
     }
 
