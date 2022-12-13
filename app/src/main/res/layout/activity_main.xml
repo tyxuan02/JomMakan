@@ -1,16 +1,11 @@
-
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:fillViewport="true">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    android:fillViewport="true"
+    android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -27,14 +22,19 @@
                 android:textAppearance="@style/toolbar_text_main" />
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragment_container"
-            android:name="androidx.navigation.fragment.NavHostFragment"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_graph" />
+            android:layout_weight="1">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragment_container"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/nav_graph" />
+        </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation_bar"
@@ -47,7 +47,5 @@
             app:itemIconTint="@color/bottom_nav_color"
             app:itemTextColor="@color/bottom_nav_color"
             app:itemIconSize="28dp"/>
-    </LinearLayout>
-
-</androidx.core.widget.NestedScrollView>
+</LinearLayout>
 

@@ -13,7 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/welcome_section">
 
         <TextView
             android:id="@+id/welcome_text_with_name"
@@ -37,7 +38,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:id="@+id/top_5_section">
 
         <com.smarteist.autoimageslider.SliderView
             android:id="@+id/top_5_image_slider"
@@ -59,6 +61,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/menu_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -99,17 +102,24 @@
                 </TextView>
 
                 <ImageButton
+                    android:id="@+id/menu_view_all_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_gravity="center"
                     android:src="@drawable/view_all_icon"
                     android:background="@drawable/view_all_shape"
+                    android:backgroundTint="@color/menu_view_all_color"
                     android:padding="3dp">
                 </ImageButton>
             </LinearLayout>
         </LinearLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_menu_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 
 </LinearLayout>

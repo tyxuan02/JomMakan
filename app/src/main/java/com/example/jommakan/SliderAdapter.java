@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
-// Slider Adapter for Top 5 Food
+// Slider Adapter for Top 5 Food on homepage
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder> {
 
     int [] images;
