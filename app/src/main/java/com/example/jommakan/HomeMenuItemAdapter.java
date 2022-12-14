@@ -1,6 +1,7 @@
 package com.example.jommakan;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -36,6 +38,13 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
         holder.home_menu_card_view_food_name.setText(food_list.get(position).getName());
         holder.home_menu_card_view_food_stall.setText(food_list.get(position).getStall());
         holder.home_menu_card_view_food_price.setText("RM " + String.format("%.2f", food_list.get(position).getPrice()));
+
+        holder.home_menu_item_card_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Intent intent = new Intent(context,);
+            }
+        });
     }
 
     @Override
@@ -49,6 +58,7 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
         TextView home_menu_card_view_food_name;
         TextView home_menu_card_view_food_stall;
         TextView home_menu_card_view_food_price;
+        CardView home_menu_item_card_view;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -57,6 +67,7 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
             home_menu_card_view_food_name = itemView.findViewById(R.id.home_menu_card_view_food_name);
             home_menu_card_view_food_stall = itemView.findViewById(R.id.home_menu_card_view_food_stall);
             home_menu_card_view_food_price = itemView.findViewById(R.id.home_menu_card_view_food_price);
+            home_menu_item_card_view = itemView.findViewById(R.id.home_menu_item_card_view);
         }
     }
 }

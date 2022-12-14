@@ -1,17 +1,21 @@
 package com.example.jommakan;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
@@ -32,11 +36,13 @@ public class HomeFragment extends Fragment {
     RecyclerView home_menu_recycle_view;
     ArrayList<Food> food_list;
     HomeMenuItemAdapter homeMenuItemAdapter;
+    ImageButton menu_view_all_button;
 
     // Home Location
     RecyclerView home_location_recycle_view;
     ArrayList<Location> location_list;
     HomeLocationItemAdapter homeLocationItemAdapter;
+    ImageButton location_view_all_button;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +86,14 @@ public class HomeFragment extends Fragment {
         home_menu_recycle_view.setHasFixedSize(true);
         home_menu_recycle_view.setNestedScrollingEnabled(false);
 
+        menu_view_all_button = view.findViewById(R.id.menu_view_all_button);
+        menu_view_all_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.DestMenu);
+            }
+        });
+
 
         // Home Location (Needs to fetch data from database, will implement soon)
         location_list = new ArrayList<>();
@@ -94,5 +108,13 @@ public class HomeFragment extends Fragment {
         home_location_recycle_view.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
         home_location_recycle_view.setHasFixedSize(true);
         home_location_recycle_view.setNestedScrollingEnabled(false);
+
+        location_view_all_button = view.findViewById(R.id.location_view_all_button);
+        location_view_all_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.DestMenu);
+            }
+        });
     }
 }
