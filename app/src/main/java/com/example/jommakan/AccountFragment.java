@@ -1,5 +1,6 @@
 package com.example.jommakan;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class AccountFragment extends Fragment {
+
+    TextView logOutBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,5 +31,15 @@ public class AccountFragment extends Fragment {
             toolbar_title.setTextAppearance(R.style.toolbar_text_secondary);
             toolbar_title.setText("ACCOUNT");
         }
+
+        // log out textView click
+        logOutBtn = (TextView) view.findViewById(R.id.log_out_btn);
+        logOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),LoginPage.class);
+                startActivity(intent);
+            }
+        });
     }
 }
