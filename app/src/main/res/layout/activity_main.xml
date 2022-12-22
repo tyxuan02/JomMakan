@@ -12,7 +12,8 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/white"
-            android:elevation="30dp">
+            android:elevation="30dp"
+            app:popupTheme="@style/optionsMenu">
 
             <TextView
                 android:id="@+id/toolbar_title"

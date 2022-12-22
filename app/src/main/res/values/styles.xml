@@ -44,4 +44,12 @@
         <item name="android:textColor">#FF0000</item>
         <item name="android:textSize">30sp</item>
     </style>
+
+    <style name="optionsMenu" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:textColor">@color/gray34</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/caudex_bold</item>
+    </style>
+
 </resources>
