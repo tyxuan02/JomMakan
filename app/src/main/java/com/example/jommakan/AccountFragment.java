@@ -6,12 +6,18 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AccountFragment extends Fragment {
 
@@ -42,5 +48,28 @@ public class AccountFragment extends Fragment {
                 startActivity(intent);
             }
         });*/
+
+        // add options menu to toolbar, when in the account fragment
+        requireActivity().addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.menu_options, menu);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                int id= menuItem.getItemId();
+
+                if(id == R.id.rateOurApp){
+                    Toast.makeText(getActivity(), "Rate", Toast.LENGTH_SHORT).show();
+                }
+
+                if(id == R.id.reportAnIssue){
+                    Toast.makeText(getActivity(), "Report", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 }
