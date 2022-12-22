@@ -1,5 +1,7 @@
 package com.example.jommakan;
 
+import java.util.Date;
+
 // To create food object
 public class Food {
 
@@ -7,15 +9,16 @@ public class Food {
     protected double price;
     protected String [] description;
     protected int image;
-    //private String operation_hour;
+    protected Date[] openAndClose;
 
-    public Food (String name, String location, String stall, Double price, String [] description, int image) {
+    public Food (String name, String location, String stall, Double price, String [] description, int image, Date [] openAndClose) {
         this.name = name;
         this.location = location;
         this.stall = stall;
         this.price = price;
         this.description = description;
         this.image = image;
+        this.openAndClose = openAndClose;
     }
 
     public String getName() {
@@ -64,5 +67,13 @@ public class Food {
 
     public void setImage(int image) {
         this.image = image;
+    }
+
+    public Date[] getOpenAndClose() {
+        return openAndClose;
+    }
+
+    public void setOpenAndClose(Date[] openAndClose) {
+        this.openAndClose = openAndClose;
     }
 }

@@ -1,7 +1,5 @@
 package com.example.jommakan;
 
-import android.content.Intent;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -22,8 +20,10 @@ import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnima
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 public class HomeFragment extends Fragment {
 
@@ -73,10 +73,20 @@ public class HomeFragment extends Fragment {
 
 
         // Home Menu (Needs to fetch data from database, will implement soon)
+        SimpleDateFormat format = new SimpleDateFormat("hh.mm a");
+        Date open = new Date();
+        Date close = new Date();
+        try {
+            open = format.parse("10.00 AM");
+            close = format.parse("10.00 PM");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         food_list = new ArrayList<>();
-        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image));
-        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image));
-        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image));
+        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new Date[]{open, close}));
+        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new Date[]{open, close}));
+        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new Date[]{open, close}));
 
         homeMenuItemAdapter = new HomeMenuItemAdapter(getActivity(), food_list);
 

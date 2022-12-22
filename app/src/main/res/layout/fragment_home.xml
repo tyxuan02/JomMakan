@@ -188,7 +188,7 @@
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
             android:layout_marginTop="30dp"
-            app:shapeAppearanceOverlay="@style/rounded_random_food_generator_image_view"
+            app:shapeAppearanceOverlay="@style/rounded_20"
             app:strokeWidth="1dp"
             app:strokeColor="#000000"/>
     </LinearLayout>

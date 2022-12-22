@@ -23,14 +23,14 @@
         <item name="cornerSize">10dp</item>
     </style>
 
-    <style name="rounded_home_menu_and_location_card_view_image">
+    <style name="rounded_20">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">20dp</item>
     </style>
 
-    <style name="rounded_random_food_generator_image_view">
+    <style name="rounded_30">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">20dp</item>
+        <item name="cornerSize">30dp</item>
     </style>
 
     <style name="tab_layout_text" parent="@android:style/TextAppearance">
