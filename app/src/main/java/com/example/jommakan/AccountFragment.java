@@ -32,6 +32,7 @@ public class AccountFragment extends Fragment {
             toolbar_title.setText("ACCOUNT");
         }
 
+        /*
         // log out textView click
         logOutBtn = (TextView) view.findViewById(R.id.log_out_btn);
         logOutBtn.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +41,6 @@ public class AccountFragment extends Fragment {
                 Intent intent = new Intent(getActivity(),LoginPage.class);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 }
