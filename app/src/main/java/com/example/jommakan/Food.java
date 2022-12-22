@@ -9,9 +9,9 @@ public class Food {
     protected double price;
     protected String [] description;
     protected int image;
-    protected Date[] openAndClose;
+    protected String[] openAndClose;
 
-    public Food (String name, String location, String stall, Double price, String [] description, int image, Date [] openAndClose) {
+    public Food (String name, String location, String stall, Double price, String [] description, int image, String [] openAndClose) {
         this.name = name;
         this.location = location;
         this.stall = stall;
@@ -69,11 +69,11 @@ public class Food {
         this.image = image;
     }
 
-    public Date[] getOpenAndClose() {
+    public String[] getOpenAndClose() {
         return openAndClose;
     }
 
-    public void setOpenAndClose(Date[] openAndClose) {
+    public void setOpenAndClose(String[] openAndClose) {
         this.openAndClose = openAndClose;
     }
 }

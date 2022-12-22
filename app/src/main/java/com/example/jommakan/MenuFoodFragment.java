@@ -46,22 +46,20 @@ public class MenuFoodFragment extends Fragment {
         menu_food_recycle_view = view.findViewById(R.id.menu_food_recycle_view);
 
         SimpleDateFormat format = new SimpleDateFormat("hh.mm a");
-        Date open = new Date();
-        Date close = new Date();
-        try {
-            open = format.parse("10.00 AM");
-            close = format.parse("10.00 PM");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        String open = "";
+        String close = "";
+        String close1 = "";
+        open = "10.00 AM";
+        close = "10.00 PM";
+        close1 = "11.30 PM";
 
         food_list = new ArrayList<>();
-        food_list.add(new Food("Nasi Goreng Kampung", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new Date[]{open, close}));
-        food_list.add(new Food("Nasi Goreng", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 8.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new Date[]{open, close}));
-        food_list.add(new Food("Nasi Goreng Ayam", "Kolej Kediaman Kinabalu", "Restoran Famidah", 10.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new Date[]{open, close}));
-        food_list.add(new Food("Roti Canai", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new Date[]{open, close}));
-        food_list.add(new Food("Nasi Goreng Cina", "Kolej Kediaman Kinabalu", "Restoran Famidah", 8.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new Date[]{open, close}));
-        food_list.add(new Food("Nasi Kukus", "Kolej Kediaman Kinabalu", "Restoran Famidah", 10.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new Date[]{open, close}));
+        food_list.add(new Food("Nasi Goreng Kampung", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new String[]{open, close1}));
+        food_list.add(new Food("Nasi Goreng", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 8.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new String[]{open, close}));
+        food_list.add(new Food("Nasi Goreng Ayam", "Kolej Kediaman Kinabalu", "Restoran Famidah", 10.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new String[]{open, close1}));
+        food_list.add(new Food("Roti Canai", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new String[]{open, close1}));
+        food_list.add(new Food("Nasi Goreng Cina", "Kolej Kediaman Kinabalu", "Restoran Famidah", 8.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new String[]{open, close1}));
+        food_list.add(new Food("Nasi Kukus", "Kolej Kediaman Kinabalu", "Restoran Famidah", 10.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new String[]{open, close}));
 
         menuFoodItemAdapter = new MenuFoodItemAdapter(food_list, getActivity());
 

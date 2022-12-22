@@ -74,19 +74,15 @@ public class HomeFragment extends Fragment {
 
         // Home Menu (Needs to fetch data from database, will implement soon)
         SimpleDateFormat format = new SimpleDateFormat("hh.mm a");
-        Date open = new Date();
-        Date close = new Date();
-        try {
-            open = format.parse("10.00 AM");
-            close = format.parse("10.00 PM");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        String open = "";
+        String close = "";
+        open = "10.00 AM";
+        close = "10.00 PM";
 
         food_list = new ArrayList<>();
-        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new Date[]{open, close}));
-        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new Date[]{open, close}));
-        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new Date[]{open, close}));
+        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new String[]{open, close}));
+        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new String[]{open, close}));
+        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new String[]{open, close}));
 
         homeMenuItemAdapter = new HomeMenuItemAdapter(getActivity(), food_list);
 
