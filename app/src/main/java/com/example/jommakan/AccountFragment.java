@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,5 +72,16 @@ public class AccountFragment extends Fragment {
 
             }
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
+
+        // Edit profile button click
+        Button editProfileBtn = (Button) view.findViewById(R.id.edit_profile_btn);
+        editProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(getActivity(), EditProfileActivity.class);
+                startActivity(in);
+            }
+        });
     }
+
 }
