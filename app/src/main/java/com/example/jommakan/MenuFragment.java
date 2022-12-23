@@ -1,10 +1,12 @@
 package com.example.jommakan;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
@@ -41,7 +43,7 @@ public class MenuFragment extends Fragment {
             toolbar_title.setText("MENU");
         }
 
-        fragmentManager = getParentFragmentManager();
+        fragmentManager = getChildFragmentManager();
         menuViewPagerAdapter = new MenuViewPagerAdapter(fragmentManager, getLifecycle());
         menu_tab_layout = view.findViewById(R.id.menu_table_layout);
         menu_view_pager = view.findViewById(R.id.menu_view_pager);

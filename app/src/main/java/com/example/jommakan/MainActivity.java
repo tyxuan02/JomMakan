@@ -9,7 +9,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -46,11 +45,5 @@ public class MainActivity extends AppCompatActivity {
     private void setupBottomNavMenu (NavController navController) {
         BottomNavigationView bottom_navigation_bar = findViewById(R.id.bottom_navigation_bar);
         NavigationUI.setupWithNavController(bottom_navigation_bar, navController, false);
-    }
-
-    public void setTitleBBB() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            toolbar_title.setTextAppearance(R.style.toolbar_text_secondary);
-        }
     }
 }

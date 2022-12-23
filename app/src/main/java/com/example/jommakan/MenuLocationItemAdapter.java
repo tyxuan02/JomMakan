@@ -1,12 +1,17 @@
 package com.example.jommakan;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
@@ -33,9 +38,16 @@ public class MenuLocationItemAdapter extends RecyclerView.Adapter<MenuLocationIt
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.menu_location_card_view_image.setImageResource(location_list.get(position).getLocation_image());
         holder.menu_location_card_view_location_name.setText(location_list.get(position).getLocation());
+
+        holder.menu_location_item_card_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.DestMenuStall);
+            }
+        });
     }
 
     @Override
@@ -47,12 +59,16 @@ public class MenuLocationItemAdapter extends RecyclerView.Adapter<MenuLocationIt
 
         ShapeableImageView menu_location_card_view_image;
         TextView menu_location_card_view_location_name;
+        CardView menu_location_item_card_view;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             menu_location_card_view_image = itemView.findViewById(R.id.menu_location_card_view_image);
             menu_location_card_view_location_name = itemView.findViewById(R.id.menu_location_card_view_location_name);
+            menu_location_item_card_view = itemView.findViewById(R.id.menu_location_item_card_view);
         }
     }
+
+
 }

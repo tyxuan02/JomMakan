@@ -19,16 +19,18 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
 
     Context context;
     ArrayList<Food> food_list;
+    LayoutInflater layoutInflater;
 
     public HomeMenuItemAdapter (Context context, ArrayList<Food> food_list) {
         this.context = context;
         this.food_list = food_list;
+        this.layoutInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_menu_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.home_menu_item, parent, false);
         return new ViewHolder(view);
     }
 

@@ -15,7 +15,8 @@
         android:id="@+id/DestMenu"
         android:name="com.example.jommakan.MenuFragment"
         android:label="MENU"
-        tools:layout="@layout/fragment_menu" />
+        tools:layout="@layout/fragment_menu" >
+    </fragment>
 
     <fragment
         android:id="@+id/DestCart"
@@ -28,4 +29,26 @@
         android:name="com.example.jommakan.AccountFragment"
         android:label="ACCOUNT"
         tools:layout="@layout/fragment_account" />
+
+    <fragment
+        android:id="@+id/DestMenuFood"
+        android:name="com.example.jommakan.MenuFoodFragment"
+        android:label="fragment_menu_food"
+        tools:layout="@layout/fragment_menu_food" />
+
+    <fragment
+        android:id="@+id/DestMenuLocation"
+        android:name="com.example.jommakan.MenuLocationFragment"
+        android:label="fragment_menu_location"
+        tools:layout="@layout/fragment_menu_location" />
+    <fragment
+        android:id="@+id/DestMenuStall"
+        android:name="com.example.jommakan.MenuStallFragment"
+        android:label="fragment_menu_stall"
+        tools:layout="@layout/fragment_menu_stall" >
+        <action
+            android:id="@+id/DestMenuStallToDestMenu"
+            app:destination="@id/DestMenu" />
+    </fragment>
+
 </navigation>

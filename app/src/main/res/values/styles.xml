@@ -28,6 +28,12 @@
         <item name="cornerSize">20dp</item>
     </style>
 
+    <style name="rounded_20_top">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerSizeTopRight">20dp</item>
+    </style>
+
     <style name="rounded_30">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">30dp</item>

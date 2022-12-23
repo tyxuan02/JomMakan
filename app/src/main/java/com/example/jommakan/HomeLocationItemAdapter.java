@@ -17,16 +17,19 @@ public class HomeLocationItemAdapter extends RecyclerView.Adapter<HomeLocationIt
 
     Context context;
     ArrayList<Location> location_list;
+    LayoutInflater layoutInflater;
+
 
     public HomeLocationItemAdapter (Context context, ArrayList<Location> location_list) {
         this.context = context;
         this.location_list = location_list;
+        this.layoutInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_location_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.home_location_item, parent, false);
         return new ViewHolder(view);
     }
 
