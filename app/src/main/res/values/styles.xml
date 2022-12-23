@@ -52,4 +52,11 @@
         <item name="android:fontFamily">@font/caudex_bold</item>
     </style>
 
+    <!-- This configures the styles for the title within the ToolbarActivity -->
+    <style name="toolbar_text_quaternary" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/caudex_bold</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
 </resources>
