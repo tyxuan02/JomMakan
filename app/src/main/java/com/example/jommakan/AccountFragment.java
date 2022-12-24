@@ -82,6 +82,15 @@ public class AccountFragment extends Fragment {
                 startActivity(in);
             }
         });
+
+        Button order_history_btn = view.findViewById(R.id.order_history_btn);
+        order_history_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), OrderHistoryPage.class);
+                startActivity(intent);
+            }
+        });
     }
 
 }
