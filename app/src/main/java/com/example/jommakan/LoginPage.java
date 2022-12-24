@@ -12,28 +12,28 @@ import android.widget.TextView;
 
 public class LoginPage extends AppCompatActivity {
 
-    private EditText ETEmail, ETPassword;
-    private TextView TVForgotPassword, TVRegister;
-    private Button BTLogin;
+    private EditText email_edit_text, password_edit_text;
+    private TextView forgotPassword_text_view, register_text_view;
+    private Button login_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-        ETEmail = findViewById(R.id.Email);
-        ETPassword = findViewById(R.id.Password);
-        TVForgotPassword = findViewById(R.id.ForgotPassword);
-        TVRegister = findViewById(R.id.Register);
-        BTLogin = findViewById(R.id.Login);
+        email_edit_text = findViewById(R.id.email_edit_text);
+        password_edit_text = findViewById(R.id.password_edit_text);
+        forgotPassword_text_view = findViewById(R.id.forgotPassword_text_view);
+        register_text_view = findViewById(R.id.register_text_view);
+        login_button = findViewById(R.id.login_button);
 
 
         //Login (need to check the validity of email and password)
-        BTLogin.setOnClickListener(new View.OnClickListener() {
+        login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Email = ETEmail.getText().toString();
-                String Password = ETPassword.getText().toString();
+                String Email = email_edit_text.getText().toString();
+                String Password = password_edit_text.getText().toString();
 //                if(isValidEmail(Email) && isValidPassword(Password)){
 //
 //                }else{
@@ -46,7 +46,7 @@ public class LoginPage extends AppCompatActivity {
 
 
         //Redirect to change password page
-        TVForgotPassword.setOnClickListener(new View.OnClickListener() {
+        forgotPassword_text_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -55,7 +55,7 @@ public class LoginPage extends AppCompatActivity {
 
 
         //Redirect to register a new acc
-        TVRegister.setOnClickListener(new View.OnClickListener() {
+        register_text_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginPage.this,RegisterPage.class));

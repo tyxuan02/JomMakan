@@ -7,7 +7,7 @@
     android:background="#EEE4E1">
 
     <TextView
-        android:id="@+id/welcome_text"
+        android:id="@+id/welcome_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -16,35 +16,23 @@
         android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/caption"
+        android:id="@+id/caption_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save your time better"
         android:textSize="20dp"
-        android:layout_below="@+id/welcome_text"
+        android:layout_below="@+id/welcome_text_view"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"/>
 
-    <ProgressBar
-        android:id="@+id/loadingprogress"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/caption"
-        android:max="100"
-        android:visibility="visible"/>
 
     <ImageView
-        android:id="@+id/logo"
+        android:id="@+id/logo_image_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/jommakan_logo"
+        android:src="@drawable/jommakan_logo_vertical"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/welcome_text"/>
+        android:layout_above="@+id/welcome_text_view"/>
 
     <ImageView
         android:layout_width="match_parent"

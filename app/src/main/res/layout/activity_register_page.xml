@@ -7,49 +7,49 @@
     tools:context=".RegisterPage">
 
     <ImageView
-        android:id="@+id/Logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/logo_image_view"
+        android:layout_width="160dp"
+        android:layout_height="80dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
         android:src="@drawable/jommakan_logo_horizontal"/>
 
     <EditText
-        android:id="@+id/Username"
+        android:id="@+id/username_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Logo"
+        android:layout_below="@+id/logo_image_view"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:hint=" Username"
         android:inputType="text"
         android:minHeight="48dp"
         android:background="@drawable/rectangle_3"/>
 
     <EditText
-        android:id="@+id/Email"
+        android:id="@+id/email_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Username"
+        android:layout_below="@+id/username_edit_text"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:hint=" Email Address"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:background="@drawable/rectangle_3"/>
 
     <EditText
-        android:id="@+id/PhoneNo"
+        android:id="@+id/phoneNumber_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Email"
+        android:layout_below="@+id/email_edit_text"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:hint=" Phone Number"
         android:inputType="phone"
         android:minHeight="48dp"
@@ -58,16 +58,16 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/NewPass_layout"
-        android:layout_below="@+id/PhoneNo"
-        app:passwordToggleEnabled="true">
+        android:id="@+id/newPassword_layout"
+        android:layout_below="@+id/phoneNumber_edit_text"
+        app:passwordToggleEnabled="true"
+        android:layout_marginTop="10dp">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/newPass"
+            android:id="@+id/newPassword_edit_text"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/rectangle_3"
             android:hint=" Password"
@@ -80,18 +80,18 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ConfirmPass_layout"
-        android:layout_below="@+id/NewPass_layout"
-        app:passwordToggleEnabled="true">
+        android:id="@+id/confirmPassword_layout"
+        android:layout_below="@+id/newPassword_layout"
+        app:passwordToggleEnabled="true"
+        android:layout_marginTop="10dp">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/rectangle_3"
-            android:id="@+id/ConfirmPass"
+            android:id="@+id/confirmPassword_edit_text"
             android:hint=" Confirm Password"
             android:inputType="textVisiblePassword"
             android:minHeight="48dp"
@@ -100,10 +100,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/SignUp"
+        android:id="@+id/signUp_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ConfirmPass_layout"
+        android:layout_below="@+id/confirmPassword_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
@@ -114,22 +114,22 @@
         tools:ignore="TextContrastCheck" />
 
     <TextView
-        android:id="@+id/Question"
+        android:id="@+id/question_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Already have an account?"
-        android:layout_below="@+id/SignUp"
+        android:layout_below="@+id/signUp_button"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="95dp"/>
 
     <TextView
-        android:id="@+id/SignIn"
+        android:id="@+id/signIn_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/SignUp"
+        android:layout_below="@+id/signUp_button"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/Question"
+        android:layout_toRightOf="@+id/question_text_view"
         android:clickable="true"
         android:minWidth="48dp"
         android:minHeight="48dp"
