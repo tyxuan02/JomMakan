@@ -17,31 +17,31 @@ import java.util.regex.Pattern;
 
 public class RegisterPage extends AppCompatActivity {
 
-    private Button BTSignUp;
-    private TextView TVSignIn;
-    private EditText ETUsername, ETEmail, ETPhone, ETPass, ETConfirmPass;
+    private Button signUp_button;
+    private TextView signIn_text_view;
+    private EditText username_edit_text, email_edit_text, phoneNumber_edit_text, newPassword_edit_text, confirmPassword_edit_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
 
-        BTSignUp = findViewById(R.id.SignUp);
-        TVSignIn = findViewById(R.id.SignIn);
-        ETUsername = findViewById(R.id.Username);
-        ETEmail = findViewById(R.id.Email);
-        ETPhone = findViewById(R.id.PhoneNo);
-        ETPass = findViewById(R.id.newPass);
-        ETConfirmPass = findViewById(R.id.ConfirmPass);
+        signUp_button = findViewById(R.id.signUp_button);
+        signIn_text_view = findViewById(R.id.signIn_text_view);
+        username_edit_text = findViewById(R.id.username_edit_text);
+        email_edit_text = findViewById(R.id.email_edit_text);
+        phoneNumber_edit_text = findViewById(R.id.phoneNumber_edit_text);
+        newPassword_edit_text = findViewById(R.id.newPassword_edit_text);
+        confirmPassword_edit_text = findViewById(R.id.confirmPassword_edit_text);
 
-        BTSignUp.setOnClickListener(new View.OnClickListener() {
+        signUp_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Username = ETUsername.getText().toString();
-                String Email = ETEmail.getText().toString();
-                String Phone = ETPhone.getText().toString();
-                String Pass = ETPass.getText().toString();
-                String ConfirmPass = ETConfirmPass.getText().toString();
+                String Username = username_edit_text.getText().toString();
+                String Email = email_edit_text.getText().toString();
+                String PhoneNumber = phoneNumber_edit_text.getText().toString();
+                String NewPassword = newPassword_edit_text.getText().toString();
+                String ConfirmPassword = confirmPassword_edit_text.getText().toString();
 
                 if(!isValidUsername(Username)){
                     Toast.makeText(RegisterPage.this,"The username is invalid. Please try again.",Toast.LENGTH_SHORT).show();
@@ -49,16 +49,16 @@ public class RegisterPage extends AppCompatActivity {
                 if(!isValidEmail(Email)){
                     Toast.makeText(RegisterPage.this,"This email is invalid. Please try again.",Toast.LENGTH_SHORT).show();
                 }
-                if(!isValidPhoneNumber(Phone)){
+                if(!isValidPhoneNumber(PhoneNumber)){
                     Toast.makeText(RegisterPage.this,"The phone number is invalid. Please try again.",Toast.LENGTH_SHORT).show();
                 }
-                if(!isValidPassword(Pass)){
+                if(!isValidPassword(NewPassword)){
                     Toast.makeText(RegisterPage.this,"The password is invalid. Please try again.",Toast.LENGTH_SHORT).show();
                 }
-                if(!isMatchedPassword(Pass,ConfirmPass)){
+                if(!isMatchedPassword(NewPassword,ConfirmPassword)){
                     Toast.makeText(RegisterPage.this,"The passwords do not match. Please try again.",Toast.LENGTH_SHORT).show();
                 }
-                if(isValidUsername(Username) && isValidEmail(Email) && isValidPhoneNumber(Phone) && isValidPassword(Pass) && isMatchedPassword(Pass,ConfirmPass)){
+                if(isValidUsername(Username) && isValidEmail(Email) && isValidPhoneNumber(PhoneNumber) && isValidPassword(NewPassword) && isMatchedPassword(NewPassword,ConfirmPassword)){
                     //proceed to Main Activity
                     startActivity(new Intent(RegisterPage.this,MainActivity.class));
                     finish();
@@ -67,7 +67,7 @@ public class RegisterPage extends AppCompatActivity {
             }
         });
 
-        TVSignIn.setOnClickListener(new View.OnClickListener() {
+        signIn_text_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RegisterPage.this,LoginPage.class));
