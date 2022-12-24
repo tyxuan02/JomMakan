@@ -10,6 +10,10 @@
         android:id="@+id/toolbarActivity"
         layout="@layout/toolbar_activity"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,7 +54,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="439dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical"
             android:padding="20dp">
@@ -59,8 +63,8 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" NAME"
                 android:fontFamily="@font/caudex"
+                android:text=" NAME"
                 android:textColor="#575757"
                 android:textSize="12sp" />
 
@@ -69,19 +73,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:fontFamily="@font/caudex"
                 android:inputType="textPersonName"
                 android:text="Xiao Ming"
-                android:fontFamily="@font/caudex"
                 android:textColor="@color/black"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text=" EMAIL ADDRESS"
                 android:fontFamily="@font/caudex"
+                android:text=" EMAIL ADDRESS"
                 android:textColor="#575757"
                 android:textSize="12sp" />
 
@@ -90,21 +94,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:fontFamily="@font/caudex"
                 android:inputType="textEmailAddress"
                 android:text="xiaoming123@gmail.com"
-                android:fontFamily="@font/caudex"
                 android:textColor="@color/black"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/phoneNum"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:fontFamily="@font/caudex"
                 android:text=" PHONE NUMBER"
                 android:textColor="#575757"
-                android:textSize="12sp"
-                android:fontFamily="@font/caudex"/>
+                android:textSize="12sp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -114,19 +118,19 @@
                     android:id="@+id/inputPhoneNum"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
                     android:layout_marginTop="6dp"
+                    android:ems="10"
+                    android:fontFamily="@font/caudex"
                     android:inputType="number"
                     android:text="012-3456789"
-                    android:textSize="16sp"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/caudex"/>
+                    android:textSize="16sp" />
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/edit_icon"
-                        android:layout_alignRight="@id/inputPhoneNum" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignRight="@id/inputPhoneNum"
+                    android:src="@drawable/edit_icon" />
 
             </RelativeLayout>
 
@@ -148,26 +152,26 @@
                     android:id="@+id/inputPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
                     android:layout_marginTop="6dp"
+                    android:ems="10"
+                    android:fontFamily="@font/caudex"
                     android:inputType="textPassword"
                     android:text="......"
-                    android:textSize="16sp"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/caudex" />
+                    android:textSize="16sp" />
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/edit_icon"
-                        android:layout_alignRight="@id/inputPassword" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignRight="@id/inputPassword"
+                    android:src="@drawable/edit_icon" />
 
             </RelativeLayout>
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="35dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/button_shape"
                 android:fontFamily="@font/caudex_bold"
                 android:gravity="center"
@@ -181,5 +185,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
