@@ -91,6 +91,16 @@ public class AccountFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        // My wallet button click
+        Button myWalletBtn = (Button) view.findViewById(R.id.my_wallet_btn);
+        myWalletBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(getActivity(), MyWalletActivity.class);
+                startActivity(in);
+            }
+        });
     }
 
 }

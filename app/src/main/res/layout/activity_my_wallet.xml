@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".MyWalletActivity">
+    <include
+        android:id="@+id/toolbarActivity"
+        layout="@layout/toolbar_activity"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/profile_picture"
+                    android:layout_width="106dp"
+                    android:layout_height="82dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="140dp"
+                    android:layout_marginTop="38dp"
+                    android:layout_marginEnd="140dp"
+                    android:layout_marginBottom="80dp"
+                    android:src="@drawable/account_profile_picture" />
+
+                <ImageView
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:layout_alignRight="@+id/profile_picture"
+                    android:layout_alignBottom="@+id/profile_picture"
+                    android:layout_marginRight="-2dp"
+                    android:layout_marginBottom="3dp"
+                    android:src="@drawable/verified_icon" />
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/profile_picture"
+                    android:layout_marginBottom="-30dp"
+                    android:fontFamily="@font/caudex_bold"
+                    android:gravity="center"
+                    android:text="Xiao Ming"
+                    android:textColor="@color/black"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/name"
+                    android:layout_marginBottom="-20dp"
+                    android:fontFamily="@font/caudex_bold"
+                    android:gravity="center"
+                    android:text="Verified"
+                    android:textColor="@color/gray34"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/caudex"
+                android:gravity="left"
+                android:text="      Available Balance"
+                android:textColor="@color/gray34"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <ImageView
+                    android:id="@+id/background"
+                    android:layout_width="334dp"
+                    android:layout_height="170dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/my_wallet_background" />
+
+                <ImageView
+                    android:id="@+id/wallet_icon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignLeft="@+id/background"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="32dp"
+                    android:src="@drawable/my_wallet_icon" />
+
+                <TextView
+                    android:id="@+id/rm_unit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/wallet_icon"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="70dp"
+                    android:fontFamily="@font/caudex_bold"
+                    android:text="RM"
+                    android:textColor="@color/gray34"
+                    android:textSize="40sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/rm_unit"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="100dp"
+                    android:fontFamily="@font/caudex_bold"
+                    android:text="0.0"
+                    android:textColor="@color/black"
+                    android:textSize="40sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/caudex"
+                android:gravity="left"
+                android:text="      Top Up"
+                android:textColor="@color/gray34"
+                android:textSize="14sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <ImageView
+                    android:id="@+id/background2"
+                    android:layout_width="334dp"
+                    android:layout_height="170dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/my_wallet_background" />
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="170dp"
+                    android:layout_marginEnd="170dp"
+                    android:background="@drawable/add_icon_shape2"
+                    android:src="@drawable/add_icon" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
+
+
