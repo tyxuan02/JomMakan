@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -31,6 +32,14 @@ public class EditProfileActivity extends AppCompatActivity {
 
         // showing the back button in action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // disable EditText in name field
+        EditText editName = findViewById(R.id.inputName);
+        editName.setFocusable(false);
+
+        // disable EditText in email field
+        EditText editEmail = findViewById(R.id.inputEmail);
+        editEmail.setFocusable(false);
 
     }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -50,74 +50,124 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="432dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="vertical"
             android:padding="20dp">
 
-            <com.google.android.material.textfield.TextInputLayout
+            <TextView
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:hint="NAME">
+                android:text=" NAME"
+                android:fontFamily="@font/caudex"
+                android:textColor="#575757"
+                android:textSize="12sp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/caudex"
-                    android:text="Xiao Ming"
-                    android:textSize="13sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/inputName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:hint="EMAIL ADDRESS">
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Xiao Ming"
+                android:fontFamily="@font/caudex"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/caudex"
-                    android:text="xiaoming123@gmail.com"
-                    android:textSize="13sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <TextView
+                android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:hint="PHONE NUMBER">
+                android:layout_marginTop="30dp"
+                android:text=" EMAIL ADDRESS"
+                android:fontFamily="@font/caudex"
+                android:textColor="#575757"
+                android:textSize="12sp" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/caudex"
-                    android:text="012-1234567"
-                    android:textSize="13sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/inputEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:hint="PASSWORD">
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:text="xiaoming123@gmail.com"
+                android:fontFamily="@font/caudex"
+                android:textColor="@color/black"
+                android:textSize="16sp"/>
 
-                <com.google.android.material.textfield.TextInputEditText
+            <TextView
+                android:id="@+id/phoneNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text=" PHONE NUMBER"
+                android:textColor="#575757"
+                android:textSize="12sp"
+                android:fontFamily="@font/caudex"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/inputPhoneNum"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/caudex"
+                    android:ems="10"
+                    android:layout_marginTop="6dp"
+                    android:inputType="number"
+                    android:text="012-3456789"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/caudex"/>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/edit_icon"
+                        android:layout_alignRight="@id/inputPhoneNum" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/caudex"
+                android:text=" PASSWORD"
+                android:textColor="#575757"
+                android:textSize="12sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/inputPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:layout_marginTop="6dp"
+                    android:inputType="textPassword"
                     android:text="......"
-                    android:textSize="13sp" />
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/caudex" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/edit_icon"
+                        android:layout_alignRight="@id/inputPassword" />
+
+            </RelativeLayout>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="35dp"
                 android:background="@drawable/button_shape"
                 android:fontFamily="@font/caudex_bold"
                 android:gravity="center"
