@@ -27,21 +27,23 @@ public class LoginPage extends AppCompatActivity {
         TVRegister = findViewById(R.id.Register);
         BTLogin = findViewById(R.id.Login);
 
-        /*
+
         //Login (need to check the validity of email and password)
         BTLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String Email = ETEmail.getText().toString();
                 String Password = ETPassword.getText().toString();
-                if(isValidEmail(Email) && isValidPassword(Password)){
-
-                }else{
-
-                }
+//                if(isValidEmail(Email) && isValidPassword(Password)){
+//
+//                }else{
+//
+//                }
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
-        */
+
 
         //Redirect to change password page
         TVForgotPassword.setOnClickListener(new View.OnClickListener() {
