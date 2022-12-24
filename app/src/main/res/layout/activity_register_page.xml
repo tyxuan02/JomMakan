@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
         android:src="@drawable/jommakan_logo_horizontal"/>
 
     <EditText
@@ -56,13 +58,14 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/NewPass"
+        android:id="@+id/NewPass_layout"
         android:layout_below="@+id/PhoneNo"
         app:passwordToggleEnabled="true">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/newPass"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
@@ -77,8 +80,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ConfirmPass"
-        android:layout_below="@+id/NewPass"
+        android:id="@+id/ConfirmPass_layout"
+        android:layout_below="@+id/NewPass_layout"
         app:passwordToggleEnabled="true">
 
         <EditText
@@ -88,6 +91,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/rectangle_3"
+            android:id="@+id/ConfirmPass"
             android:hint=" Confirm Password"
             android:inputType="textVisiblePassword"
             android:minHeight="48dp"
@@ -99,7 +103,7 @@
         android:id="@+id/SignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ConfirmPass"
+        android:layout_below="@+id/ConfirmPass_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"

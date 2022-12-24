@@ -31,7 +31,7 @@ public class RegisterPage extends AppCompatActivity {
         ETUsername = findViewById(R.id.Username);
         ETEmail = findViewById(R.id.Email);
         ETPhone = findViewById(R.id.PhoneNo);
-        ETPass = findViewById(R.id.NewPass);
+        ETPass = findViewById(R.id.newPass);
         ETConfirmPass = findViewById(R.id.ConfirmPass);
 
         BTSignUp.setOnClickListener(new View.OnClickListener() {
