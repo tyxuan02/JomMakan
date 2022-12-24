@@ -6,6 +6,7 @@
     android:id="@+id/menu_food_item_not_available_card_view"
     android:layout_marginTop="20dp"
     android:layout_marginBottom="15dp"
+    android:layout_marginStart="10dp"
     app:cardCornerRadius="30dp">
 
     <FrameLayout

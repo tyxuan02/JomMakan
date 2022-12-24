@@ -4,7 +4,8 @@
     android:layout_height="220dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/home_menu_item_card_view"
-    android:layout_marginEnd="30dp"
+    android:layout_marginEnd="25dp"
+    android:layout_marginStart="10dp"
     app:cardCornerRadius="20dp">
 
     <LinearLayout
