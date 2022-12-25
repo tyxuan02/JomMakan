@@ -53,12 +53,11 @@ public class LoginPage extends AppCompatActivity {
         });
 
 
-        //Redirect to register a new acc
+        //Redirect to account registration page
         register_text_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginPage.this, RegistrationPage.class));
-                finish();
             }
         });
 
