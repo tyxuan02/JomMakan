@@ -20,9 +20,6 @@ public class LoadingPage extends AppCompatActivity {
                 startActivity(new Intent(LoadingPage.this,LoginPage.class));
                 finish();
             }
-        },3000);
-        //Intent intent = new Intent(this, MainActivity.class);
-        //startActivity(intent);
-        //finish();
+        },1000);
     }
 }

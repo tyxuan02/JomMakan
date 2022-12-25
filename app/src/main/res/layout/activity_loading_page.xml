@@ -1,43 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoadingPage"
-    android:background="#EEE4E1">
+    android:background="#EEE4E1"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/welcome_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Welcome to JomMakan"
-        android:textSize="30dp"
-        android:textStyle="bold"/>
+    <ImageView
+        android:id="@+id/logo_image_view"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/logo"
+        android:layout_gravity="center"
+        android:layout_marginTop="120dp"/>
 
     <TextView
         android:id="@+id/caption_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save your time better"
-        android:textSize="20dp"
-        android:layout_below="@+id/welcome_text_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"/>
-
-
-    <ImageView
-        android:id="@+id/logo_image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/jommakan_logo_vertical"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/welcome_text_view"/>
+        android:text="&quot;Save your time better&quot;"
+        android:textSize="30sp"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/caudex"/>
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/loginpagebackground"
-        android:layout_alignParentBottom="true" />
+        android:layout_height="550dp"
+        android:layout_alignParentBottom="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/login_page_background" />
 
-</RelativeLayout>
+</LinearLayout>

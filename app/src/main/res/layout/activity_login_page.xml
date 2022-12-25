@@ -1,104 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginPage">
+    tools:context=".LoginPage"
+    android:orientation="vertical"
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp">
 
     <ImageView
         android:id="@+id/logo_image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/jommakan_logo"
-        android:layout_centerHorizontal="true"/>
+        android:layout_width="125dp"
+        android:layout_height="180dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/logo_vertical" />
 
     <EditText
         android:id="@+id/email_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/logo_image_view"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:hint=" Email address"
+        android:hint="Email address"
         android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        android:background="@drawable/rectangle_3"/>
-
+        android:background="@drawable/login_registration_edit_text_background"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/caudex"
+        android:padding="20dp"
+        android:textSize="20sp"
+        android:textColor="#575757"/>
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/password_layout"
-        android:layout_below="@+id/email_edit_text"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        app:hintEnabled="false"
+        android:layout_marginTop="30dp">
 
         <EditText
             android:id="@+id/password_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/rectangle_3"
-            android:hint=" Password"
+            android:background="@drawable/login_registration_edit_text_background"
+            android:hint="Password"
             android:inputType="textVisiblePassword"
-            android:minHeight="48dp"
-            tools:ignore="SpeakableTextPresentCheck" />
-
+            android:padding="20dp"
+            tools:ignore="SpeakableTextPresentCheck"
+            android:fontFamily="@font/caudex"
+            android:textColor="#575757"
+            android:textSize="20sp"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/forgotPassword_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/password_layout"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
         android:clickable="true"
-        android:minHeight="48dp"
-        android:text="Forgot Password?" />
+        android:text="Forgot Password?"
+        android:fontFamily="@font/caudex"
+        android:textColor="#575757"
+        android:layout_gravity="end"
+        android:textSize="15sp"/>
 
     <Button
         android:id="@+id/login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/forgotPassword_text_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:background="#B2967D"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/login_registration_button"
         android:text="LOGIN"
-        android:textColor="@color/white"
-        tools:ignore="TextContrastCheck" />
+        android:fontFamily="@font/caudex_bold"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"/>
 
-    <TextView
-        android:id="@+id/question_text_view"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Don't have an account yet?"
-        android:layout_below="@+id/login_button"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="70dp"/>
+        android:layout_marginTop="30dp"
+        android:gravity="center">
 
-    <TextView
-        android:id="@+id/register_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_button"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/question_text_view"
-        android:clickable="true"
-        android:minHeight="48dp"
-        android:text="Register here"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/question_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account yet?"
+            android:fontFamily="@font/caudex"
+            android:textColor="#575757"
+            android:textSize="15sp"/>
 
-
-
-
-
-</RelativeLayout>
+        <TextView
+            android:id="@+id/register_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="Register here"
+            android:focusable="true"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/caudex_bold"
+            android:textColor="#000000"
+            android:textSize="15sp"/>
+    </LinearLayout>
+</LinearLayout>
