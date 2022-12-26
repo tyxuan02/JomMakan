@@ -1,19 +1,20 @@
 package com.example.jommakan;
 
-import java.lang.reflect.Array;
+import androidx.room.Entity;
+
 import java.util.ArrayList;
-import java.util.Date;
 
 // To create food object
+@Entity(tableName = "Foods", primaryKeys = {"name", "location", "stall"})
 public class Food {
 
     protected String name, location, stall;
     protected double price;
-    protected String [] description;
+    protected ArrayList<String> description;
     protected int image;
     protected ArrayList<String> openAndClose;
 
-    public Food (String name, String location, String stall, Double price, String [] description, int image, ArrayList<String> openAndClose) {
+    public Food (String name, String location, String stall, Double price, ArrayList<String> description, int image, ArrayList<String> openAndClose) {
         this.name = name;
         this.location = location;
         this.stall = stall;
@@ -55,11 +56,11 @@ public class Food {
         return price;
     }
 
-    public String[] getDescription() {
+    public ArrayList<String> getDescription() {
         return description;
     }
 
-    public void setDescription(String[] description) {
+    public void setDescription(ArrayList<String> description) {
         this.description = description;
     }
 

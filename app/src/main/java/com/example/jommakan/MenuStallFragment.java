@@ -69,7 +69,12 @@ public class MenuStallFragment extends Fragment {
         open_close_list1.add(open);
         open_close_list1.add("11.30 pm");
 
-        Food food = new Food("Nasi Goreng", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 8.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, open_close_list);
+        ArrayList<String> description_list = new ArrayList<>();
+        description_list.add("Local delight");
+        description_list.add("Spicy");
+        description_list.add("Contains prawn");
+
+        Food food = new Food("Nasi Goreng", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 8.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
         ArrayList<Food> food_list = new ArrayList<>();
         food_list.add(food);
         food_list.add(food);

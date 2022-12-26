@@ -85,10 +85,15 @@ public class HomeFragment extends Fragment {
         open_close_list1.add(open);
         open_close_list1.add("11.30 pm");
 
+        ArrayList<String> description_list = new ArrayList<>();
+        description_list.add("Local delight");
+        description_list.add("Spicy");
+        description_list.add("Contains prawn");
+
         food_list = new ArrayList<>();
-        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, open_close_list));
-        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, open_close_list));
-        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, open_close_list1));
+        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, description_list, R.drawable.nasi_goreng_image, open_close_list));
+        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, description_list, R.drawable.nasi_goreng_image, open_close_list));
+        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, description_list, R.drawable.nasi_goreng_image, open_close_list1));
 
         homeMenuItemAdapter = new HomeMenuItemAdapter(getActivity(), food_list);
 

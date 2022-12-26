@@ -55,10 +55,15 @@ public class OrderHistoryPage extends AppCompatActivity {
         open_close_list1.add(open);
         open_close_list1.add("11.30 pm");
 
+        ArrayList<String> description_list = new ArrayList<>();
+        description_list.add("Local delight");
+        description_list.add("Spicy");
+        description_list.add("Contains prawn");
+
         food_list = new ArrayList<>();
-        food_list.add(new Food("Nasi Goreng", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 6.00, new String[]{"spicy", "no pawn"}, R.drawable.nasi_goreng_image, open_close_list));
-        food_list.add(new Food("Nasi Goreng Cina", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 6.00, new String[]{"spicy", "no pawn"}, R.drawable.nasi_goreng_image, open_close_list));
-        food_list.add(new Food("Nasi Goreng Kampung", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 6.00, new String[]{"spicy", "no pawn"}, R.drawable.nasi_goreng_image, open_close_list1));
+        food_list.add(new Food("Nasi Goreng", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 6.00, description_list, R.drawable.nasi_goreng_image, open_close_list));
+        food_list.add(new Food("Nasi Goreng Cina", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 6.00, description_list, R.drawable.nasi_goreng_image, open_close_list));
+        food_list.add(new Food("Nasi Goreng Kampung", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 6.00, description_list, R.drawable.nasi_goreng_image, open_close_list1));
 
         ArrayList<Integer> food_quantity_list = new ArrayList<>();
         food_quantity_list.add(1);
