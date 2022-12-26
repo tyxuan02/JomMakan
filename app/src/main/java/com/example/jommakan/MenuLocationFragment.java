@@ -36,13 +36,18 @@ public class MenuLocationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         menu_location_recycle_view = view.findViewById(R.id.menu_location_recycle_view);
+
+        ArrayList<String> stall_list = new ArrayList<>();
+        stall_list.add("Restoran Famidah");
+        stall_list.add("Restoran ABC");
+
         location_list = new ArrayList<>();
-        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, new String[]{"Restoran Famidah", "Restoran ABC"}));
-        location_list.add(new Location("Kolej Kediaman Kinabalu", R.drawable.fsktm_image, new String[]{"Restoran Famidah", "Restoran ABC"}));
-        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, new String[]{"Restoran Famidah", "Restoran ABC"}));
-        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, new String[]{"Restoran Famidah", "Restoran ABC"}));
-        location_list.add(new Location("Kolej Kediaman Kinabalu", R.drawable.fsktm_image, new String[]{"Restoran Famidah", "Restoran ABC"}));
-        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, new String[]{"Restoran Famidah", "Restoran ABC"}));
+        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, stall_list));
+        location_list.add(new Location("Kolej Kediaman Kinabalu", R.drawable.fsktm_image, stall_list));
+        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, stall_list));
+        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, stall_list));
+        location_list.add(new Location("Kolej Kediaman Kinabalu", R.drawable.fsktm_image, stall_list));
+        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, stall_list));
         menuLocationItemAdapter = new MenuLocationItemAdapter(location_list, getActivity());
 
 

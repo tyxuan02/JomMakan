@@ -55,8 +55,8 @@ public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdap
         }
 
         try {
-            time1.setTime(format.parse(stall_list.get(position).getOpenAndClose()[0]));
-            time2.setTime(format.parse(stall_list.get(position).getOpenAndClose()[1]));
+            time1.setTime(format.parse(stall_list.get(position).getOpenAndClose().get(0)));
+            time2.setTime(format.parse(stall_list.get(position).getOpenAndClose().get(1)));
             time1.add(Calendar.DATE, 1);
             time2.add(Calendar.DATE, 1);
         } catch (ParseException e) {
@@ -76,7 +76,7 @@ public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdap
             holder.temporarily_closed_text.setVisibility(View.VISIBLE);
         }
 
-        holder.operation_time.setText(stall_list.get(position).getOpenAndClose()[0] + " to " + stall_list.get(position).getOpenAndClose()[1]);
+        holder.operation_time.setText(stall_list.get(position).getOpenAndClose().get(0) + " to " + stall_list.get(position).getOpenAndClose().get(1));
         holder.menu_stall_item_card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -8,11 +8,11 @@ public class Order {
     protected String location;
     protected String stall;
     protected ArrayList<Food> food_list;
-    protected int [] food_quantity;
+    protected ArrayList<Integer> food_quantity;
     protected String date;
     protected String time;
 
-    public Order(int order_id, String location, String stall, ArrayList<Food> food_list, int [] food_quantity, String date, String time) {
+    public Order(int order_id, String location, String stall, ArrayList<Food> food_list, ArrayList<Integer> food_quantity, String date, String time) {
         this.order_id = order_id;
         this.location = location;
         this.stall = stall;
@@ -54,11 +54,11 @@ public class Order {
         this.food_list = food_list;
     }
 
-    public int[] getFood_quantity() {
+    public ArrayList<Integer> getFood_quantity() {
         return food_quantity;
     }
 
-    public void setFood_quantity(int[] food_quantity) {
+    public void setFood_quantity(ArrayList<Integer> food_quantity) {
         this.food_quantity = food_quantity;
     }
 

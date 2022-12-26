@@ -1,14 +1,16 @@
 package com.example.jommakan;
 
+import java.util.ArrayList;
+
 public class Stall {
 
     protected String stall_name, location;
-    protected Food [] food_list;
+    protected ArrayList<Food> food_list;
     protected String description;
     protected int stall_image;
-    protected String [] openAndClose;
+    protected ArrayList<String> openAndClose;
 
-    public Stall(String stall_name, String location, Food [] food_list, String description, int stall_image, String [] openAndClose) {
+    public Stall(String stall_name, String location, ArrayList<Food> food_list, String description, int stall_image, ArrayList<String> openAndClose) {
         this.stall_name = stall_name;
         this.location = location;
         this.food_list = food_list;
@@ -33,11 +35,11 @@ public class Stall {
         this.location = location;
     }
 
-    public Food[] getFood_list() {
+    public ArrayList<Food> getFood_list() {
         return food_list;
     }
 
-    public void setFood_list(Food[] food_list) {
+    public void setFood_list(ArrayList<Food> food_list) {
         this.food_list = food_list;
     }
 
@@ -57,11 +59,11 @@ public class Stall {
         this.stall_image = stall_image;
     }
 
-    public String[] getOpenAndClose() {
+    public ArrayList<String> getOpenAndClose() {
         return openAndClose;
     }
 
-    public void setOpenAndClose(String [] openAndClose) {
+    public void setOpenAndClose(ArrayList<String> openAndClose) {
         this.openAndClose = openAndClose;
     }
 }

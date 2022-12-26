@@ -1,5 +1,7 @@
 package com.example.jommakan;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 
 // To create food object
@@ -9,9 +11,9 @@ public class Food {
     protected double price;
     protected String [] description;
     protected int image;
-    protected String[] openAndClose;
+    protected ArrayList<String> openAndClose;
 
-    public Food (String name, String location, String stall, Double price, String [] description, int image, String [] openAndClose) {
+    public Food (String name, String location, String stall, Double price, String [] description, int image, ArrayList<String> openAndClose) {
         this.name = name;
         this.location = location;
         this.stall = stall;
@@ -69,11 +71,11 @@ public class Food {
         this.image = image;
     }
 
-    public String[] getOpenAndClose() {
+    public ArrayList<String> getOpenAndClose() {
         return openAndClose;
     }
 
-    public void setOpenAndClose(String[] openAndClose) {
+    public void setOpenAndClose(ArrayList<String> openAndClose) {
         this.openAndClose = openAndClose;
     }
 }

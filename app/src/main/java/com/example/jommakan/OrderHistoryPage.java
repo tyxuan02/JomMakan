@@ -46,13 +46,27 @@ public class OrderHistoryPage extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // View and adapter
+        String open = "10.00 am";
+        String close = "10.00 pm";
+        ArrayList<String> open_close_list = new ArrayList<>();
+        open_close_list.add(open);
+        open_close_list.add(close);
+        ArrayList<String> open_close_list1 = new ArrayList<>();
+        open_close_list1.add(open);
+        open_close_list1.add("11.30 pm");
+
         food_list = new ArrayList<>();
-        food_list.add(new Food("Nasi Goreng", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 6.00, new String[]{"spicy", "no pawn"}, R.drawable.nasi_goreng_image, new String[]{"10.00 am", "10.00pm"}));
-        food_list.add(new Food("Nasi Goreng Cina", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 6.00, new String[]{"spicy", "no pawn"}, R.drawable.nasi_goreng_image, new String[]{"10.00 am", "10.00pm"}));
-        food_list.add(new Food("Nasi Goreng Kampung", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 6.00, new String[]{"spicy", "no pawn"}, R.drawable.nasi_goreng_image, new String[]{"10.00 am", "10.00pm"}));
+        food_list.add(new Food("Nasi Goreng", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 6.00, new String[]{"spicy", "no pawn"}, R.drawable.nasi_goreng_image, open_close_list));
+        food_list.add(new Food("Nasi Goreng Cina", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 6.00, new String[]{"spicy", "no pawn"}, R.drawable.nasi_goreng_image, open_close_list));
+        food_list.add(new Food("Nasi Goreng Kampung", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 6.00, new String[]{"spicy", "no pawn"}, R.drawable.nasi_goreng_image, open_close_list1));
+
+        ArrayList<Integer> food_quantity_list = new ArrayList<>();
+        food_quantity_list.add(1);
+        food_quantity_list.add(2);
+        food_quantity_list.add(3);
 
         order_list = new ArrayList<>();
-        Order order = new Order(123458789, "Faculty of Computer Science and Information Technology", "Restoran Famidah", food_list, new int[]{1,2,3}, "25 Dec 2022", "10.30 am");
+        Order order = new Order(123458789, "Faculty of Computer Science and Information Technology", "Restoran Famidah", food_list, food_quantity_list, "25 Dec 2022", "10.30 am");
         order_list.add(order);
         order_list.add(order);
         order_list.add(order);

@@ -73,16 +73,22 @@ public class HomeFragment extends Fragment {
 
 
         // Home Menu (Needs to fetch data from database, will implement soon)
-        SimpleDateFormat format = new SimpleDateFormat("hh.mm a");
         String open = "";
         String close = "";
         open = "10.00 AM";
         close = "10.00 PM";
 
+        ArrayList<String> open_close_list = new ArrayList<>();
+        open_close_list.add(open);
+        open_close_list.add(close);
+        ArrayList<String> open_close_list1 = new ArrayList<>();
+        open_close_list1.add(open);
+        open_close_list1.add("11.30 pm");
+
         food_list = new ArrayList<>();
-        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new String[]{open, close}));
-        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new String[]{open, close}));
-        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, new String[]{open, close}));
+        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, open_close_list));
+        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, open_close_list));
+        food_list.add(new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, new String[]{"Local delight", "Spicy", "Contains prawn"}, R.drawable.nasi_goreng_image, open_close_list1));
 
         homeMenuItemAdapter = new HomeMenuItemAdapter(getActivity(), food_list);
 
@@ -102,10 +108,14 @@ public class HomeFragment extends Fragment {
 
 
         // Home Location (Needs to fetch data from database, will implement soon)
+        ArrayList<String> stall_list = new ArrayList<>();
+        stall_list.add("Restoran Famidah");
+        stall_list.add("Restoran ABC");
+
         location_list = new ArrayList<>();
-        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, new String[]{"Restoran Famidah", "Restoran ABC"}));
-        location_list.add(new Location("Kolej Kediaman Kinabalu", R.drawable.fsktm_image, new String[]{"Restoran Famidah", "Restoran ABC"}));
-        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, new String[]{"Restoran Famidah", "Restoran ABC"}));
+        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, stall_list));
+        location_list.add(new Location("Kolej Kediaman Kinabalu", R.drawable.fsktm_image, stall_list));
+        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, stall_list));
 
         homeLocationItemAdapter = new HomeLocationItemAdapter(getActivity(), location_list);
 

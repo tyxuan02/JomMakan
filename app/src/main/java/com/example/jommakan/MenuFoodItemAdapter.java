@@ -46,8 +46,8 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter implements Filtera
         }
 
         try {
-            time1.setTime(format.parse(food_list.get(position).getOpenAndClose()[0]));
-            time2.setTime(format.parse(food_list.get(position).getOpenAndClose()[1]));
+            time1.setTime(format.parse(food_list.get(position).getOpenAndClose().get(0)));
+            time2.setTime(format.parse(food_list.get(position).getOpenAndClose().get(1)));
             time1.add(Calendar.DATE, 1);
             time2.add(Calendar.DATE, 1);
         } catch (ParseException e) {
@@ -93,8 +93,8 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter implements Filtera
         }
 
         try {
-            time1.setTime(format.parse(food_list.get(position).getOpenAndClose()[0]));
-            time2.setTime(format.parse(food_list.get(position).getOpenAndClose()[1]));
+            time1.setTime(format.parse(food_list.get(position).getOpenAndClose().get(0)));
+            time2.setTime(format.parse(food_list.get(position).getOpenAndClose().get(1)));
             time1.add(Calendar.DATE, 1);
             time2.add(Calendar.DATE, 1);
         } catch (ParseException e) {
@@ -113,7 +113,7 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter implements Filtera
             viewHolderOne.food_name.setText(food_list.get(position).getName());
             viewHolderOne.location_name.setText(food_list.get(position).getLocation());
             viewHolderOne.stall_name.setText(food_list.get(position).getStall());
-            viewHolderOne.operation_time.setText(food_list.get(position).getOpenAndClose()[0] + " to " + food_list.get(position).getOpenAndClose()[1]);
+            viewHolderOne.operation_time.setText(food_list.get(position).getOpenAndClose().get(0) + " to " + food_list.get(position).getOpenAndClose().get(1));
             viewHolderOne.food_price.setText("RM " + String.format("%.2f", food_list.get(position).getPrice()));
         } else {
             ViewHolderTwo viewHolderTwo = (ViewHolderTwo) holder;
@@ -122,7 +122,7 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter implements Filtera
             viewHolderTwo.food_name.setText(food_list.get(position).getName());
             viewHolderTwo.location_name.setText(food_list.get(position).getLocation());
             viewHolderTwo.stall_name.setText(food_list.get(position).getStall());
-            viewHolderTwo.operation_time.setText(food_list.get(position).getOpenAndClose()[0] + " to " + food_list.get(position).getOpenAndClose()[1]);
+            viewHolderTwo.operation_time.setText(food_list.get(position).getOpenAndClose().get(0) + " to " + food_list.get(position).getOpenAndClose().get(1));
             viewHolderTwo.food_price.setText("RM " + String.format("%.2f", food_list.get(position).getPrice()));
         }
     }

@@ -1,13 +1,15 @@
 package com.example.jommakan;
 
+import java.util.ArrayList;
+
 // To create location object
 public class Location {
 
     protected String location;
     protected int location_image;
-    protected String[] stall;
+    protected ArrayList<String> stall;
 
-    public Location(String location, int location_image,  String [] stall) {
+    public Location(String location, int location_image,  ArrayList<String> stall) {
         this.location = location;
         this.location_image = location_image;
         this.stall = stall;
@@ -29,11 +31,11 @@ public class Location {
         this.location_image = location_image;
     }
 
-    public String[] getStall() {
+    public ArrayList<String> getStall() {
         return stall;
     }
 
-    public void setStall(String[] stall) {
+    public void setStall(ArrayList<String> stall) {
         this.stall = stall;
     }
 }

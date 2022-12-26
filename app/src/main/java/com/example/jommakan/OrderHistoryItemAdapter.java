@@ -38,7 +38,7 @@ public class OrderHistoryItemAdapter extends RecyclerView.Adapter<OrderHistoryIt
 
         String str = "";
         for (int i = 0; i < order_list.get(position).getFood_list().size(); i++) {
-            str += (i+1) + ". " + order_list.get(position).getFood_list().get(i).getName() + " x" + order_list.get(position).getFood_quantity()[i] + "\n";
+            str += (i+1) + ". " + order_list.get(position).getFood_list().get(i).getName() + " x" + order_list.get(position).getFood_quantity().get(i) + "\n";
         }
         holder.ordered_food_text_view.setText(str);
 
@@ -49,7 +49,7 @@ public class OrderHistoryItemAdapter extends RecyclerView.Adapter<OrderHistoryIt
     private double getTotalPrice(Order order) {
         double sum = 0;
         for (int i = 0; i < order.getFood_list().size(); i++) {
-            sum += order.getFood_list().get(i).getPrice() * ((double) order.getFood_quantity()[i]);
+            sum += order.getFood_list().get(i).getPrice() * ((double) order.getFood_quantity().get(i));
         }
         return sum;
     }
