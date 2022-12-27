@@ -74,15 +74,14 @@ public class MenuStallFragment extends Fragment {
         description_list.add("Spicy");
         description_list.add("Contains prawn");
 
-        Food food = new Food("Nasi Goreng", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 8.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-        ArrayList<Food> food_list = new ArrayList<>();
-        food_list.add(food);
-        food_list.add(food);
-        food_list.add(food);
+        ArrayList<String> food_name_list = new ArrayList<>();
+        food_name_list.add("Nasi Goreng");
+        food_name_list.add("Nasi Goreng");
+        food_name_list.add("Nasi Goreng");
 
-        stall_list.add(new Stall("Restoran Famidah", "Faculty of Computer Science and Information Technology", food_list, "Good for gathering", R.drawable.restoran_famidah_image, open_close_list));
-        stall_list.add(new Stall("Restoran Famidah", "Faculty of Computer Science and Information Technology", food_list, "Nice atmosphere", R.drawable.restoran_famidah_image, open_close_list1));
-        stall_list.add(new Stall("Restoran Famidah", "Faculty of Computer Science and Information Technology", food_list, "Good for gathering", R.drawable.restoran_famidah_image, open_close_list));
+        stall_list.add(new Stall("Restoran Famidah", "Faculty of Computer Science and Information Technology", food_name_list, "Good for gathering", R.drawable.restoran_famidah_image, open_close_list));
+        stall_list.add(new Stall("Restoran Famidah", "Faculty of Computer Science and Information Technology", food_name_list, "Nice atmosphere", R.drawable.restoran_famidah_image, open_close_list1));
+        stall_list.add(new Stall("Restoran Famidah", "Faculty of Computer Science and Information Technology", food_name_list, "Good for gathering", R.drawable.restoran_famidah_image, open_close_list));
 
         menuStallItemAdapter = new MenuStallItemAdapter(getContext(), stall_list);
 

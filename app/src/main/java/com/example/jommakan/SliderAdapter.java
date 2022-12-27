@@ -7,11 +7,13 @@ import android.widget.ImageView;
 
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
+import java.util.ArrayList;
+
 // Slider Adapter for Top 5 Food on homepage
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder> {
 
-    int [] images;
-    public SliderAdapter (int [] images) {
+    ArrayList<Integer> images;
+    public SliderAdapter (ArrayList<Integer> images) {
         this.images = images;
     }
 
@@ -24,12 +26,12 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder> {
 
     @Override
     public void onBindViewHolder(Holder viewHolder, int position) {
-        viewHolder.imageView.setImageResource(images[position]);
+        viewHolder.imageView.setImageResource(images.get(position));
     }
 
     @Override
     public int getCount() {
-        return images.length;
+        return images.size();
     }
 
     public class Holder extends SliderViewAdapter.ViewHolder {

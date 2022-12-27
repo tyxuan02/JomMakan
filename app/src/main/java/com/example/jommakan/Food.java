@@ -1,20 +1,27 @@
 package com.example.jommakan;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.TypeConverter;
 
+import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 // To create food object
-@Entity(tableName = "Foods", primaryKeys = {"name", "location", "stall"})
+@Entity(tableName = "Food", primaryKeys = {"name", "location", "stall"})
 public class Food {
 
+    @NonNull
     protected String name, location, stall;
     protected double price;
     protected ArrayList<String> description;
     protected int image;
     protected ArrayList<String> openAndClose;
 
-    public Food (String name, String location, String stall, Double price, ArrayList<String> description, int image, ArrayList<String> openAndClose) {
+    public Food(@NonNull String name, @NonNull String location, @NonNull String stall, Double price, ArrayList<String> description, int image, ArrayList<String> openAndClose) {
         this.name = name;
         this.location = location;
         this.stall = stall;
