@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -45,7 +46,10 @@ public class MenuLocationItemAdapter extends RecyclerView.Adapter<MenuLocationIt
         holder.menu_location_item_card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.DestMenuStall);
+                // Pass data between fragments using bundle
+                Bundle bundle = new Bundle();
+                bundle.putString("location_name", location_list.get(position).getLocation());
+                Navigation.findNavController(v).navigate(R.id.DestMenuStall, bundle);
             }
         });
     }

@@ -8,15 +8,18 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,7 @@ public class MenuLocationFragment extends Fragment {
     RecyclerView menu_location_recycle_view;
     ArrayList<Location> location_list;
     MenuLocationItemAdapter menuLocationItemAdapter;
+    LocationDatabase locationDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,22 +41,23 @@ public class MenuLocationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         menu_location_recycle_view = view.findViewById(R.id.menu_location_recycle_view);
 
-        ArrayList<String> stall_list = new ArrayList<>();
-        stall_list.add("Restoran Famidah");
-        stall_list.add("Restoran ABC");
+        // Database connection
+        locationDatabase = Room.databaseBuilder(getActivity(), LocationDatabase.class, "LocationDB").allowMainThreadQueries().build();
 
+        // Get all food from database
         location_list = new ArrayList<>();
-        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, stall_list));
-        location_list.add(new Location("Kolej Kediaman Kinabalu", R.drawable.fsktm_image, stall_list));
-        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, stall_list));
-        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, stall_list));
-        location_list.add(new Location("Kolej Kediaman Kinabalu", R.drawable.fsktm_image, stall_list));
-        location_list.add(new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, stall_list));
-        menuLocationItemAdapter = new MenuLocationItemAdapter(location_list, getActivity());
+        getAllLocation();
 
+        // Prepare recycle view and adapter to display all locations
+        menuLocationItemAdapter = new MenuLocationItemAdapter(location_list, getActivity());
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
         menu_location_recycle_view.setLayoutManager(gridLayoutManager);
         menu_location_recycle_view.setAdapter(menuLocationItemAdapter);
+    }
+
+    // Get all locations from database
+    private void getAllLocation() {
+        location_list.addAll(locationDatabase.locationDAO().getAllLocations());
     }
 }

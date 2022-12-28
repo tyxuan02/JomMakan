@@ -13,6 +13,6 @@ public interface StallDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertAll(Stall... stalls);
 
-    @Query("SELECT * FROM Stall")
-    List<Stall> getAllStalls();
+    @Query("SELECT * FROM Stall WHERE location = :location")
+    List<Stall> getAllStalls(String location);
 }

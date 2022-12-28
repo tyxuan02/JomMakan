@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ public class MenuFoodFragment extends Fragment {
     MenuFoodItemAdapter menuFoodItemAdapter;
     SearchView search_bar;
     TextView result_text_view;
+    FoodDatabase foodDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,33 +47,14 @@ public class MenuFoodFragment extends Fragment {
         result_text_view = view.findViewById(R.id.result_text_view);
         menu_food_recycle_view = view.findViewById(R.id.menu_food_recycle_view);
 
-        SimpleDateFormat format = new SimpleDateFormat("hh.mm a");
-        String open = "";
-        String close = "";
-        String close1 = "";
-        open = "10.00 AM";
-        close = "10.00 PM";
+        // Database connection
+        foodDatabase = Room.databaseBuilder(getActivity(), FoodDatabase.class, "FoodDB").allowMainThreadQueries().build();
 
-        ArrayList<String> open_close_list = new ArrayList<>();
-        open_close_list.add(open);
-        open_close_list.add(close);
-        ArrayList<String> open_close_list1 = new ArrayList<>();
-        open_close_list1.add(open);
-        open_close_list1.add("11.30 pm");
-
-        ArrayList<String> description_list = new ArrayList<>();
-        description_list.add("Local delight");
-        description_list.add("Spicy");
-        description_list.add("Contains prawn");
-
+        // Get all food from database
         food_list = new ArrayList<>();
-        food_list.add(new Food("Nasi Goreng Kampung", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, description_list, R.drawable.nasi_goreng_image, open_close_list));
-        food_list.add(new Food("Nasi Goreng", "Faculty of Computer Science and Information Technology", "Restoran Famidah", 8.00, description_list, R.drawable.nasi_goreng_image, open_close_list));
-        food_list.add(new Food("Nasi Goreng Ayam", "Kolej Kediaman Kinabalu", "Restoran Famidah", 10.00, description_list, R.drawable.nasi_goreng_image, open_close_list1));
-        food_list.add(new Food("Roti Canai", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, description_list, R.drawable.nasi_goreng_image, open_close_list));
-        food_list.add(new Food("Nasi Goreng Cina", "Kolej Kediaman Kinabalu", "Restoran Famidah", 8.00, description_list, R.drawable.nasi_goreng_image, open_close_list));
-        food_list.add(new Food("Nasi Kukus", "Kolej Kediaman Kinabalu", "Restoran Famidah", 10.00, description_list, R.drawable.nasi_goreng_image, open_close_list));
+        getAllFood();
 
+        // Prepare recycle view and adapter to display all food
         menuFoodItemAdapter = new MenuFoodItemAdapter(food_list, getActivity());
 
         menu_food_recycle_view.setAdapter(menuFoodItemAdapter);
@@ -79,8 +62,8 @@ public class MenuFoodFragment extends Fragment {
         menu_food_recycle_view.setHasFixedSize(true);
         menu_food_recycle_view.setNestedScrollingEnabled(true);
 
+        // Implementation of search bar
         search_bar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (!search_bar.getQuery().toString().isEmpty()) {
@@ -99,6 +82,11 @@ public class MenuFoodFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    // Get all food from database
+    private void getAllFood() {
+        food_list.addAll(foodDatabase.foodDAO().getAllFood());
     }
 
 }

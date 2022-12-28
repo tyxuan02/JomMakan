@@ -25,7 +25,6 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
-    ArrayList<Food> food_list;
     ArrayList<Location> location_list;
 
     // Top 5
@@ -66,11 +65,7 @@ public class HomeFragment extends Fragment {
 
         // Database connection
         foodDatabase = Room.databaseBuilder(getActivity(), FoodDatabase.class, "FoodDB").allowMainThreadQueries().build();
-        locationDatabase = Room.databaseBuilder(getActivity(), LocationDatabase.class, "LocaitonDB").allowMainThreadQueries().build();
-
-        // Add all food into database
-        food_list = new ArrayList<>();
-        addFood();
+        locationDatabase = Room.databaseBuilder(getActivity(), LocationDatabase.class, "LocationDB").allowMainThreadQueries().build();
 
         // Randomly get 5 food from database
         top_5_food_list = new ArrayList<>();
@@ -108,11 +103,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
-        // Add all locations into database
-        location_list = new ArrayList<>();
-        addLocation();
-
         // Randomly get 3 locations from database
         menu_location_list = new ArrayList<>();
         getThreeLocations();
@@ -133,39 +123,6 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    // Add food into database
-    private void addFood() {
-        String open = "";
-        String close = "";
-        open = "10.00 AM";
-        close = "10.00 PM";
-
-        ArrayList<String> open_close_list = new ArrayList<>();
-        open_close_list.add(open);
-        open_close_list.add(close);
-        ArrayList<String> open_close_list1 = new ArrayList<>();
-        open_close_list1.add(open);
-        open_close_list1.add("11.30 pm");
-
-        ArrayList<String> description_list = new ArrayList<>();
-        description_list.add("Local delight");
-        description_list.add("Spicy");
-        description_list.add("Contains prawn");
-
-        Food food1 = new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-        Food food2 = new Food("Nasi Goreng Kampung", "Kolej Kediaman Abdul Rahman", "Restoran Ali", 5.00, description_list, R.drawable.top_5_image, open_close_list1);
-        Food food3 = new Food("Nasi Goreng Cina", "Kolej Kediaman Pertama", "Restoran Abu", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-        Food food4 = new Food("Nasi Lemak", "Faculty of Computer Science and Information Technology", "UM Bumbung", 7.00, description_list, R.drawable.top_5_image, open_close_list1);
-        Food food5 = new Food("Roti Canai", "Kolej Kediaman Ke-12", "Ali Food Corner", 2.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-        Food food6 = new Food("Roti Telur", "Faculty of Engineering", "Restoran Bistro", 3.00, description_list, R.drawable.top_5_image, open_close_list1);
-        foodDatabase.foodDAO().insertAll(food1, food2, food3, food4, food5, food6);
-    }
-
-    // Get all food from database
-    private void getAllFood() {
-        food_list.addAll(foodDatabase.foodDAO().getAllFood());
-    }
-
     // Randomly get 5 food from database
     private void getTop5Food() {
         top_5_food_list.addAll(foodDatabase.foodDAO().getTop5Food());
@@ -174,46 +131,6 @@ public class HomeFragment extends Fragment {
     // Randomly get 3 food from database
     private void getThreeFood() {
         menu_food_list.addAll(foodDatabase.foodDAO().getRandomFood());
-    }
-
-    // Add locations into database
-    private void addLocation() {
-        String open = "";
-        String close = "";
-        open = "10.00 AM";
-        close = "10.00 PM";
-
-        ArrayList<String> open_close_list = new ArrayList<>();
-        open_close_list.add(open);
-        open_close_list.add(close);
-        ArrayList<String> open_close_list1 = new ArrayList<>();
-        open_close_list1.add(open);
-        open_close_list1.add("11.30 pm");
-
-        ArrayList<String> description_list = new ArrayList<>();
-        description_list.add("Local delight");
-        description_list.add("Spicy");
-        description_list.add("Contains prawn");
-
-        ArrayList<String> stall_name_list = new ArrayList<>();
-        stall_name_list.add("Restoran Famidah");
-        stall_name_list.add("Restoran Bistro");
-        stall_name_list.add("Restoran Ali");
-        stall_name_list.add("Restoran Abu");
-        stall_name_list.add("Ali Food Corner");
-        stall_name_list.add("UM Bumbung");
-        Location location1 = new Location("Kolej Kediaman Kinabalu", R.drawable.fsktm_image, stall_name_list);
-        Location location2 = new Location("Kolej Kediaman Abdul Rahman", R.drawable.fsktm_image, stall_name_list);
-        Location location3 = new Location("Kolej Kediaman Pertama", R.drawable.fsktm_image, stall_name_list);
-        Location location4 = new Location("Kolej Kediaman Ke-12", R.drawable.fsktm_image, stall_name_list);
-        Location location5 = new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, stall_name_list);
-        Location location6 = new Location("Faculty of Engineering", R.drawable.fsktm_image, stall_name_list);
-        locationDatabase.locationDAO().insertAll(location1, location2, location3, location4, location5, location6);
-    }
-
-    // Get all locations from database
-    private void getAllLocation() {
-        location_list.addAll(locationDatabase.locationDAO().getAllLocations());
     }
 
     // Randomly get 3 locations from database

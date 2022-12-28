@@ -8,14 +8,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,8 +28,9 @@ public class MenuStallFragment extends Fragment {
 
     MenuStallItemAdapter menuStallItemAdapter;
     RecyclerView stall_name_recycle_view;
-    TextView stall_name;
+    TextView location_name;
     ArrayList<Stall> stall_list;
+    StallDatabase stallDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,6 +41,10 @@ public class MenuStallFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        location_name = view.findViewById(R.id.location_name);
+        stall_name_recycle_view = view.findViewById(R.id.stall_name_recycle_view);
+
         TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             toolbar_title.setTextAppearance(R.style.toolbar_text_tertiary);
@@ -52,42 +60,30 @@ public class MenuStallFragment extends Fragment {
             }
         });
 
-        SimpleDateFormat format = new SimpleDateFormat("hh.mm a");
-        String open = "";
-        String close = "";
-        open = "10.00 AM";
-        close = "10.00 PM";
+        // Database connection
+        stallDatabase = Room.databaseBuilder(getActivity(), StallDatabase.class, "StallDB").allowMainThreadQueries().build();
 
-        stall_name_recycle_view = view.findViewById(R.id.stall_name_recycle_view);
-        stall_name = view.findViewById(R.id.stall_name);
+        // Extract the data from the bundle (Determine which location user has chosen)
+        Bundle arguments = getArguments();
+        String chosen_location = arguments.getString("location_name");
+
+        // Get all stalls in a location from database
         stall_list = new ArrayList<>();
+        getAllStalls(chosen_location);
 
-        ArrayList<String> open_close_list = new ArrayList<>();
-        open_close_list.add(open);
-        open_close_list.add(close);
-        ArrayList<String> open_close_list1 = new ArrayList<>();
-        open_close_list1.add(open);
-        open_close_list1.add("11.30 pm");
+        location_name.setText(chosen_location);
 
-        ArrayList<String> description_list = new ArrayList<>();
-        description_list.add("Local delight");
-        description_list.add("Spicy");
-        description_list.add("Contains prawn");
-
-        ArrayList<String> food_name_list = new ArrayList<>();
-        food_name_list.add("Nasi Goreng");
-        food_name_list.add("Nasi Goreng");
-        food_name_list.add("Nasi Goreng");
-
-        stall_list.add(new Stall("Restoran Famidah", "Faculty of Computer Science and Information Technology", food_name_list, "Good for gathering", R.drawable.restoran_famidah_image, open_close_list));
-        stall_list.add(new Stall("Restoran Famidah", "Faculty of Computer Science and Information Technology", food_name_list, "Nice atmosphere", R.drawable.restoran_famidah_image, open_close_list1));
-        stall_list.add(new Stall("Restoran Famidah", "Faculty of Computer Science and Information Technology", food_name_list, "Good for gathering", R.drawable.restoran_famidah_image, open_close_list));
-
+        // Prepare recycle view and adapter to display all stalls in a location
         menuStallItemAdapter = new MenuStallItemAdapter(getContext(), stall_list);
 
         stall_name_recycle_view.setAdapter(menuStallItemAdapter);
         stall_name_recycle_view.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         stall_name_recycle_view.setHasFixedSize(true);
         stall_name_recycle_view.setNestedScrollingEnabled(true);
+    }
+
+    // Get all locations from database
+    private void getAllStalls(String location) {
+        stall_list.addAll(stallDatabase.stallDAO().getAllStalls(location));
     }
 }
