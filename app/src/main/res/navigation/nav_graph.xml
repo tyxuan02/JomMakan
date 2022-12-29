@@ -51,5 +51,10 @@
         android:name="com.example.jommakan.StallFragment"
         android:label="fragment_stall"
         tools:layout="@layout/fragment_stall" />
+    <fragment
+        android:id="@+id/DestFood"
+        android:name="com.example.jommakan.FoodFragment"
+        android:label="fragment_food_fragement"
+        tools:layout="@layout/fragment_food_fragement" />
 
 </navigation>

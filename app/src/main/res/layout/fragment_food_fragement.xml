@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FoodFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/food_image"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/nasi_goreng_image"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true"/>
+
+            <ImageButton
+                android:id="@+id/back_button"
+                android:layout_width="43dp"
+                android:layout_height="43dp"
+                android:src="@drawable/back_button_icon"
+                android:background="@drawable/back_button_shape"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="30dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="15dp"
+            android:background="@drawable/stall_details_shape">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/food_name"
+                    android:layout_width="230dp"
+                    android:layout_height="70dp"
+                    android:text="Nasi Goreng"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textSize="25sp"
+                    android:maxLines="2"
+                    android:gravity="center_vertical"
+                    android:textColor="#000000"
+                    android:lineHeight="30dp"/>
+
+                <TextView
+                    android:id="@+id/food_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="RM 6.00"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textSize="20sp"
+                    android:textColor="#000000"
+                    android:background="@drawable/open_close_shape"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:paddingStart="10dp">
+
+                <TextView
+                    android:id="@+id/food_description_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description:"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:id="@+id/food_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="- Local delight\n- Spicy 🌶️\n- Contains prawn 🍤"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="18sp"
+                    android:lineHeight="25dp"
+                    android:maxLines="4"
+                    android:textColor="#000000"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

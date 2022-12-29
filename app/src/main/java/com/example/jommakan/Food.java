@@ -7,12 +7,13 @@ import androidx.room.TypeConverter;
 import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 // To create food object
 @Entity(tableName = "Food", primaryKeys = {"name", "location", "stall"})
-public class Food {
+public class Food implements Serializable {
 
     @NonNull
     protected String name, location, stall;
