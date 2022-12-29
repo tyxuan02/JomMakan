@@ -113,4 +113,19 @@
         </LinearLayout>
     </LinearLayout>
 
+    <View
+        android:id="@+id/shadow_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"/>
+
+    <TextView
+        android:id="@+id/not_available_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Not Available"
+        android:textAppearance="@style/not_available_text"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:rotation="-18"/>
+
 </androidx.cardview.widget.CardView>

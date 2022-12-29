@@ -44,6 +44,7 @@ public class StallFoodItemAdapter extends RecyclerView.Adapter<StallFoodItemAdap
         holder.stall_food_item_card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Pass data between fragments using bundle
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("food", (Serializable) food_list.get(position));
                 Navigation.findNavController(v).navigate(R.id.DestFood, bundle);

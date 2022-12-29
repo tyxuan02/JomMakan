@@ -1,6 +1,8 @@
 package com.example.jommakan;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,8 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
@@ -19,12 +23,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MenuFoodItemAdapter extends RecyclerView.Adapter implements Filterable {
+public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapter.ViewHolder> implements Filterable {
 
     Context context;
     ArrayList<Food> food_list_all;
     ArrayList<Food> food_list;
     LayoutInflater layoutInflater;
+    Date currentTime, open, close;
 
     public MenuFoodItemAdapter(ArrayList<Food> food_list, Context context) {
         this.food_list = food_list;
@@ -33,106 +38,52 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter implements Filtera
         this.food_list_all = new ArrayList<>(food_list);
     }
 
-    public int getItemViewType(int position) {
-        SimpleDateFormat format = new SimpleDateFormat("h.mm a");
-        Calendar time = Calendar.getInstance();
-        Calendar time1 = Calendar.getInstance();
-        Calendar time2 = Calendar.getInstance();
-        try {
-            time.setTime(format.parse(format.format(new Date())));
-            time.add(Calendar.DATE, 1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            time1.setTime(format.parse(food_list.get(position).getOpenAndClose().get(0)));
-            time2.setTime(format.parse(food_list.get(position).getOpenAndClose().get(1)));
-            time1.add(Calendar.DATE, 1);
-            time2.add(Calendar.DATE, 1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Date currentTime = time.getTime();
-        Date open = time1.getTime();
-        Date close = time2.getTime();
-
-        if (currentTime.after(open) && currentTime.before(close)) {
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
-
-        if (viewType == 0) {
-            view = layoutInflater.inflate(R.layout.menu_food_item, parent, false);
-            return new ViewHolderOne(view);
-        } else {
-            view = layoutInflater.inflate(R.layout.menu_food_item_not_available, parent, false);
-            return new ViewHolderTwo(view);
-        }
+    public MenuFoodItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = layoutInflater.inflate(R.layout.menu_food_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        SimpleDateFormat format = new SimpleDateFormat("h.mm a");
-        Calendar time = Calendar.getInstance();
-        Calendar time1 = Calendar.getInstance();
-        Calendar time2 = Calendar.getInstance();
-        try {
-            time.setTime(format.parse(format.format(new Date())));
-            time.add(Calendar.DATE, 1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    public void onBindViewHolder(@NonNull MenuFoodItemAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        try {
-            time1.setTime(format.parse(food_list.get(position).getOpenAndClose().get(0)));
-            time2.setTime(format.parse(food_list.get(position).getOpenAndClose().get(1)));
-            time1.add(Calendar.DATE, 1);
-            time2.add(Calendar.DATE, 1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        holder.menu_food_card_view_image.setImageResource(R.drawable.nasi_goreng_image);
+        holder.food_name.setText(food_list.get(position).getName());
+        holder.location_name.setText(food_list.get(position).getLocation());
+        holder.stall_name.setText(food_list.get(position).getStall());
+        holder.operation_time.setText(food_list.get(position).getOpenAndClose().get(0) + " to " + food_list.get(position).getOpenAndClose().get(1));
+        holder.food_price.setText("RM " + String.format("%.2f", food_list.get(position).getPrice()));
 
-        Date currentTime = time.getTime();
-        Date open = time1.getTime();
-        Date close = time2.getTime();
-        System.out.println(format.format(new Date()));
-
+        checkOpenClose(position);
         if (currentTime.after(open) && currentTime.before(close)) {
-            ViewHolderOne viewHolderOne = (ViewHolderOne) holder;
-
-            viewHolderOne.menu_food_card_view_image.setImageResource(R.drawable.nasi_goreng_image);
-            viewHolderOne.food_name.setText(food_list.get(position).getName());
-            viewHolderOne.location_name.setText(food_list.get(position).getLocation());
-            viewHolderOne.stall_name.setText(food_list.get(position).getStall());
-            viewHolderOne.operation_time.setText(food_list.get(position).getOpenAndClose().get(0) + " to " + food_list.get(position).getOpenAndClose().get(1));
-            viewHolderOne.food_price.setText("RM " + String.format("%.2f", food_list.get(position).getPrice()));
+            holder.shadow_background.setVisibility(View.INVISIBLE);
+            holder.not_available_text.setVisibility(View.INVISIBLE);
         } else {
-            ViewHolderTwo viewHolderTwo = (ViewHolderTwo) holder;
-
-            viewHolderTwo.menu_food_card_view_image.setImageResource(R.drawable.nasi_goreng_image);
-            viewHolderTwo.food_name.setText(food_list.get(position).getName());
-            viewHolderTwo.location_name.setText(food_list.get(position).getLocation());
-            viewHolderTwo.stall_name.setText(food_list.get(position).getStall());
-            viewHolderTwo.operation_time.setText(food_list.get(position).getOpenAndClose().get(0) + " to " + food_list.get(position).getOpenAndClose().get(1));
-            viewHolderTwo.food_price.setText("RM " + String.format("%.2f", food_list.get(position).getPrice()));
+            holder.shadow_background.setVisibility(View.VISIBLE);
+            holder.not_available_text.setVisibility(View.VISIBLE);
         }
+
+        holder.menu_food_item_card_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Pass data between fragments using bundle
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("food", food_list.get(position));
+                Navigation.findNavController(v).navigate(R.id.DestFood, bundle);
+            }
+        });
     }
 
-    class ViewHolderOne extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         ShapeableImageView menu_food_card_view_image;
         TextView food_name, location_name, stall_name, operation_time, food_price;
+        CardView menu_food_item_card_view;
+        View shadow_background;
+        TextView not_available_text;
 
-        public ViewHolderOne(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             menu_food_card_view_image = itemView.findViewById(R.id.menu_food_card_view_image);
@@ -141,23 +92,9 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter implements Filtera
             stall_name = itemView.findViewById(R.id.stall_name);
             operation_time = itemView.findViewById(R.id.operation_time);
             food_price = itemView.findViewById(R.id.food_price);
-        }
-    }
-
-    class ViewHolderTwo extends RecyclerView.ViewHolder {
-
-        ShapeableImageView menu_food_card_view_image;
-        TextView food_name, location_name, stall_name, operation_time, food_price;
-
-        public ViewHolderTwo(@NonNull View itemView) {
-            super(itemView);
-
-            menu_food_card_view_image = itemView.findViewById(R.id.menu_food_card_view_image);
-            food_name = itemView.findViewById(R.id.food_name);
-            location_name = itemView.findViewById(R.id.location_name);
-            stall_name = itemView.findViewById(R.id.stall_name);
-            operation_time = itemView.findViewById(R.id.operation_time);
-            food_price = itemView.findViewById(R.id.food_price);
+            menu_food_item_card_view = itemView.findViewById(R.id.menu_food_item_card_view);
+            shadow_background = itemView.findViewById(R.id.shadow_background);
+            not_available_text = itemView.findViewById(R.id.not_available_text);
         }
     }
 
@@ -197,4 +134,30 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter implements Filtera
             notifyDataSetChanged();
         }
     };
+
+    private void checkOpenClose(int position) {
+        SimpleDateFormat format = new SimpleDateFormat("h.mm a");
+        Calendar time = Calendar.getInstance();
+        Calendar time1 = Calendar.getInstance();
+        Calendar time2 = Calendar.getInstance();
+        try {
+            time.setTime(format.parse(format.format(new Date())));
+            time.add(Calendar.DATE, 1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            time1.setTime(format.parse(food_list.get(position).getOpenAndClose().get(0)));
+            time2.setTime(format.parse(food_list.get(position).getOpenAndClose().get(1)));
+            time1.add(Calendar.DATE, 1);
+            time2.add(Calendar.DATE, 1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        currentTime = time.getTime();
+        open = time1.getTime();
+        close = time2.getTime();
+    }
 }

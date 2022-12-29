@@ -74,15 +74,7 @@ public class HomeFragment extends Fragment {
         top_5_food_list = new ArrayList<>();
         getTop5Food();
         // Top 5 Slider
-        ArrayList<Integer> top_5_image_list = new ArrayList<>();
-        if (top_5_food_list.size() >= 5) {
-            top_5_image_list.add(top_5_food_list.get(0).getImage());
-            top_5_image_list.add(top_5_food_list.get(1).getImage());
-            top_5_image_list.add(top_5_food_list.get(2).getImage());
-            top_5_image_list.add(top_5_food_list.get(3).getImage());
-            top_5_image_list.add(top_5_food_list.get(4).getImage());
-        }
-        sliderAdapter = new SliderAdapter(top_5_image_list);
+        sliderAdapter = new SliderAdapter(top_5_food_list);
         top_5_image_slider = view.findViewById(R.id.top_5_image_slider);
         top_5_image_slider.setSliderAdapter(sliderAdapter);
         top_5_image_slider.setIndicatorAnimation(IndicatorAnimationType.WORM);

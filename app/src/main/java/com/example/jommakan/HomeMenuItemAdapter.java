@@ -1,7 +1,9 @@
 package com.example.jommakan;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -35,7 +38,7 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeMenuItemAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HomeMenuItemAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.home_menu_card_view_image.setImageResource(food_list.get(position).getImage());
         holder.home_menu_card_view_food_name.setText(food_list.get(position).getName());
         holder.home_menu_card_view_food_stall.setText(food_list.get(position).getStall());
@@ -44,7 +47,10 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
         holder.home_menu_item_card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent intent = new Intent(context,);
+                // Pass data between fragments using bundle
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("food", food_list.get(position));
+                Navigation.findNavController(v).navigate(R.id.DestFood, bundle);
             }
         });
     }

@@ -28,6 +28,7 @@ public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdap
     Context context;
     ArrayList<Stall> stall_list;
     LayoutInflater layoutInflater;
+    Date currentTime, open, close;
 
     public MenuStallItemAdapter(Context context, ArrayList<Stall> stall_list) {
         this.context = context;
@@ -47,31 +48,7 @@ public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdap
         holder.menu_food_card_view_image.setImageResource(stall_list.get(position).getStall_image());
         holder.stall_name.setText(stall_list.get(position).getStall_name());
 
-        SimpleDateFormat format = new SimpleDateFormat("h.mm a");
-        Calendar time = Calendar.getInstance();
-        Calendar time1 = Calendar.getInstance();
-        Calendar time2 = Calendar.getInstance();
-        try {
-            time.setTime(format.parse(format.format(new Date())));
-            time.add(Calendar.DATE, 1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            time1.setTime(format.parse(stall_list.get(position).getOpenAndClose().get(0)));
-            time2.setTime(format.parse(stall_list.get(position).getOpenAndClose().get(1)));
-            time1.add(Calendar.DATE, 1);
-            time2.add(Calendar.DATE, 1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Date currentTime = time.getTime();
-        Date open = time1.getTime();
-        Date close = time2.getTime();
-        System.out.println(format.format(new Date()));
-
+        checkOpenClose(position);
         if (currentTime.after(open) && currentTime.before(close)) {
             holder.shadow_background.setVisibility(View.INVISIBLE);
             holder.temporarily_closed_text.setVisibility(View.INVISIBLE);
@@ -84,6 +61,7 @@ public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdap
         holder.menu_stall_item_card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Pass data between fragments using bundle
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("stall", (Serializable) stall_list.get(position));
                 Navigation.findNavController(v).navigate(R.id.DestStall, bundle);
@@ -115,5 +93,31 @@ public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdap
             shadow_background = itemView.findViewById(R.id.shadow_background);
             temporarily_closed_text = itemView.findViewById(R.id.temporarily_closed_text);
         }
+    }
+
+    private void checkOpenClose(int position) {
+        SimpleDateFormat format = new SimpleDateFormat("h.mm a");
+        Calendar time = Calendar.getInstance();
+        Calendar time1 = Calendar.getInstance();
+        Calendar time2 = Calendar.getInstance();
+        try {
+            time.setTime(format.parse(format.format(new Date())));
+            time.add(Calendar.DATE, 1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            time1.setTime(format.parse(stall_list.get(position).getOpenAndClose().get(0)));
+            time2.setTime(format.parse(stall_list.get(position).getOpenAndClose().get(1)));
+            time1.add(Calendar.DATE, 1);
+            time2.add(Calendar.DATE, 1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        currentTime = time.getTime();
+        open = time1.getTime();
+        close = time2.getTime();
     }
 }

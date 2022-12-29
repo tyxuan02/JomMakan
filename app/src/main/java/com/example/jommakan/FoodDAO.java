@@ -16,7 +16,7 @@ public interface FoodDAO {
     @Query("SELECT * FROM Food")
     List<Food> getAllFood();
 
-    @Query("SELECT * FROM Food ORDER BY random() LIMIT 5")
+    @Query("SELECT * FROM Food LIMIT 5")
     List<Food> getTop5Food();
 
     @Query("SELECT * FROM Food ORDER BY random() LIMIT 3")

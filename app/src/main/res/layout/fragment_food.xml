@@ -23,6 +23,24 @@
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"/>
 
+            <View
+                android:id="@+id/shadow_background"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="#80000000"/>
+
+            <TextView
+                android:id="@+id/not_available_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Not Available"
+                android:textAppearance="@style/not_available_text"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:textSize="40sp"
+                android:rotation="-18"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"/>
+
             <ImageButton
                 android:id="@+id/back_button"
                 android:layout_width="43dp"

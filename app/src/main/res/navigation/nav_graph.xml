@@ -55,6 +55,6 @@
         android:id="@+id/DestFood"
         android:name="com.example.jommakan.FoodFragment"
         android:label="fragment_food_fragement"
-        tools:layout="@layout/fragment_food_fragement" />
+        tools:layout="@layout/fragment_food" />
 
 </navigation>
