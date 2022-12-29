@@ -36,7 +36,9 @@ public class MenuFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        // Declare and assign views here
+        // Toolbar
+        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        toolbar.setVisibility(View.VISIBLE);
         TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             toolbar_title.setTextAppearance(R.style.toolbar_text_secondary);

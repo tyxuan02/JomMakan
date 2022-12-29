@@ -1,6 +1,8 @@
 package com.example.jommakan;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +10,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
 
+import java.io.Serializable;
 import java.sql.Struct;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -39,8 +43,8 @@ public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MenuStallItemAdapter.ViewHolder holder, int position) {
-        holder.menu_food_card_view_image.setImageResource(R.drawable.restoran_famidah_image);
+    public void onBindViewHolder(@NonNull MenuStallItemAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        holder.menu_food_card_view_image.setImageResource(stall_list.get(position).getStall_image());
         holder.stall_name.setText(stall_list.get(position).getStall_name());
 
         SimpleDateFormat format = new SimpleDateFormat("h.mm a");
@@ -80,7 +84,9 @@ public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdap
         holder.menu_stall_item_card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("stall", (Serializable) stall_list.get(position));
+                Navigation.findNavController(v).navigate(R.id.DestStall, bundle);
             }
         });
     }

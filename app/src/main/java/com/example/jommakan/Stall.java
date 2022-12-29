@@ -3,10 +3,11 @@ package com.example.jommakan;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 @Entity(tableName = "Stall", primaryKeys = {"stall_name", "location"})
-public class Stall {
+public class Stall implements Serializable {
 
     @NonNull
     protected String stall_name, location;

@@ -50,7 +50,9 @@ public class MenuStallFragment extends Fragment {
             toolbar_title.setTextAppearance(R.style.toolbar_text_tertiary);
             toolbar_title.setText("MENU");
         }
-        Toolbar toolbar = getActivity().findViewById(R.id.toolbar);
+
+        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        toolbar.setVisibility(View.VISIBLE);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -45,10 +45,11 @@
         android:id="@+id/DestMenuStall"
         android:name="com.example.jommakan.MenuStallFragment"
         android:label="fragment_menu_stall"
-        tools:layout="@layout/fragment_menu_stall" >
-        <action
-            android:id="@+id/DestMenuStallToDestMenu"
-            app:destination="@id/DestMenu" />
-    </fragment>
+        tools:layout="@layout/fragment_menu_stall" />
+    <fragment
+        android:id="@+id/DestStall"
+        android:name="com.example.jommakan.StallFragment"
+        android:label="fragment_stall"
+        tools:layout="@layout/fragment_stall" />
 
 </navigation>

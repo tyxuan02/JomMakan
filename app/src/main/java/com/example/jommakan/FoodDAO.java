@@ -21,4 +21,7 @@ public interface FoodDAO {
 
     @Query("SELECT * FROM Food ORDER BY random() LIMIT 3")
     List<Food> getRandomFood();
+
+    @Query("SELECT * FROM Food WHERE stall = :stall AND location = :location")
+    List<Food> getStallFood(String stall, String location);
 }

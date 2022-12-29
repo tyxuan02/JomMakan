@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -57,6 +58,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // Toolbar
+        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        toolbar.setVisibility(View.VISIBLE);
         TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             toolbar_title.setTextAppearance(R.style.toolbar_text_main);
@@ -72,11 +75,13 @@ public class HomeFragment extends Fragment {
         getTop5Food();
         // Top 5 Slider
         ArrayList<Integer> top_5_image_list = new ArrayList<>();
-        top_5_image_list.add(top_5_food_list.get(0).getImage());
-        top_5_image_list.add(top_5_food_list.get(1).getImage());
-        top_5_image_list.add(top_5_food_list.get(2).getImage());
-        top_5_image_list.add(top_5_food_list.get(3).getImage());
-        top_5_image_list.add(top_5_food_list.get(4).getImage());
+        if (top_5_food_list.size() >= 5) {
+            top_5_image_list.add(top_5_food_list.get(0).getImage());
+            top_5_image_list.add(top_5_food_list.get(1).getImage());
+            top_5_image_list.add(top_5_food_list.get(2).getImage());
+            top_5_image_list.add(top_5_food_list.get(3).getImage());
+            top_5_image_list.add(top_5_food_list.get(4).getImage());
+        }
         sliderAdapter = new SliderAdapter(top_5_image_list);
         top_5_image_slider = view.findViewById(R.id.top_5_image_slider);
         top_5_image_slider.setSliderAdapter(sliderAdapter);
