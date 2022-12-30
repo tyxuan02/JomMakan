@@ -108,7 +108,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:background="@drawable/login_registration_button"
+        android:background="@drawable/login_registration_button_shape"
         android:text="SIGN UP"
         android:fontFamily="@font/caudex_bold"
         android:textColor="#FFFFFF"
