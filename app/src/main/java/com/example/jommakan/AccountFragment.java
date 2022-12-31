@@ -1,5 +1,6 @@
 package com.example.jommakan;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -64,7 +65,8 @@ public class AccountFragment extends Fragment {
                 int id= menuItem.getItemId();
 
                 if(id == R.id.rateOurApp){
-                    Toast.makeText(getActivity(), "Rate", Toast.LENGTH_SHORT).show();
+                    RatingDialogFragment ratingDialogFragment = new RatingDialogFragment();
+                    ratingDialogFragment.show(getActivity().getSupportFragmentManager(), "My Fragment");
                 }
 
                 if(id == R.id.reportAnIssue){

@@ -4,12 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class MyWalletActivity extends AppCompatActivity {
+
+    Dialog topUpDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,14 @@ public class MyWalletActivity extends AppCompatActivity {
 
         // showing the back button in action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        topUpDialog = new Dialog(this);
+
+    }
+
+    public void show_TopUpDialog(View v){
+        topUpDialog.setContentView(R.layout.top_up_window);
+        topUpDialog.show();
 
     }
 
