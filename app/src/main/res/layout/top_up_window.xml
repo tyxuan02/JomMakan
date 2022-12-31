@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="300dp"
+        android:padding="41dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Top up amount (RM)"
+            android:fontFamily="@font/caudex"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/top_up_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter password"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/caudex"
+            android:textSize="14sp"/>
+
+        <EditText
+            android:id="@+id/verified_topup_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+
+            <Button
+                android:id="@+id/cancelBtn"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="cancel"
+                android:textAllCaps="true"
+                android:fontFamily="@font/caudex_bold"
+                android:textSize="15sp"
+                android:background="@drawable/button_shape"
+                android:backgroundTint="@color/white"/>
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="165dp"
+                android:text="confirm"
+                android:textAllCaps="true"
+                android:fontFamily="@font/caudex_bold"
+                android:textSize="15sp"
+                android:background="@drawable/button_shape"
+                android:textColor="@color/white"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

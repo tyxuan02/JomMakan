@@ -156,6 +156,7 @@
                     android:background="@drawable/my_wallet_background" />
 
                 <ImageButton
+                    android:id="@+id/top_up_button"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentStart="true"
@@ -164,10 +165,17 @@
                     android:layout_marginStart="170dp"
                     android:layout_marginEnd="170dp"
                     android:background="@drawable/add_icon_shape2"
-                    android:src="@drawable/add_icon" />
+                    android:src="@drawable/add_icon"
+                    android:onClick="show_TopUpDialog"/>
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp">
+
+            </LinearLayout>
 
         </LinearLayout>
 
