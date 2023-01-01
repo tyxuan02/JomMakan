@@ -13,6 +13,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -30,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     FoodDatabase foodDatabase;
     LocationDatabase locationDatabase;
     StallDatabase stallDatabase;
+    CartItemDatabase cartItemDatabase;
+
+    ArrayList<CartFood> cart_food_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
         addFood();
         addLocation();
         addStall();
+//        addCartItem();
+//        getCartItems();
+//        updateCartItems();
+//        delete();
+//        deleteWhole();
     }
 
     // Bottom Navigation Bar
@@ -89,36 +98,36 @@ public class MainActivity extends AppCompatActivity {
 
         Food food1 = new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
         Food food2 = new Food("Nasi Goreng Kampung", "Kolej Kediaman Abdul Rahman", "Restoran Ali", 5.00, description_list, R.drawable.top_5_image, open_close_list1);
-        Food food3 = new Food("Nasi Goreng Cina", "Kolej Kediaman Pertama", "Restoran Abu", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
+        Food food3 = new Food("Nasi Goreng Cina", "Kolej Kediaman Kinabalu", "Restoran Famidah", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
         Food food4 = new Food("Nasi Lemak", "Faculty of Computer Science and Information Technology", "UM Bumbung", 7.00, description_list, R.drawable.top_5_image, open_close_list1);
-        Food food5 = new Food("Roti Canai", "Kolej Kediaman Ke-12", "Ali Food Corner", 2.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
+        Food food5 = new Food("Roti Canai", "Kolej Kediaman Kinabalu", "Restoran Famidah", 2.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
         Food food6 = new Food("Roti Telur", "Faculty of Engineering", "Restoran Bistro", 3.00, description_list, R.drawable.top_5_image, open_close_list1);
         Food food100 = new Food("Nasi Kukus", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
 
         // For testing purpose
-//        Food food7 = new Food("Nasi Goreng a", "Kolej Kediaman Kinabalu", "Restoran Famidah", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-//        Food food8 = new Food("Nasi Goreng Kampung b", "Kolej Kediaman Abdul Rahman", "Restoran Ali", 5.00, description_list, R.drawable.top_5_image, open_close_list1);
-//        Food food9 = new Food("Nasi Goreng Cina c", "Kolej Kediaman Pertama", "Restoran Abu", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-//        Food food10 = new Food("Nasi Lemak d", "Faculty of Computer Science and Information Technology", "UM Bumbung", 7.00, description_list, R.drawable.top_5_image, open_close_list1);
-//        Food food11 = new Food("Roti Canai e", "Kolej Kediaman Ke-12", "Ali Food Corner", 2.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-//        Food food12 = new Food("Roti Telur f", "Faculty of Engineering", "Restoran Bistro", 3.00, description_list, R.drawable.top_5_image, open_close_list1);
-//
-//        Food food13 = new Food("Nasi Goreng g", "Kolej Kediaman Kinabalu", "Restoran Famidah", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-//        Food food14= new Food("Nasi Goreng Kampung h", "Kolej Kediaman Abdul Rahman", "Restoran Ali", 5.00, description_list, R.drawable.top_5_image, open_close_list1);
-//        Food food15 = new Food("Nasi Goreng Cina i", "Kolej Kediaman Pertama", "Restoran Abu", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-//        Food food16 = new Food("Nasi Lemak j", "Faculty of Computer Science and Information Technology", "UM Bumbung", 7.00, description_list, R.drawable.top_5_image, open_close_list1);
-//        Food food17 = new Food("Roti Canai k", "Kolej Kediaman Ke-12", "Ali Food Corner", 2.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-//        Food food18 = new Food("Roti Telur l", "Faculty of Engineering", "Restoran Bistro", 3.00, description_list, R.drawable.top_5_image, open_close_list1);
-//
-//        Food food19 = new Food("Nasi Goreng m", "Kolej Kediaman Kinabalu", "Restoran Famidah", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-//        Food food20= new Food("Nasi Goreng Kampung n", "Kolej Kediaman Abdul Rahman", "Restoran Ali", 5.00, description_list, R.drawable.top_5_image, open_close_list1);
-//        Food food21 = new Food("Nasi Goreng Cina o", "Kolej Kediaman Pertama", "Restoran Abu", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-//        Food food22 = new Food("Nasi Lemak p", "Faculty of Computer Science and Information Technology", "UM Bumbung", 7.00, description_list, R.drawable.top_5_image, open_close_list1);
-//        Food food23 = new Food("Roti Canai q", "Kolej Kediaman Ke-12", "Ali Food Corner", 2.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-//        Food food24 = new Food("Roti Telur r", "Faculty of Engineering", "Restoran Bistro", 3.00, description_list, R.drawable.top_5_image, open_close_list1);
+        Food food7 = new Food("Nasi Goreng a", "Kolej Kediaman Kinabalu", "Restoran Famidah", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
+        Food food8 = new Food("Nasi Goreng Kampung b", "Kolej Kediaman Abdul Rahman", "Restoran Ali", 5.00, description_list, R.drawable.top_5_image, open_close_list1);
+        Food food9 = new Food("Nasi Goreng Cina c", "Kolej Kediaman Pertama", "Restoran Abu", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
+        Food food10 = new Food("Nasi Lemak d", "Faculty of Computer Science and Information Technology", "UM Bumbung", 7.00, description_list, R.drawable.top_5_image, open_close_list1);
+        Food food11 = new Food("Roti Canai e", "Kolej Kediaman Ke-12", "Ali Food Corner", 2.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
+        Food food12 = new Food("Roti Telur f", "Faculty of Engineering", "Restoran Bistro", 3.00, description_list, R.drawable.top_5_image, open_close_list1);
+
+        Food food13 = new Food("Nasi Goreng g", "Kolej Kediaman Kinabalu", "Restoran Famidah", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
+        Food food14= new Food("Nasi Goreng Kampung h", "Kolej Kediaman Abdul Rahman", "Restoran Ali", 5.00, description_list, R.drawable.top_5_image, open_close_list1);
+        Food food15 = new Food("Nasi Goreng Cina i", "Kolej Kediaman Pertama", "Restoran Abu", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
+        Food food16 = new Food("Nasi Lemak j", "Faculty of Computer Science and Information Technology", "UM Bumbung", 7.00, description_list, R.drawable.top_5_image, open_close_list1);
+        Food food17 = new Food("Roti Canai k", "Kolej Kediaman Ke-12", "Ali Food Corner", 2.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
+        Food food18 = new Food("Roti Telur l", "Faculty of Engineering", "Restoran Bistro", 3.00, description_list, R.drawable.top_5_image, open_close_list1);
+
+        Food food19 = new Food("Nasi Goreng m", "Kolej Kediaman Kinabalu", "Restoran Famidah", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
+        Food food20= new Food("Nasi Goreng Kampung n", "Kolej Kediaman Abdul Rahman", "Restoran Ali", 5.00, description_list, R.drawable.top_5_image, open_close_list1);
+        Food food21 = new Food("Nasi Goreng Cina o", "Kolej Kediaman Pertama", "Restoran Abu", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
+        Food food22 = new Food("Nasi Lemak p", "Faculty of Computer Science and Information Technology", "UM Bumbung", 7.00, description_list, R.drawable.top_5_image, open_close_list1);
+        Food food23 = new Food("Roti Canai q", "Kolej Kediaman Ke-12", "Ali Food Corner", 2.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
+        Food food24 = new Food("Roti Telur r", "Faculty of Engineering", "Restoran Bistro", 3.00, description_list, R.drawable.top_5_image, open_close_list1);
 
         foodDatabase.foodDAO().insertAll(food1, food2, food3, food4, food5, food6, food100);
-        // food7, food8, food9, food10, food11, food12, food12, food14, food15, food16, food17, food18, food19, food20, food21, food22, food23, food24);
+//         food7, food8, food9, food10, food11, food12, food12, food14, food15, food16, food17, food18, food19, food20, food21, food22, food23, food24);
     }
 
     // Add locations into database
@@ -184,7 +193,48 @@ public class MainActivity extends AppCompatActivity {
         Stall stall4 = new Stall("Restoran Abu", "Kolej Kediaman Kinabalu", food_name_list, "Good for gathering", R.drawable.restoran_famidah_image, open_close_list1);
         Stall stall5 = new Stall("Ali Food Corner", "Faculty of Computer Science and Information Technology", food_name_list, "Nerd gathering place", R.drawable.restoran_famidah_image, open_close_list);
         Stall stall6 = new Stall("UM Bumbung", "Faculty of Computer Science and Information Technology", food_name_list, "Nerd gathering place", R.drawable.restoran_famidah_image, open_close_list1);
+        Stall stall7 = new Stall("Restoran Ali", "Kolej Kediaman Abdul Rahman", food_name_list, "Good for gathering", R.drawable.restoran_famidah_image, open_close_list);
 
-        stallDatabase.stallDAO().insertAll(stall1, stall2, stall3, stall4, stall5, stall6);
+        stallDatabase.stallDAO().insertAll(stall1, stall2, stall3, stall4, stall5, stall6, stall7);
     }
+
+//    private void addCartItem() {
+//        String email = "sdjkfh";
+//        String stall = "Restoran";
+//        String location = "KK8";
+//        ArrayList<CartFood> cartFoodArrayList = new ArrayList<>();
+//        CartFood cartFood1 = new CartFood("nasi", 1, 2.00);
+//        CartFood cartFood2 = new CartFood("nasi1", 2, 3.00);
+//        CartFood cartFood3 = new CartFood("nasi2", 3, 5.00);
+//        cartFoodArrayList.add(cartFood1);
+//        cartFoodArrayList.add(cartFood2);
+//        cartFoodArrayList.add(cartFood3);
+//
+//        cartItemDatabase.cartItemDAO().insertCartItem(new CartItem(email, location, stall, cartFoodArrayList));
+//        cartItemDatabase.cartItemDAO().insertCartItem(new CartItem("email", location, stall, cartFoodArrayList));
+//    }
+//
+
+//
+//    private void updateCartItems() {
+//        CartItem cartItem = cartItemDatabase.cartItemDAO().getCartItem("sdjkfh", "KK8", "Restoran");
+//        String food = "nasi2";
+//        for (int i = 0; i < cart_food_list.size(); i++) {
+//            if (cart_food_list.get(i).getFood_name().equals(food)) {
+//                cart_food_list.get(i).setQuantity(222);
+//                break;
+//            }
+//        }
+//        cartItemDatabase.cartItemDAO().updateCartItem("sdjkfh", "KK8", "Restoran", cart_food_list);
+//    }
+//
+//    private void delete() {
+//        CartItem cartItem = cartItemDatabase.cartItemDAO().getCartItem("sdjkfh", "KK8", "Restoran");
+//        cartItem.getCart_food_list().remove(1);
+//        cartItemDatabase.cartItemDAO().updateCartItem("sdjkfh", "KK8", "Restoran", cartItem.getCart_food_list());
+//    }
+//
+//    private void deleteWhole() {
+//        cartItemDatabase.cartItemDAO().deleteCartItem("email", "KK8", "Restoran");
+//    }
 }

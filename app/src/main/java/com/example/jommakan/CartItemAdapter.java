@@ -25,10 +25,10 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.MyView
 
     private void calcTotalPrice (CartItem cartItem) {
         double tempTotalPrice = 0;
-        for (int i=0; i<getItemCount(); i++) {
-            tempTotalPrice = cartItem.getSelected_food_quantity().get(i) * cartItem.getSelected_food_price().get(i);
-            totalPrice += tempTotalPrice;
-        }
+//        for (int i=0; i<getItemCount(); i++) {
+//            tempTotalPrice = cartItem.getSelected_food_quantity().get(i) * cartItem.getSelected_food_price().get(i);
+//            totalPrice += tempTotalPrice;
+//        }
     }
     @NonNull
     @Override
@@ -41,9 +41,9 @@ public class CartItemAdapter extends RecyclerView.Adapter<CartItemAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull CartItemAdapter.MyViewHolder holder, int position) {
         holder.tvRestaurantName.setText(cartItem.get(position).getStall());
-        holder.tvItemName.setText((CharSequence) cartItem.get(position).getSelected_food_name());
-        holder.tvItemQuantity.setText((CharSequence) cartItem.get(position).getSelected_food_quantity());
-        holder.tvItemPrice.setText((CharSequence) cartItem.get(position).getSelected_food_price());
+//        holder.tvItemName.setText((CharSequence) cartItem.get(position).getSelected_food_name());
+//        holder.tvItemQuantity.setText((CharSequence) cartItem.get(position).getSelected_food_quantity());
+//        holder.tvItemPrice.setText((CharSequence) cartItem.get(position).getSelected_food_price());
         holder.tvTotalPrice.setText((int) totalPrice);
     }
 

@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +34,8 @@ public class StallFragment extends Fragment {
     ArrayList<Food> food_list;
     StallFoodItemAdapter stallFoodItemAdapter;
     RecyclerView food_recycle_view;
+    Stall stall;
+    StallDatabase stallDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,15 +62,21 @@ public class StallFragment extends Fragment {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().onBackPressed();
+                Bundle bundle = new Bundle();
+                bundle.putString("location_name", stall.getLocation());
+                Navigation.findNavController(v).navigate(R.id.DestMenuStall, bundle);
             }
         });
 
         // Database connection
         foodDatabase = Room.databaseBuilder(getActivity(), FoodDatabase.class, "FoodDB").allowMainThreadQueries().build();
+        stallDatabase = Room.databaseBuilder(getActivity(), StallDatabase.class, "StallDB").allowMainThreadQueries().build();
+
 
         // Extract the data from the bundle (Determine which location user has chosen)
-        Stall stall = (Stall) getArguments().getSerializable("stall");
+        String selected_stall_name = getArguments().getString("selected_stall_name");
+        String selected_location_name = getArguments().getString("selected_location_name");
+        getStall(selected_location_name, selected_stall_name);
 
         stall_image.setImageResource(stall.getStall_image());
         location_name.setText(stall.getLocation());
@@ -78,7 +87,7 @@ public class StallFragment extends Fragment {
 
         // Get all stalls in a location from database
         food_list = new ArrayList<>();
-        getStall(stall.getStall_name(), stall.getLocation());
+        getAllStalls(stall.getStall_name(), stall.getLocation());
 
         // Prepare recycle view and adapter to display all food in a stall
         stallFoodItemAdapter = new StallFoodItemAdapter(getContext(), food_list);
@@ -89,7 +98,7 @@ public class StallFragment extends Fragment {
         food_recycle_view.setAdapter(stallFoodItemAdapter);
     }
 
-    private void getStall(String location, String stall_name) {
+    private void getAllStalls(String location, String stall_name) {
         food_list.addAll(foodDatabase.foodDAO().getStallFood(location, stall_name));
     }
 
@@ -128,5 +137,9 @@ public class StallFragment extends Fragment {
         }
 
         return result;
+    }
+
+    private void getStall(String location_name, String stall_name) {
+        stall = stallDatabase.stallDAO().getStall(location_name, stall_name);
     }
 }

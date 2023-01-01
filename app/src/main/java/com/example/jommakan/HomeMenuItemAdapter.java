@@ -14,7 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 // Adapter for menu on homepage
@@ -23,11 +25,17 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
     Context context;
     ArrayList<Food> food_list;
     LayoutInflater layoutInflater;
+    CartItem cartItem;
+    ArrayList<CartFood> cart_food_list;
+    CartItemDatabase cartItemDatabase;
 
     public HomeMenuItemAdapter (Context context, ArrayList<Food> food_list) {
         this.context = context;
         this.food_list = food_list;
         this.layoutInflater = LayoutInflater.from(context);
+
+        // Database connection
+        cartItemDatabase = Room.databaseBuilder(context, CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
     }
 
     @NonNull
@@ -49,7 +57,11 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
             public void onClick(View v) {
                 // Pass data between fragments using bundle
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("food", food_list.get(position));
+                bundle.putSerializable("food", (Serializable) food_list.get(position));
+                getCartFoodList(food_list.get(position).getLocation(), food_list.get(position).getStall());
+                bundle.putSerializable("cart_food_list", (Serializable) cart_food_list);
+                bundle.putString("stall", food_list.get(position).getStall());
+                bundle.putString("location", food_list.get(position).getLocation());
                 Navigation.findNavController(v).navigate(R.id.DestFood, bundle);
             }
         });
@@ -76,6 +88,16 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
             home_menu_card_view_food_stall = itemView.findViewById(R.id.home_menu_card_view_food_stall);
             home_menu_card_view_food_price = itemView.findViewById(R.id.home_menu_card_view_food_price);
             home_menu_item_card_view = itemView.findViewById(R.id.home_menu_item_card_view);
+        }
+    }
+
+    // Get the food of that stall that user has added to cart from database
+    private void getCartFoodList(String location, String stall) {
+        cartItem = cartItemDatabase.cartItemDAO().getCartItem("user@gmail.com", location, stall);
+        if (cartItem == null) {
+            cart_food_list = new ArrayList<>();
+        } else {
+            cart_food_list = cartItem.getCart_food_list();
         }
     }
 }

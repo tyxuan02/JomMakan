@@ -14,9 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.google.android.material.imageview.ShapeableImageView;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
@@ -30,12 +32,18 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
     ArrayList<Food> food_list;
     LayoutInflater layoutInflater;
     Date currentTime, open, close;
+    CartItem cartItem;
+    ArrayList<CartFood> cart_food_list;
+    CartItemDatabase cartItemDatabase;
 
     public MenuFoodItemAdapter(ArrayList<Food> food_list, Context context) {
         this.food_list = food_list;
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.food_list_all = new ArrayList<>(food_list);
+
+        // Database connection
+        cartItemDatabase = Room.databaseBuilder(context, CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
     }
 
     @NonNull
@@ -69,7 +77,11 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
             public void onClick(View v) {
                 // Pass data between fragments using bundle
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("food", food_list.get(position));
+                bundle.putSerializable("food", (Serializable) food_list.get(position));
+                getCartFoodList(food_list.get(position).getLocation(), food_list.get(position).getStall());
+                bundle.putSerializable("cart_food_list", (Serializable) cart_food_list);
+                bundle.putString("stall", food_list.get(position).getStall());
+                bundle.putString("location", food_list.get(position).getLocation());
                 Navigation.findNavController(v).navigate(R.id.DestFood, bundle);
             }
         });
@@ -159,5 +171,15 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
         currentTime = time.getTime();
         open = time1.getTime();
         close = time2.getTime();
+    }
+
+    // Get the food of that stall that user has added to cart from database
+    private void getCartFoodList(String location, String stall) {
+        cartItem = cartItemDatabase.cartItemDAO().getCartItem("user@gmail.com", location, stall);
+        if (cartItem == null) {
+            cart_food_list = new ArrayList<>();
+        } else {
+            cart_food_list = cartItem.getCart_food_list();
+        }
     }
 }

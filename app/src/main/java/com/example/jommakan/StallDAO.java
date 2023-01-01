@@ -15,4 +15,7 @@ public interface StallDAO {
 
     @Query("SELECT * FROM Stall WHERE location = :location")
     List<Stall> getAllStalls(String location);
+
+    @Query("SELECT * FROM Stall WHERE location = :location AND stall_name = :stall_name")
+    Stall getStall(String location, String stall_name);
 }

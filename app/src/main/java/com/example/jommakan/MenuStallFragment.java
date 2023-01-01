@@ -1,14 +1,19 @@
 package com.example.jommakan;
 
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -17,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,7 +64,8 @@ public class MenuStallFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().onBackPressed();
+                NavController navController = Navigation.findNavController(getActivity(), R.id.fragment_container);
+                navController.navigate(R.id.DestMenu, null, new NavOptions.Builder().setPopUpTo(R.id.DestMenu, false).build());
             }
         });
 
@@ -87,5 +94,18 @@ public class MenuStallFragment extends Fragment {
     // Get all locations from database
     private void getAllStalls(String location) {
         stall_list.addAll(stallDatabase.stallDAO().getAllStalls(location));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),
+                new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        NavController navController = Navigation.findNavController(getActivity(), R.id.fragment_container);
+                        navController.navigate(R.id.DestMenu, null, new NavOptions.Builder().setPopUpTo(R.id.DestMenu, false).build());
+                    }
+                });
     }
 }

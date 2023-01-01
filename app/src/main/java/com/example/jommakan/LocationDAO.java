@@ -16,6 +16,6 @@ public interface LocationDAO {
     @Query("SELECT * FROM Location")
     List<Location> getAllLocations();
 
-    @Query("SELECT * FROM Location ORDER BY random() LIMIT 3")
+    @Query("SELECT * FROM Location LIMIT 3")
     List<Location> getRandomLocations();
 }

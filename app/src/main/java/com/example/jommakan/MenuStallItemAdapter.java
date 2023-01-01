@@ -63,7 +63,8 @@ public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdap
             public void onClick(View v) {
                 // Pass data between fragments using bundle
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("stall", (Serializable) stall_list.get(position));
+                bundle.putString("selected_stall_name", stall_list.get(position).getStall_name());
+                bundle.putString("selected_location_name", stall_list.get(position).getLocation());
                 Navigation.findNavController(v).navigate(R.id.DestStall, bundle);
             }
         });

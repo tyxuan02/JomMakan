@@ -2,10 +2,15 @@ package com.example.jommakan;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +19,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -28,14 +37,19 @@ public class FoodFragment extends Fragment {
     TextView food_price;
     TextView food_description;
     Date currentTime, open, close;
-    View shadow_background;
-    TextView not_available_text;
     ImageButton decrement_button, increment_button;
     TextView quantity;
     Button add_to_cart_button;
     TextView quantity_text;
+    TextView unavailable_text_view;
+    CartItem cart_item;
+    ArrayList<CartFood> cart_food_list;
+    CartItemDatabase cartItemDatabase;
+    Food chosen_food;
+    String chosen_location_name;
+    String chosen_stall_name;
 
-    int count = 1;
+    int count;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -52,13 +66,15 @@ public class FoodFragment extends Fragment {
         food_name = view.findViewById(R.id.food_name);
         food_price = view.findViewById(R.id.food_price);
         food_description = view.findViewById(R.id.food_description);
-        shadow_background = view.findViewById(R.id.shadow_background);
-        not_available_text = view.findViewById(R.id.not_available_text);
         decrement_button = view.findViewById(R.id.decrement_button);
         increment_button = view.findViewById(R.id.increment_button);
         quantity = view.findViewById(R.id.quantity);
         add_to_cart_button = view.findViewById(R.id.add_to_cart_button);
         quantity_text = view.findViewById(R.id.quantity_text);
+        unavailable_text_view = view.findViewById(R.id.unavailable_text_view);
+
+        // Database connection
+        cartItemDatabase = Room.databaseBuilder(getActivity(), CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
 
         // Hide top navigation bar
         Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
@@ -73,40 +89,41 @@ public class FoodFragment extends Fragment {
         });
 
         // Extract the data from the bundle (Determine which food user has chosen)
-        Food food = (Food) getArguments().getSerializable("food");
+        chosen_food = (Food) getArguments().getSerializable("food");
+        cart_food_list = (ArrayList<CartFood>) getArguments().getSerializable("cart_food_list");
+        chosen_location_name = getArguments().getString("location");
+        chosen_stall_name = getArguments().getString("stall");
 
-        food_image.setImageResource(food.getImage());
-        food_name.setText(food.getName());
-        food_price.setText("RM " + String.format("%.2f", food.getPrice()));
+        food_image.setImageResource(chosen_food.getImage());
+        food_name.setText(chosen_food.getName());
+        food_price.setText("RM " + String.format("%.2f", chosen_food.getPrice()));
 
         String description = "";
-        for (String desc: food.getDescription()) {
+        for (String desc: chosen_food.getDescription()) {
             description += "- " + desc + "\n";
         }
         food_description.setText(description);
 
-        checkOpenClose(food.getOpenAndClose().get(0), food.getOpenAndClose().get(1));
+        count = getFoodQuantityInCartItem();
+        checkOpenClose(chosen_food.getOpenAndClose().get(0), chosen_food.getOpenAndClose().get(1));
         if (currentTime.after(open) && currentTime.before(close)) {
-            shadow_background.setVisibility(View.INVISIBLE);
-            not_available_text.setVisibility(View.INVISIBLE);
-
             // Display increment, decrement and add to cart buttons
             increment_button.setVisibility(View.VISIBLE);
             decrement_button.setVisibility(View.VISIBLE);
             add_to_cart_button.setVisibility(View.VISIBLE);
             quantity.setVisibility(View.VISIBLE);
             quantity_text.setVisibility(View.VISIBLE);
-            quantity.setText("1");
+            quantity.setVisibility(View.VISIBLE);
+            quantity.setText(String.valueOf(count));
+            unavailable_text_view.setVisibility(View.INVISIBLE);
         } else {
-            shadow_background.setVisibility(View.VISIBLE);
-            not_available_text.setVisibility(View.VISIBLE);
-
             // Hide increment, decrement and add to cart buttons
             increment_button.setVisibility(View.INVISIBLE);
             decrement_button.setVisibility(View.INVISIBLE);
             add_to_cart_button.setVisibility(View.INVISIBLE);
             quantity.setVisibility(View.INVISIBLE);
             quantity_text.setVisibility(View.INVISIBLE);
+            unavailable_text_view.setVisibility(View.VISIBLE);
         }
 
         // Increment, decrement and add to cart buttons
@@ -130,14 +147,74 @@ public class FoodFragment extends Fragment {
             }
         });
 
+        // Check if the food from that stall is already in the cart item
+        // -1 means the food from that stall is not in the cart item
+        int index = checkIfFoodExistInCartItem();
+        if (index != -1) {
+            add_to_cart_button.setText("Update");
+        } else {
+            add_to_cart_button.setText("Add To Cart");
+        }
         add_to_cart_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Add to cart after user clicks it
+                if (checkNumberOfFoodInCartItem() == 0) {
+                    // If there are no food from that stall in the cart item
+                    if (Integer.parseInt(quantity.getText().toString()) == 0) {
+                        Toast.makeText(getActivity(), "Please make sure to select a quantity for the food that is greater than zero", Toast.LENGTH_SHORT).show();
+                    } else {
+                        changeFoodQuantityInCartItem(index);
+                        cartItemDatabase.cartItemDAO().insertCartItem(new CartItem("user@gmail.com", chosen_food.getLocation(), chosen_food.getStall(), cart_food_list));
+                        Toast.makeText(getActivity(), "The food has been added to the cart", Toast.LENGTH_SHORT).show();
+                    }
+                } else if (checkNumberOfFoodInCartItem() < 3) {
+                    // If there are 1 to 2 food from that stall in the cart
+                    if (Integer.parseInt(quantity.getText().toString()) == 0) {
+                        if (index != -1) {
+                            removeFoodFromCartItem(index);
+                            Toast.makeText(getActivity(), "The food has been removed from the cart", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "Please make sure to select a quantity for the food that is greater than zero", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), "The food has been added to the cart", Toast.LENGTH_SHORT).show();
+                        changeFoodQuantityInCartItem(index);
+                    }
+
+                    if (cart_food_list.size() == 0) {
+                        cartItemDatabase.cartItemDAO().deleteCartItem("user@gmail.com", chosen_food.getLocation(), chosen_food.getStall());
+                    } else {
+                        cartItemDatabase.cartItemDAO().updateCartItem("user@gmail.com", chosen_food.getLocation(), chosen_food.getStall(), cart_food_list);
+                    }
+
+                } else if (checkNumberOfFoodInCartItem() == 3) {
+                    // If there are 3 food from that stall in the cart
+                    if (index != -1) {
+                        // If the food from that stall is already in the cart
+                        if (Integer.parseInt(quantity.getText().toString()) == 0) {
+                            removeFoodFromCartItem(index);
+                            Toast.makeText(getActivity(), "The food has been removed from the cart", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), "The food has been added to the cart", Toast.LENGTH_SHORT).show();
+                            changeFoodQuantityInCartItem(index);
+                        }
+                        cartItemDatabase.cartItemDAO().updateCartItem("user@gmail.com", chosen_food.getLocation(), chosen_food.getStall(), cart_food_list);
+
+                    } else {
+                        // If the user wants to add more food of that stall to cart item
+                        Toast.makeText(getActivity(), "You can only add 3 different food from each store to cart", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("selected_location_name", chosen_location_name);
+                bundle.putSerializable("selected_stall_name", chosen_stall_name);
+                Navigation.findNavController(v).navigate(R.id.DestStall, bundle, new NavOptions.Builder().setPopUpTo(R.id.DestStall, true).build());
             }
         });
     }
 
+    // Check if the stall is open or close
     private void checkOpenClose(String openTime, String closeTime) {
         SimpleDateFormat format = new SimpleDateFormat("h.mm a");
         Calendar time = Calendar.getInstance();
@@ -162,5 +239,43 @@ public class FoodFragment extends Fragment {
         currentTime = time.getTime();
         open = time1.getTime();
         close = time2.getTime();
+    }
+
+    // Check if the number of food from that stall in the cart item
+    private int checkNumberOfFoodInCartItem() {
+        return cart_food_list.size();
+    }
+
+    // Check if the food from that stall is already in the cart item
+    private int checkIfFoodExistInCartItem() {
+        for (int i = 0; i < cart_food_list.size(); i++) {
+            if (cart_food_list.get(i).food_name.equals(chosen_food.getName())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private int getFoodQuantityInCartItem() {
+        int index = checkIfFoodExistInCartItem();
+        if (index == -1) {
+            return 1;
+        } else {
+            return cart_food_list.get(index).getQuantity();
+        }
+    }
+
+    // Change the quantity of a food from that stall in the cart item
+    private void changeFoodQuantityInCartItem(int index) {
+        if (index == -1) {
+            cart_food_list.add(new CartFood(chosen_food.getName(), Integer.parseInt(String.valueOf(quantity.getText())), chosen_food.price));
+        } else {
+            cart_food_list.get(index).setQuantity(Integer.parseInt(String.valueOf(quantity.getText())));
+        }
+    }
+
+    // Remove the food from that stall from cart item
+    private void removeFoodFromCartItem(int index) {
+        cart_food_list.remove(index);
     }
 }
