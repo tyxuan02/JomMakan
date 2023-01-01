@@ -71,6 +71,7 @@ public class AccountFragment extends Fragment {
 
                 if(id == R.id.reportAnIssue){
                     Toast.makeText(getActivity(), "Report", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getActivity(), ReportPage.class));
                 }
                 return true;
 
