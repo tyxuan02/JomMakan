@@ -62,9 +62,7 @@ public class StallFragment extends Fragment {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("location_name", stall.getLocation());
-                Navigation.findNavController(v).navigate(R.id.DestMenuStall, bundle);
+                getActivity().onBackPressed();
             }
         });
 

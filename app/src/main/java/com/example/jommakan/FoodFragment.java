@@ -206,10 +206,7 @@ public class FoodFragment extends Fragment {
                     }
                 }
 
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("selected_location_name", chosen_location_name);
-                bundle.putSerializable("selected_stall_name", chosen_stall_name);
-                Navigation.findNavController(v).navigate(R.id.DestStall, bundle, new NavOptions.Builder().setPopUpTo(R.id.DestStall, true).build());
+                getActivity().onBackPressed();
             }
         });
     }
