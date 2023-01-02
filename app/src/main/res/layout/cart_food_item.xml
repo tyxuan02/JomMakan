@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="10dp">
+
+    <TextView
+        android:id="@+id/cart_food_name"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:text="1. Nasi Goreng Kampung"
+        android:textColor="#80000000"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/decrement_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="-"
+            android:textColor="#80000000"
+            android:textSize="14sp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"/>
+
+        <TextView
+            android:id="@+id/quantity"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:text="10"
+            android:textColor="#80000000"
+            android:textSize="14sp"
+            android:maxLines="1"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/increment_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="+"
+            android:textColor="#80000000"
+            android:textSize="14sp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/cart_food_price"
+        android:text="555.55"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/montserrat"
+        android:textColor="#80000000"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:gravity="center"
+        android:layout_marginStart="20dp"/>
+</LinearLayout>

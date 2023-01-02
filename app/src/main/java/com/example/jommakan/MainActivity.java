@@ -107,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
         Food food100 = new Food("Nasi Kukus", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
 
         foodDatabase.foodDAO().insertAll(food1, food2, food3, food4, food5, food6, food100);
-//         food7, food8, food9, food10, food11, food12, food12, food14, food15, food16, food17, food18, food19, food20, food21, food22, food23, food24);
     }
 
     // Add locations into database
