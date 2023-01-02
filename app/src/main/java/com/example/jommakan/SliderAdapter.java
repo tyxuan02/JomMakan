@@ -1,5 +1,6 @@
 package com.example.jommakan;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.navigation.Navigation;
+import androidx.room.Room;
 
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
@@ -16,9 +18,18 @@ import java.util.ArrayList;
 // Slider Adapter for Top 5 Food on homepage
 public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder> {
 
+    CartItemDatabase cartItemDatabase;
     ArrayList<Food> food_list;
-    public SliderAdapter (ArrayList<Food> food_list) {
+    Context context;
+    CartItem cartItem;
+    ArrayList<CartFood> cart_food_list;
+
+    public SliderAdapter (ArrayList<Food> food_list, Context context) {
         this.food_list = food_list;
+        this.context = context;
+
+        // Database connection
+        cartItemDatabase = Room.databaseBuilder(context, CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
     }
 
     @Override
@@ -37,6 +48,10 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder> {
                 // Pass data between fragments using bundle
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("food", (Serializable) food_list.get(position));
+                getCartFoodList(food_list.get(position).getLocation(), food_list.get(position).getStall());
+                bundle.putSerializable("cart_food_list", (Serializable) cart_food_list);
+                bundle.putString("stall", food_list.get(position).getStall());
+                bundle.putString("location", food_list.get(position).getLocation());
                 Navigation.findNavController(v).navigate(R.id.DestFood, bundle);
             }
         });
@@ -55,6 +70,16 @@ public class SliderAdapter extends SliderViewAdapter<SliderAdapter.Holder> {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.top_5_image_view);
+        }
+    }
+
+    // Get the food of that stall that user has added to cart from database
+    private void getCartFoodList(String location, String stall) {
+        cartItem = cartItemDatabase.cartItemDAO().getCartItem("user@gmail.com", location, stall);
+        if (cartItem == null) {
+            cart_food_list = new ArrayList<>();
+        } else {
+            cart_food_list = cartItem.getCart_food_list();
         }
     }
 }

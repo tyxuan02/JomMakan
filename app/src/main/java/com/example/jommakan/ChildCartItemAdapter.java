@@ -29,6 +29,8 @@ public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdap
         this.stall = stall;
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
+
+        // Database connection
         cartItemDatabase = Room.databaseBuilder(context, CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
     }
 
@@ -104,7 +106,6 @@ public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdap
         for (int i = 0; i < cart_food_list.size(); i++) {
             if (cart_food_list.get(i).getQuantity() <= 0) {
                 cart_food_list.remove(i);
-                break;
             }
         }
 

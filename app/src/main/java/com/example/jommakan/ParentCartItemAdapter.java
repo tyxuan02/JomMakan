@@ -7,8 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
@@ -73,9 +75,14 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
             holder.cart_pay_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    cartItemDatabase.cartItemDAO().deleteCartItem("user@gmail.com", cart_item_list.get(position).getLocation(), cart_item_list.get(position).getStall());
+                    holder.cart_item_card_view.setVisibility(View.GONE);
 
+                    // Todo: Purchase Pop Up Window
                 }
             });
+        } else {
+            holder.cart_item_card_view.setVisibility(View.GONE);
         }
     }
 
@@ -85,6 +92,7 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
+        CardView cart_item_card_view;
         TextView location_and_stall_name;
         RecyclerView cart_food_recycle_view;
         TextView edit_button;
@@ -94,6 +102,7 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            cart_item_card_view = itemView.findViewById(R.id.cart_item_card_view);
             location_and_stall_name = itemView.findViewById(R.id.location_and_stall_name);
             cart_food_recycle_view = itemView.findViewById(R.id.cart_food_recycle_view);
             edit_button = itemView.findViewById(R.id.edit_button);

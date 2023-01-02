@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment {
         top_5_food_list = new ArrayList<>();
         getTop5Food();
         // Top 5 Slider
-        sliderAdapter = new SliderAdapter(top_5_food_list);
+        sliderAdapter = new SliderAdapter(top_5_food_list, getActivity());
         top_5_image_slider = view.findViewById(R.id.top_5_image_slider);
         top_5_image_slider.setSliderAdapter(sliderAdapter);
         top_5_image_slider.setIndicatorAnimation(IndicatorAnimationType.WORM);

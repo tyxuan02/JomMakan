@@ -167,6 +167,7 @@ public class FoodFragment extends Fragment {
                         cartItemDatabase.cartItemDAO().insertCartItem(new CartItem("user@gmail.com", chosen_food.getLocation(), chosen_food.getStall(), cart_food_list));
                         Toast.makeText(getActivity(), "The food has been added to the cart", Toast.LENGTH_SHORT).show();
                     }
+                    getActivity().onBackPressed();
                 } else if (checkNumberOfFoodInCartItem() < 3) {
                     // If there are 1 to 2 food from that stall in the cart
                     if (Integer.parseInt(quantity.getText().toString()) == 0) {
@@ -186,7 +187,7 @@ public class FoodFragment extends Fragment {
                     } else {
                         cartItemDatabase.cartItemDAO().updateCartItem("user@gmail.com", chosen_food.getLocation(), chosen_food.getStall(), cart_food_list);
                     }
-
+                    getActivity().onBackPressed();
                 } else if (checkNumberOfFoodInCartItem() == 3) {
                     // If there are 3 food from that stall in the cart
                     if (index != -1) {
@@ -199,14 +200,12 @@ public class FoodFragment extends Fragment {
                             changeFoodQuantityInCartItem(index);
                         }
                         cartItemDatabase.cartItemDAO().updateCartItem("user@gmail.com", chosen_food.getLocation(), chosen_food.getStall(), cart_food_list);
-
+                        getActivity().onBackPressed();
                     } else {
                         // If the user wants to add more food of that stall to cart item
                         Toast.makeText(getActivity(), "You can only add 3 different food from each store to cart", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-                getActivity().onBackPressed();
             }
         });
     }
