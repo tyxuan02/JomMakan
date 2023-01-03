@@ -61,27 +61,34 @@ public class ReportPage extends AppCompatActivity {
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
             public void onActivityResult(Uri result) {
-                try{
-                    // Open an InputStream to read the image data
-                    InputStream inputStream = getContentResolver().openInputStream(result);
-                    // Load the image into a Bitmap
-                    Bitmap image = BitmapFactory.decodeStream(inputStream);
+                if(result!=null){
+                    try{
+                        // Open an InputStream to read the image data
+                        InputStream inputStream = getContentResolver().openInputStream(result);
+                        // Load the image into a Bitmap
+                        Bitmap image = BitmapFactory.decodeStream(inputStream);
 
-                    // Scale the image if it is larger than the maximum allowed size
-                    final int MAX_IMAGE_SIZE = 800; // Maximum image size, in pixels
-                    if (image.getWidth() > MAX_IMAGE_SIZE || image.getHeight() > MAX_IMAGE_SIZE) {
-                        float scaleFactor = Math.min((float) MAX_IMAGE_SIZE / image.getWidth(),
-                                (float) MAX_IMAGE_SIZE / image.getHeight());
-                        int newWidth = (int) (image.getWidth() * scaleFactor);
-                        int newHeight = (int) (image.getHeight() * scaleFactor);
-                        image = Bitmap.createScaledBitmap(image, newWidth, newHeight, false);
+                        // Scale the image if it is larger than the maximum allowed size
+                        final int MAX_IMAGE_SIZE = 800; // Maximum image size, in pixels
+                        if (image.getWidth() > MAX_IMAGE_SIZE || image.getHeight() > MAX_IMAGE_SIZE) {
+                            float scaleFactor = Math.min((float) MAX_IMAGE_SIZE / image.getWidth(),
+                                    (float) MAX_IMAGE_SIZE / image.getHeight());
+                            int newWidth = (int) (image.getWidth() * scaleFactor);
+                            int newHeight = (int) (image.getHeight() * scaleFactor);
+                            image = Bitmap.createScaledBitmap(image, newWidth, newHeight, false);
+                        }
+
+                        // Display the scaled Bitmap in the ImageView
+                        screenshot_image_view.setImageBitmap(image);
+                    }catch (FileNotFoundException e) {
+                        e.printStackTrace();
                     }
-
-                    // Display the scaled Bitmap in the ImageView
-                    screenshot_image_view.setImageBitmap(image);
-                }catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                }else{
+                    screenshot_image_button.setVisibility(View.VISIBLE);
+                    remove_screenshot_button.setVisibility(View.GONE);
+                    return;
                 }
+
 
 
             }
