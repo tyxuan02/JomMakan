@@ -18,15 +18,16 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class HomeFragment extends Fragment {
-
-    ArrayList<Location> location_list;
 
     // Top 5
     ArrayList<Food> top_5_food_list;
@@ -47,6 +48,13 @@ public class HomeFragment extends Fragment {
     ImageButton location_view_all_button;
     LocationDatabase locationDatabase;
 
+    // Random Food Picker
+    ShapeableImageView random_food_picker;
+    Food random_food;
+    CartItem cartItem;
+    CartItemDatabase cartItemDatabase;
+    ArrayList<CartFood> cart_food_list;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,6 +65,7 @@ public class HomeFragment extends Fragment {
     // Declare and assign views here
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         // Toolbar
         Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
         toolbar.setVisibility(View.VISIBLE);
@@ -69,6 +78,7 @@ public class HomeFragment extends Fragment {
         // Database connection
         foodDatabase = Room.databaseBuilder(getActivity(), FoodDatabase.class, "FoodDB").allowMainThreadQueries().build();
         locationDatabase = Room.databaseBuilder(getActivity(), LocationDatabase.class, "LocationDB").allowMainThreadQueries().build();
+        cartItemDatabase = Room.databaseBuilder(getActivity(), CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
 
         // Randomly get 5 food from database
         top_5_food_list = new ArrayList<>();
@@ -118,6 +128,23 @@ public class HomeFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.DestMenu);
             }
         });
+
+        // Random Food Picker
+        random_food_picker = view.findViewById(R.id.random_food_picker);
+        random_food = foodDatabase.foodDAO().getAllFood().get(new Random().nextInt(foodDatabase.foodDAO().getAllFood().size()));
+        random_food_picker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Pass data between fragments using bundle
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("food", (Serializable) random_food);
+                getCartFoodList(random_food.getLocation(), random_food.getStall());
+                bundle.putSerializable("cart_food_list", (Serializable) cart_food_list);
+                bundle.putString("stall", random_food.getStall());
+                bundle.putString("location", random_food.getLocation());
+                Navigation.findNavController(v).navigate(R.id.DestFood, bundle);
+            }
+        });
     }
 
     // Randomly get 5 food from database
@@ -127,12 +154,22 @@ public class HomeFragment extends Fragment {
 
     // Randomly get 3 food from database
     private void getThreeFood() {
-        menu_food_list.addAll(foodDatabase.foodDAO().getRandomFood());
+        menu_food_list.addAll(foodDatabase.foodDAO().getThreeFood());
     }
 
     // Randomly get 3 locations from database
     private void getThreeLocations() {
         menu_location_list.addAll(locationDatabase.locationDAO().getRandomLocations());
+    }
+
+    // Get the food of that stall that user has added to cart from database
+    private void getCartFoodList(String location, String stall) {
+        cartItem = cartItemDatabase.cartItemDAO().getCartItem("user@gmail.com", location, stall);
+        if (cartItem == null) {
+            cart_food_list = new ArrayList<>();
+        } else {
+            cart_food_list = cartItem.getCart_food_list();
+        }
     }
 }
 

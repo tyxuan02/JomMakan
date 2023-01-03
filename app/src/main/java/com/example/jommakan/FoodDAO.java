@@ -20,7 +20,7 @@ public interface FoodDAO {
     List<Food> getTop5Food();
 
     @Query("SELECT * FROM Food LIMIT 3")
-    List<Food> getRandomFood();
+    List<Food> getThreeFood();
 
     @Query("SELECT * FROM Food WHERE stall = :stall AND location = :location")
     List<Food> getStallFood(String stall, String location);
