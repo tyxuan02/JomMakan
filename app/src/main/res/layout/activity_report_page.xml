@@ -5,132 +5,140 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ReportPage"
-    android:paddingStart="30dp"
-    android:paddingEnd="30dp">
+    android:id="@+id/main_relative_layout">
+    <include
+        android:id="@+id/toolbarActivity"
+        layout="@layout/toolbar_activity"/>
 
-    <TextView
-        android:id="@+id/email_text_view"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your email address"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="16dp"
-        android:fontFamily="@font/montserrat"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
-
-    <EditText
-        android:id="@+id/email_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Email address"
-        android:inputType="textEmailAddress"
-        android:background="@drawable/email_rectangle"
-        android:layout_below="@id/email_text_view"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:padding="20dp"
-        android:textColorHint="#B2967D"
-        android:textSize="16dp"
-        android:fontFamily="@font/montserrat"/>
-
-    <TextView
-        android:id="@+id/description_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Description"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="16dp"
-        android:layout_below="@+id/email_edit_text"
-        android:fontFamily="@font/montserrat"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
-
-    <EditText
-        android:id="@+id/description_edit_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Tell us more about the problem"
-        android:inputType="text"
-        android:background="@drawable/description_rectangle"
-        android:layout_below="@id/description_text_view"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:padding="20dp"
-        android:textSize="16dp"
-        android:textColorHint="#B2967D"
-        android:fontFamily="@font/montserrat"/>
-
-    <TextView
-        android:id="@+id/screenshot_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Screenshot"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/description_edit_text"
-        android:textSize="16dp"
-        android:fontFamily="@font/montserrat"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
-
-    <TextView
-        android:id="@+id/filetype_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Allowed file types: jpg/jpeg/png"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/screenshot_text_view"
-        android:textSize="13dp"
-        android:fontFamily="@font/montserrat"
-        android:textStyle="bold"
-        android:textColor="#B2967D"/>
-
-    <ImageButton
-        android:id="@+id/screenshot_image_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/filetype_text_view"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/upload_section"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <ImageButton
-        android:id="@+id/remove_screenshot_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_baseline_delete_24"
-        android:layout_toRightOf="@+id/screenshot_image_view"
-        android:layout_below="@+id/filetype_text_view"
-        android:visibility="gone"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"/>
-
-    <ImageView
-        android:id="@+id/screenshot_image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/filetype_text_view"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"/>
-
-    <Button
-        android:id="@+id/submit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/submit_rectangle"
-        android:fontFamily="@font/caudex_bold"
-        android:text="SUBMIT"
-        android:textColor="@color/white"
-        android:layout_alignParentBottom="true"/>
+        android:layout_marginTop="80dp">
+
+        <TextView
+            android:id="@+id/email_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your email address"
+            android:layout_marginStart="10dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/email_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Email address"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/email_rectangle"
+            android:layout_below="@id/email_text_view"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:padding="20dp"
+            android:textColorHint="#B2967D"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat"/>
+
+        <TextView
+            android:id="@+id/description_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:layout_below="@+id/email_edit_text"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/description_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Tell us more about the problem"
+            android:inputType="text"
+            android:background="@drawable/description_rectangle"
+            android:layout_below="@id/description_text_view"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:padding="20dp"
+            android:textSize="16sp"
+            android:textColorHint="#B2967D"
+            android:fontFamily="@font/montserrat"
+            android:gravity="start"/>
+
+        <TextView
+            android:id="@+id/screenshot_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Screenshot"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_below="@+id/description_edit_text"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/filetype_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Allowed file types: jpg/jpeg/png"
+            android:layout_marginStart="10dp"
+            android:layout_below="@+id/screenshot_text_view"
+            android:textSize="13sp"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textColor="#B2967D"/>
+
+        <ImageButton
+            android:id="@+id/screenshot_image_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/filetype_text_view"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/upload_section"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageButton
+            android:id="@+id/remove_screenshot_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_delete_24"
+            android:layout_toEndOf="@+id/filetype_text_view"
+            android:layout_below="@+id/screenshot_text_view"
+            android:layout_marginStart="100dp"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/screenshot_image_view"
+            android:layout_width="330dp"
+            android:layout_height="180dp"
+            android:layout_below="@id/filetype_text_view"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="70dp"
+            android:background="@drawable/submit_rectangle"
+            android:fontFamily="@font/caudex_bold"
+            android:text="SUBMIT"
+            android:textColor="@color/white"
+            android:layout_below="@+id/screenshot_image_view"/>
+    </RelativeLayout>
+
 
 </RelativeLayout>

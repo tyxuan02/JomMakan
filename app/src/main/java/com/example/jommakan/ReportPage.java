@@ -4,15 +4,18 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -33,6 +36,27 @@ public class ReportPage extends AppCompatActivity {
         remove_screenshot_button = findViewById(R.id.remove_screenshot_button);
         submit_button = findViewById(R.id.submit_button);
         screenshot_image_view = findViewById(R.id.screenshot_image_view);
+
+        Toolbar toolbarActivity = findViewById(R.id.toolbarActivity);
+        setSupportActionBar(toolbarActivity);
+
+        // Remove default title text
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        // Get access to the custom title view
+        TextView toolbar_title = (TextView) toolbarActivity.findViewById(R.id.toolbar_title);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            toolbar_title.setTextAppearance(R.style.toolbar_text_quaternary);
+            toolbar_title.setText("Report");
+        }
+
+        toolbarActivity.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
             @Override
