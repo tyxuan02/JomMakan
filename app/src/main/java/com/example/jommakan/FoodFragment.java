@@ -42,7 +42,6 @@ public class FoodFragment extends Fragment {
     Button add_to_cart_button;
     TextView quantity_text;
     TextView unavailable_text_view;
-    CartItem cart_item;
     ArrayList<CartFood> cart_food_list;
     CartItemDatabase cartItemDatabase;
     Food chosen_food;

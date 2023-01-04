@@ -58,7 +58,7 @@ public class RegistrationPage extends AppCompatActivity {
                                         Toast.makeText(RegistrationPage.this, "Your account has been successfully created.", Toast.LENGTH_SHORT).show();
                                         onBackPressed();
                                     } else {
-                                        Toast.makeText(RegistrationPage.this, "The email address you have entered is already registered. Please use a different email address", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegistrationPage.this, "The email address you entered is already registered. Please use a different email address", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
