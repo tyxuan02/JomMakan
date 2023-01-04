@@ -2,18 +2,35 @@ package com.example.jommakan;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+//import android.content.Context;
+import android.content.Context;
 import android.content.Intent;
+//import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+//
+//import java.io.FileNotFoundException;
+//import java.io.FileOutputStream;
+//import java.io.IOException;
+//
+//import java.io.File;
+//import java.io.FileNotFoundException;
+//import java.io.FileOutputStream;
+//import java.io.IOException;
+
 public class LoginPage extends AppCompatActivity {
 
     private EditText email_edit_text, password_edit_text;
     private TextView forgotPassword_text_view, register_text_view;
     private Button login_button;
+//    private static final String USER_FILE_NAME = "user_file";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +43,17 @@ public class LoginPage extends AppCompatActivity {
         register_text_view = findViewById(R.id.register_text_view);
         login_button = findViewById(R.id.login_button);
 
+//        // check if the file exists
+//        Context context = getApplicationContext();
+//        // create file handler
+//        File userFile = new File(context.getFilesDir(), USER_FILE_NAME);
 
-        // Login (need to check the validity of email and password)
+        //Login (need to check the validity of email and password)
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//
+//                Context context = v.getContext();
                 String Email = email_edit_text.getText().toString();
                 String Password = password_edit_text.getText().toString();
 //                if(isValidEmail(Email) && isValidPassword(Password)){
@@ -40,6 +63,19 @@ public class LoginPage extends AppCompatActivity {
 //                }
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+//
+//                // write user_email and user_password in storage file
+//                String filename = "user_file";
+//                String user_email = email_edit_text.getText().toString();
+//                String user_password = password_edit_text.getText().toString();
+//                try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
+//                    fos.write(user_email.getBytes());
+//                    fos.write(user_password.getBytes());
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
         });
 
@@ -65,4 +101,30 @@ public class LoginPage extends AppCompatActivity {
 
 
     }
+//    // get data from SharedPreference
+//    @Override
+//    protected void onResume(){
+//        super.onResume();
+//
+//        SharedPreferences sh = getSharedPreferences("UserSharedPref", MODE_PRIVATE);
+//
+//        String email = sh.getString("email", "");
+//        String password = sh.getString("password", "");
+//
+//        email_edit_text.setText(email);
+//        password_edit_text.setText(password);
+//    }
+//
+//    // save data to SharedPreference
+//    @Override
+//    protected void onPause(){
+//        super.onPause();
+//        SharedPreferences sharedPreferences = getSharedPreferences("UserSharedPref", MODE_PRIVATE);
+//        SharedPreferences.Editor edit = sharedPreferences.edit();
+//
+//        edit.putString("email", email_edit_text.getText().toString());
+//        edit.putString("password", password_edit_text.getText().toString());
+//        edit.apply();
+//    }
+//
 }
