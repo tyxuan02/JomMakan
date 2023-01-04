@@ -127,7 +127,7 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
     }
 
     private boolean checkCartFood(int position) {
-        CartItem checkCartItem = cartItemDatabase.cartItemDAO().getCartItem("user@gmail.com", cart_item_list.get(position).getLocation(), cart_item_list.get(position).getStall());
+        CartItem checkCartItem = cartItemDatabase.cartItemDAO().getCartItem(UserInstance.getUser_email_address(), cart_item_list.get(position).getLocation(), cart_item_list.get(position).getStall());
         if (checkCartItem == null || checkCartItem.getCart_food_list().size() == 0) {
             return false;
         }

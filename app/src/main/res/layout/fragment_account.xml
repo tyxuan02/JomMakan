@@ -18,7 +18,7 @@
     </ImageView>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/username_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -31,7 +31,7 @@
     </TextView>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/email_address_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"

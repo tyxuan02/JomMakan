@@ -43,7 +43,7 @@ public class CartFragment extends Fragment {
         cartItemDatabase = Room.databaseBuilder(getActivity(), CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
 
         // Get all cart items from database
-        getCartItems("user@gmail.com");
+        getCartItems(UserInstance.getUser_email_address());
 
 
         cart_item_recycle_view = view.findViewById(R.id.cart_item_recycle_view);

@@ -163,7 +163,7 @@ public class FoodFragment extends Fragment {
                         Toast.makeText(getActivity(), "Please make sure to select a quantity for the food that is greater than zero", Toast.LENGTH_SHORT).show();
                     } else {
                         changeFoodQuantityInCartItem(index);
-                        cartItemDatabase.cartItemDAO().insertCartItem(new CartItem("user@gmail.com", chosen_food.getLocation(), chosen_food.getStall(), cart_food_list));
+                        cartItemDatabase.cartItemDAO().insertCartItem(new CartItem(UserInstance.getUser_email_address(), chosen_food.getLocation(), chosen_food.getStall(), cart_food_list));
                         Toast.makeText(getActivity(), "The food has been added to the cart", Toast.LENGTH_SHORT).show();
                     }
                     getActivity().onBackPressed();
@@ -182,9 +182,9 @@ public class FoodFragment extends Fragment {
                     }
 
                     if (cart_food_list.size() == 0) {
-                        cartItemDatabase.cartItemDAO().deleteCartItem("user@gmail.com", chosen_food.getLocation(), chosen_food.getStall());
+                        cartItemDatabase.cartItemDAO().deleteCartItem(UserInstance.getUser_email_address(), chosen_food.getLocation(), chosen_food.getStall());
                     } else {
-                        cartItemDatabase.cartItemDAO().updateCartItem("user@gmail.com", chosen_food.getLocation(), chosen_food.getStall(), cart_food_list);
+                        cartItemDatabase.cartItemDAO().updateCartItem(UserInstance.getUser_email_address(), chosen_food.getLocation(), chosen_food.getStall(), cart_food_list);
                     }
                     getActivity().onBackPressed();
                 } else if (checkNumberOfFoodInCartItem() == 3) {
@@ -198,7 +198,7 @@ public class FoodFragment extends Fragment {
                             Toast.makeText(getActivity(), "The food has been added to the cart", Toast.LENGTH_SHORT).show();
                             changeFoodQuantityInCartItem(index);
                         }
-                        cartItemDatabase.cartItemDAO().updateCartItem("user@gmail.com", chosen_food.getLocation(), chosen_food.getStall(), cart_food_list);
+                        cartItemDatabase.cartItemDAO().updateCartItem(UserInstance.getUser_email_address(), chosen_food.getLocation(), chosen_food.getStall(), cart_food_list);
                         getActivity().onBackPressed();
                     } else {
                         // If the user wants to add more food of that stall to cart item

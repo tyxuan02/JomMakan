@@ -110,9 +110,9 @@ public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdap
         }
 
         if (cart_food_list.size() <= 0) {
-             cartItemDatabase.cartItemDAO().deleteCartItem("user@gmail.com", location, stall);
+             cartItemDatabase.cartItemDAO().deleteCartItem(UserInstance.getUser_email_address(), location, stall);
         } else {
-            cartItemDatabase.cartItemDAO().updateCartItem("user@gmail.com", location, stall, cart_food_list);
+            cartItemDatabase.cartItemDAO().updateCartItem(UserInstance.getUser_email_address(), location, stall, cart_food_list);
         }
 
         notifyDataSetChanged();

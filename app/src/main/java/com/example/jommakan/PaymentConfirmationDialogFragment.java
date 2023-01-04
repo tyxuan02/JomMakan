@@ -84,7 +84,7 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
     }
 
     private void removeCartItem() {
-        cartItemDatabase.cartItemDAO().deleteCartItem("user@gmail.com", location, stall);
+        cartItemDatabase.cartItemDAO().deleteCartItem(UserInstance.getUser_email_address(), location, stall);
     }
 
     private void addToOrderHistory() {
@@ -93,7 +93,7 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
         int max = 999999999;
         int randomNumber = random.nextInt((max - min) + 1) + min;
 
-        orderDatabase.orderDAO().insert(new Order("user@gmail.com", randomNumber, location, stall, cartItem.getCart_food_list(), getCurrentDate(), getCurrentTime()));
+        orderDatabase.orderDAO().insert(new Order(UserInstance.getUser_email_address(), randomNumber, location, stall, cartItem.getCart_food_list(), getCurrentDate(), getCurrentTime()));
     }
 
     private String getCurrentDate() {

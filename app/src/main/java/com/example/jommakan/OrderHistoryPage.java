@@ -48,7 +48,7 @@ public class OrderHistoryPage extends AppCompatActivity {
 
         // Database connection
         orderDatabase = Room.databaseBuilder(this, OrderDatabase.class, "OrderDB").allowMainThreadQueries().build();
-        order_list = (ArrayList<Order>) orderDatabase.orderDAO().getUserOrder("user@gmail.com");
+        order_list = (ArrayList<Order>) orderDatabase.orderDAO().getUserOrder(UserInstance.getUser_email_address());
 
         orderHistoryItemAdapter = new OrderHistoryItemAdapter(this, order_list);
         order_history_recycle_view = findViewById(R.id.order_history_recycle_view);
