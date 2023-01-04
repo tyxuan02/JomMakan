@@ -2,22 +2,20 @@ package com.example.jommakan;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAdapter.MyViewHolder> {
@@ -28,14 +26,16 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
     LayoutInflater layoutInflater;
     double total_price;
     CartItemDatabase cartItemDatabase;
+    FragmentManager fragmentManager;
 
     private ArrayList<ChildCartItemAdapter> childCartItemAdapterList = new ArrayList<>();
 
-    public ParentCartItemAdapter(Context context, ArrayList<CartItem> cart_item_list) {
+    public ParentCartItemAdapter(Context context, ArrayList<CartItem> cart_item_list, FragmentManager fragmentManager) {
         this.context = context;
         this.cart_item_list = cart_item_list;
         this.layoutInflater = LayoutInflater.from(context);
         childCartItemAdapterList.clear();
+        this.fragmentManager = fragmentManager;
 
         // Database connection
         cartItemDatabase = Room.databaseBuilder(context, CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
@@ -50,6 +50,7 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
 
     @Override
     public void onBindViewHolder(@NonNull ParentCartItemAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
+
         if (checkCartFood(position)) {
             holder.location_and_stall_name.setText(cart_item_list.get(position).getLocation() + " - " + cart_item_list.get(position).getStall());
 
@@ -75,10 +76,12 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
             holder.cart_pay_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    cartItemDatabase.cartItemDAO().deleteCartItem("user@gmail.com", cart_item_list.get(position).getLocation(), cart_item_list.get(position).getStall());
-                    holder.cart_item_card_view.setVisibility(View.GONE);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("cart_item", cart_item_list.get(position));
 
-                    // Todo: Purchase Pop Up Window
+                    PaymentConfirmationDialogFragment paymentConfirmationDialogFragment = new PaymentConfirmationDialogFragment();
+                    paymentConfirmationDialogFragment.setArguments(bundle);
+                    paymentConfirmationDialogFragment.show(fragmentManager, "Payment Confirmation Fragment");
                 }
             });
         } else {

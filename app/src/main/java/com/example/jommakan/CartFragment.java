@@ -48,7 +48,7 @@ public class CartFragment extends Fragment {
 
         cart_item_recycle_view = view.findViewById(R.id.cart_item_recycle_view);
         if (cart_item_list.size() != 0) {
-            ParentCartItemAdapter parentCartItemAdapter = new ParentCartItemAdapter(getContext(), cart_item_list);
+            ParentCartItemAdapter parentCartItemAdapter = new ParentCartItemAdapter(getActivity(), cart_item_list, getChildFragmentManager());
             cart_item_recycle_view.setAdapter(parentCartItemAdapter);
             cart_item_recycle_view.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
             cart_item_recycle_view.setHasFixedSize(true);

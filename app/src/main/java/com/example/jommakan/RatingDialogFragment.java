@@ -25,7 +25,6 @@ public class RatingDialogFragment extends DialogFragment {
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Thanks for your rating!", Toast.LENGTH_SHORT).show();
                 dismiss();
-
             }
 
         });
