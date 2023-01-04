@@ -9,16 +9,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
 
-import android.app.Fragment;
 //import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -42,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Get intent passed from Login Page
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        User user = (User) bundle.get("user");
+        UserInstance.setUsername(user.getUsername());
+        UserInstance.setUser_email_address(user.getUser_email_address());
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // TextView toolbar_title = findViewById(R.id.toolbar_title);
@@ -67,11 +72,6 @@ public class MainActivity extends AppCompatActivity {
         addFood();
         addLocation();
         addStall();
-//        addCartItem();
-//        getCartItems();
-//        updateCartItems();
-//        delete();
-//        deleteWhole();
     }
 
     // Bottom Navigation Bar
