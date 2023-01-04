@@ -23,4 +23,7 @@ public interface UserDAO {
 
     @Query("UPDATE Users SET password = :password WHERE user_email_address = :user_email_address")
     void changePassword(String user_email_address, String password);
+
+    @Query("UPDATE Users SET wallet_balance = :wallet_balance WHERE user_email_address = :user_email_address")
+    void updateWalletBalance(double wallet_balance, String user_email_address);
 }

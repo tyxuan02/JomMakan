@@ -78,6 +78,7 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("cart_item", cart_item_list.get(position));
+                    bundle.putDouble("total_price", total_price);
 
                     PaymentConfirmationDialogFragment paymentConfirmationDialogFragment = new PaymentConfirmationDialogFragment();
                     paymentConfirmationDialogFragment.setArguments(bundle);
