@@ -27,7 +27,7 @@ public class LoginPage extends AppCompatActivity {
         login_button = findViewById(R.id.login_button);
 
 
-        //Login (need to check the validity of email and password)
+        // Login (need to check the validity of email and password)
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
