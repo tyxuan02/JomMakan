@@ -92,7 +92,7 @@
                 android:fontFamily="@font/caudex_bold"
                 android:textSize="11sp"
                 android:textColor="#000000"
-                android:background="@drawable/cart_cancel_button_shape"
+                android:background="@drawable/cancel_button_shape"
                 android:elevation="1dp"/>
 
             <Button
@@ -103,7 +103,7 @@
                 android:fontFamily="@font/caudex_bold"
                 android:textSize="11sp"
                 android:textColor="#FFFFFF"
-                android:background="@drawable/cart_confirm_button_shape"
+                android:background="@drawable/button_shape"
                 android:layout_marginStart="30dp"/>
         </LinearLayout>
     </LinearLayout>

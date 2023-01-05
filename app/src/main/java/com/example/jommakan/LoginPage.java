@@ -90,15 +90,16 @@ public class LoginPage extends AppCompatActivity {
             }
         });
 
-        //Redirect to change password page
+        // Redirect to change password page
         forgotPassword_text_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ForgotPasswordDialogFragment forgotPasswordDialogFragment = new ForgotPasswordDialogFragment();
+                forgotPasswordDialogFragment.show(getSupportFragmentManager(), "Forgot Password Fragment");
             }
         });
 
-        //Redirect to account registration page
+        // Redirect to account registration page
         register_text_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
