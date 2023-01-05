@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,26 +38,29 @@ public class LoadingPage extends AppCompatActivity {
         // if no user_file exist, ask the user to log in
         // jump to log in page
 //      // Context context = v.getContext();
-        if (userFile.exists()) {
-            String userPassword = readUserPassword();
-            String userEmail = readUserEmail();
-            User user = userDatabase.userDAO().getUser(userEmail, userPassword);
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("userLogged", user);
-            startActivity(intent);
-        } else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (userFile.exists()) {
+                    String [] user_credentials = readUserCredential();
+                    String userEmail = user_credentials[0];
+                    String userPassword = user_credentials[1];
+                    User user = userDatabase.userDAO().getUser(userEmail, userPassword);
+                    Intent intent = new Intent(LoadingPage.this, MainActivity.class);
+                    intent.putExtra("user", user);
+                    startActivity(intent);
+                } else {
                     startActivity(new Intent(LoadingPage.this,LoginPage.class));
-                    finish();
                 }
+                finish();
+            }
             },1000);
-        }
     }
 
-    protected String readUserPassword() {
-        String userPassword;
+    // Read user credentials
+    protected String[] readUserCredential() {
+        String [] user_credentials = new String[2];
         FileInputStream fis = null;
         try {
             fis = getApplicationContext().openFileInput(USER_FILE_NAME);
@@ -65,44 +69,12 @@ public class LoadingPage extends AppCompatActivity {
             e.printStackTrace();
         }
         InputStreamReader inputStreamReader = new InputStreamReader(fis, StandardCharsets.UTF_8);
-        StringBuilder stringBuilder = new StringBuilder();
         try(BufferedReader reader = new BufferedReader(inputStreamReader)) {
-            String line = reader.readLine();
-            while (line != null) {
-                stringBuilder.append(line).append('\n');
-                System.out.println(line);
-                line = reader.readLine();
-            }
+            user_credentials[0] = reader.readLine();
+            user_credentials[1] = reader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            userPassword = stringBuilder.toString();
         }
-        return userPassword;
-    }
-
-    protected String readUserEmail() {
-        String userEmail;
-        FileInputStream fis = null;
-        try {
-            fis = getApplicationContext().openFileInput(USER_FILE_NAME);
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        InputStreamReader inputStreamReader = new InputStreamReader(fis, StandardCharsets.UTF_8);
-        StringBuilder stringBuilder = new StringBuilder();
-        try(BufferedReader reader = new BufferedReader(inputStreamReader)) {
-            String line = reader.readLine();
-            while (line != null) {
-                stringBuilder.append(line).append('\n');
-                line = reader.readLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            userEmail = stringBuilder.toString();
-        }
-        return userEmail;
+        return user_credentials;
     }
 }

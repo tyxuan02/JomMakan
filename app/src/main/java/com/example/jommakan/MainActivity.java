@@ -33,9 +33,6 @@ public class MainActivity extends AppCompatActivity {
     FoodDatabase foodDatabase;
     LocationDatabase locationDatabase;
     StallDatabase stallDatabase;
-    CartItemDatabase cartItemDatabase;
-
-    ArrayList<CartFood> cart_food_list;
 
     private static final String USER_FILE_NAME = "user_file";
 
@@ -44,24 +41,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // check if user_file exist
-        Context context = getApplicationContext();
-        File userFile = new File(context.getFilesDir(), USER_FILE_NAME);
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        if (userFile.exists()) {
-            // Get intent passed from Loading Page
-            User userLogged = (User) bundle.get("userLogged");
-            UserInstance.setUsername(userLogged.getUsername());
-            UserInstance.setUser_email_address(userLogged.getUser_email_address());
-        } else {
-            // Get intent passed from Login Page
-            User user = (User) bundle.get("user");
-            UserInstance.setUsername(user.getUsername());
-            UserInstance.setUser_email_address(user.getUser_email_address());
-        }
         User user = (User) bundle.get("user");
+
         // Store user credential into UserInstance class
         UserInstance.setUsername(user.getUsername());
         UserInstance.setUser_email_address(user.getUser_email_address());

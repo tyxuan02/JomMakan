@@ -104,38 +104,4 @@ public class LoginPage extends AppCompatActivity {
             }
         });
     }
-
-//    // get data from SharedPreference
-//    @Override
-//    protected void onResume(){
-//        super.onResume();
-//
-//        SharedPreferences sh = getSharedPreferences("UserSharedPref", MODE_PRIVATE);
-//        boolean defaultState = false;
-//        boolean isUserLogged = sh.getBoolean("UserSharedPref", defaultState);
-//        if (isUserLogged) {
-//            Intent intent = new Intent(this, MainActivity.class);
-//            String email = sh.getString("email", "");
-//            String password = sh.getString("password", "");
-//            email_edit_text.setText(email);
-//            password_edit_text.setText(password);
-//            intent.putExtra(email, password);
-//            startActivity(intent);
-//        }
-//
-//
-//    }
-//
-//    // save data to SharedPreference
-//    @Override
-//    protected void onPause(){
-//        super.onPause();
-//        SharedPreferences sharedPreferences = getSharedPreferences("UserSharedPref", MODE_PRIVATE);
-//        SharedPreferences.Editor edit = sharedPreferences.edit();
-//        edit.putString("email", email_edit_text.getText().toString());
-//        edit.putString("password", password_edit_text.getText().toString());
-//        edit.apply();
-//        edit.putBoolean("UserSharedPref", true).commit();
-//    }
-
 }
