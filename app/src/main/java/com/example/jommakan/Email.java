@@ -1,17 +1,29 @@
 package com.example.jommakan;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 public class Email {
 
@@ -105,6 +117,71 @@ public class Email {
             Logger.getLogger(Email.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public void sendReportedIssue(String user_email_address, String description, Bitmap image, Context context) throws MessagingException {
+        String recipientEmail = "yuxuanteea@gmail.com";
+        String senderEmail = "jommakan2007@gmail.com"; //jommakan2007@gmail.com
+        final String password = "krbxgibdrqntiwuu"; //Jommakan2007!
+
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
+
+        // Create a session
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(senderEmail, password);
+            }
+        });
+
+        Message message = null;
+
+        try {
+            message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(senderEmail));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipientEmail));
+            message.setSubject("Report An Issue");
+
+            BodyPart textBodyPart = new MimeBodyPart();
+            textBodyPart.setText(description + "\n\nFrom: " + user_email_address);
+
+            MimeMultipart multipart = new MimeMultipart();
+            multipart.addBodyPart(textBodyPart);
+
+            if (image != null) {
+                // Create a new file to save the image
+                File imageFile = new File(context.getExternalFilesDir(null), "image.jpg");
+
+                // Obtain an OutputStream from the file
+                OutputStream outputStream = new FileOutputStream(imageFile);
+
+                // Write the image to the OutputStream
+                image.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+
+                // Flush and close the OutputStream
+                outputStream.flush();
+                outputStream.close();
+
+                // Create a new MimeBodyPart to hold the image file
+                BodyPart imageBodyPart = new MimeBodyPart();
+                imageBodyPart.setDataHandler(new DataHandler(new FileDataSource(imageFile)));
+                imageBodyPart.setFileName("image.jpg");
+                multipart.addBodyPart(imageBodyPart);
+            }
+
+            message.setContent(multipart);
+
+        } catch (MessagingException | IOException e) {
+            e.printStackTrace();
+        }
+
+        assert message != null;
+        Transport.send(message);
     }
 
     /**

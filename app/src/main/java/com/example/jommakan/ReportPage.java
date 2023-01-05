@@ -1,14 +1,10 @@
 package com.example.jommakan;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -20,8 +16,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
+import javax.mail.MessagingException;
 
 public class ReportPage extends AppCompatActivity {
 
@@ -138,6 +142,7 @@ public class ReportPage extends AppCompatActivity {
                 if (isValidEmail(email_edit_text.getText().toString())) {
                     if (!description_edit_text.getText().toString().isEmpty()) {
                         Toast.makeText(ReportPage.this, "We received your email and will get back to you with a human response as soon as possible.", Toast.LENGTH_SHORT).show();
+                        new SendEmailTask().execute();
                         onBackPressed();
                     } else {
                         Toast.makeText(ReportPage.this, "Please enter something in the description text field.", Toast.LENGTH_SHORT).show();
@@ -154,6 +159,24 @@ public class ReportPage extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Invalid email address. Please check the format and try again.", Toast.LENGTH_SHORT).show();
             return false;
+        }
+    }
+
+    // Send verification code to user Gmail
+    private class SendEmailTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... params) {
+            Email email = new Email();
+            try {
+                if (screenshot_image_view.getDrawable() != null) {
+                    email.sendReportedIssue(email_edit_text.getText().toString(), description_edit_text.getText().toString(), ((BitmapDrawable) screenshot_image_view.getDrawable()).getBitmap(), getApplicationContext());
+                } else {
+                    email.sendReportedIssue(email_edit_text.getText().toString(), description_edit_text.getText().toString(), null, getApplicationContext());
+                }
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 }

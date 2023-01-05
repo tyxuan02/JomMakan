@@ -1,5 +1,6 @@
 package com.example.jommakan;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -63,6 +64,9 @@ public class VerificationCodeForRegistrationDialogFragment extends DialogFragmen
                         createNewAccount(email_address, username, password, phone_number);
                         Toast.makeText(getActivity(), "Your account has been successfully created", Toast.LENGTH_SHORT).show();
                         dismiss();
+                        Intent intent = new Intent(getActivity(), LoginPage.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(getActivity(), "Incorrect verification code.", Toast.LENGTH_SHORT).show();
                     }

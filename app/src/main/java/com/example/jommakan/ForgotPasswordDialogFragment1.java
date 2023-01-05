@@ -1,12 +1,6 @@
 package com.example.jommakan;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-import androidx.room.Room;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +8,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ForgotPasswordDialogFragment extends DialogFragment {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.room.Room;
+
+public class ForgotPasswordDialogFragment1 extends DialogFragment {
     
     Button cancel_button;
     Button send_code_button;
@@ -55,7 +55,16 @@ public class ForgotPasswordDialogFragment extends DialogFragment {
                     Toast.makeText(getActivity(), "The email address you provided is not associated with any account in our application.", Toast.LENGTH_SHORT).show();
                 } else {
                     // If users enter a correct email address
-                    Toast.makeText(getActivity(), "A verification code has been sent to your Gmail account. Please use it to reset your password.", Toast.LENGTH_SHORT).show();
+                    // Close current dialog fragment
+                    dismiss();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("email_address", email_address_text_view.getText().toString());
+                    ForgotPasswordDialogFragment2 forgotPasswordDialogFragment2 = new ForgotPasswordDialogFragment2();
+                    forgotPasswordDialogFragment2.setArguments(bundle);
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    forgotPasswordDialogFragment2.show(transaction, "Forgot Password Fragment 2");
+                    Toast.makeText(getActivity(), "A verification code has been sent to your Gmail account. Please use it to reset your account password.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -79,8 +79,8 @@ public class LoginPage extends AppCompatActivity {
         forgotPassword_text_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ForgotPasswordDialogFragment forgotPasswordDialogFragment = new ForgotPasswordDialogFragment();
-                forgotPasswordDialogFragment.show(getSupportFragmentManager(), "Forgot Password Fragment");
+                ForgotPasswordDialogFragment1 forgotPasswordDialogFragment = new ForgotPasswordDialogFragment1();
+                forgotPasswordDialogFragment.show(getSupportFragmentManager(), "Forgot Password Fragment 1");
             }
         });
 
