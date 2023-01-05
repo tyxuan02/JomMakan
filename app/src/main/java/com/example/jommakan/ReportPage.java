@@ -11,27 +11,34 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class ReportPage extends AppCompatActivity {
 
-    private ImageButton screenshot_image_button,remove_screenshot_button;
-    private Button submit_button;
-    private ImageView screenshot_image_view;
-    private ActivityResultLauncher<String>activityResultLauncher;
+    EditText email_edit_text, description_edit_text;
+    ImageButton screenshot_image_button,remove_screenshot_button;
+    Button submit_button;
+    ImageView screenshot_image_view;
+    ActivityResultLauncher<String>activityResultLauncher;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_page);
 
+        email_edit_text = findViewById(R.id.email_edit_text);
+        description_edit_text = findViewById(R.id.description_edit_text);
         screenshot_image_button = findViewById(R.id.screenshot_image_button);
         remove_screenshot_button = findViewById(R.id.remove_screenshot_button);
         submit_button = findViewById(R.id.submit_button);
@@ -128,11 +135,25 @@ public class ReportPage extends AppCompatActivity {
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (isValidEmail(email_edit_text.getText().toString())) {
+                    if (!description_edit_text.getText().toString().isEmpty()) {
+                        Toast.makeText(ReportPage.this, "We received your email and will get back to you with a human response as soon as possible.", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    } else {
+                        Toast.makeText(ReportPage.this, "Please enter something in the description text field.", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
     }
 
-
-
+    private boolean isValidEmail(String Email){
+        //Check the validity of email
+        if (Patterns.EMAIL_ADDRESS.matcher(Email).matches()) {
+            return true;
+        } else {
+            Toast.makeText(this, "Invalid email address. Please check the format and try again.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
 }

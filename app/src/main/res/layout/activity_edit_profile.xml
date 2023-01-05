@@ -55,7 +55,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="439dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:padding="20dp">
 
@@ -68,7 +68,7 @@
                 android:textColor="#575757"
                 android:textSize="12sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/inputName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                 android:textColor="#575757"
                 android:textSize="12sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/inputEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <TextView
                     android:id="@+id/inputPhoneNum"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -125,12 +125,6 @@
                     android:text="012-3456789"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignRight="@id/inputPhoneNum"
-                    android:src="@drawable/edit_icon" />
 
             </RelativeLayout>
 
@@ -169,9 +163,10 @@
             </RelativeLayout>
 
             <Button
+                android:id="@+id/save_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="50dp"
                 android:background="@drawable/button_shape"
                 android:fontFamily="@font/caudex_bold"
                 android:gravity="center"
@@ -179,7 +174,6 @@
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="20sp">
-
             </Button>
 
         </LinearLayout>

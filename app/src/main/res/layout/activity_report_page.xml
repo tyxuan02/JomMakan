@@ -27,6 +27,17 @@
             android:textStyle="bold"
             android:textColor="@color/black"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:layout_toRightOf="@id/email_text_view"
+            android:layout_marginStart="5dp"
+            android:textColor="#FF0000"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"/>
+
         <EditText
             android:id="@+id/email_edit_text"
             android:layout_width="wrap_content"
@@ -54,6 +65,19 @@
             android:fontFamily="@font/montserrat"
             android:textStyle="bold"
             android:textColor="@color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:layout_toRightOf="@id/description_text_view"
+            android:layout_below="@id/email_edit_text"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="40dp"
+            android:textColor="#FF0000"
+            android:textSize="16sp"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/description_edit_text"

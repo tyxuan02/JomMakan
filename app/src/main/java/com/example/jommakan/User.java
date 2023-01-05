@@ -12,14 +12,12 @@ public class User implements Serializable {
     protected String user_email_address;
     protected String username, password, phone_number;
     protected double wallet_balance;
-    protected ArrayList<Integer> order_id;
 
     public User(@NonNull String user_email_address, String username, String password, String phone_number) {
         this.user_email_address = user_email_address;
         this.username = username;
         this.password = password;
         this.phone_number = phone_number;
-        this.order_id = new ArrayList<>();
     }
 
     @NonNull
@@ -63,13 +61,5 @@ public class User implements Serializable {
 
     public void setWallet_balance(double wallet_balance) {
         this.wallet_balance = wallet_balance;
-    }
-
-    public ArrayList<Integer> getOrder_id() {
-        return order_id;
-    }
-
-    public void setOrder_id(ArrayList<Integer> order_id) {
-        this.order_id = order_id;
     }
 }

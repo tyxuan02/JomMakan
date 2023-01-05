@@ -85,7 +85,7 @@ public class StallFoodItemAdapter extends RecyclerView.Adapter<StallFoodItemAdap
 
     // Get the food of that stall that user has added to cart from database
     private void getCartFoodList(String location, String stall) {
-        cartItem = cartItemDatabase.cartItemDAO().getCartItem("user@gmail.com", location, stall);
+        cartItem = cartItemDatabase.cartItemDAO().getCartItem(UserInstance.getUser_email_address(), location, stall);
         if (cartItem == null) {
             cart_food_list = new ArrayList<>();
         } else {

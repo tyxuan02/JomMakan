@@ -13,6 +13,6 @@ public interface OrderDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Order order);
 
-    @Query("SELECT * FROM `Order` WHERE user_email_address = :user_email_address ORDER BY date DESC")
+    @Query("SELECT * FROM `Order` WHERE user_email_address = :user_email_address ORDER BY time DESC")
     List<Order> getUserOrder(String user_email_address);
 }

@@ -3,6 +3,7 @@ package com.example.jommakan;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.Room;
 
 import android.app.Dialog;
 import android.os.Build;
@@ -14,11 +15,16 @@ import android.widget.TextView;
 public class MyWalletActivity extends AppCompatActivity {
 
     Dialog topUpDialog;
+    TextView wallet_balance;
+    TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_wallet);
+
+        wallet_balance = findViewById(R.id.wallet_balance);
+        name = findViewById(R.id.name);
 
         Toolbar toolbarActivity = findViewById(R.id.toolbarActivity);
         setSupportActionBar(toolbarActivity);
@@ -37,12 +43,14 @@ public class MyWalletActivity extends AppCompatActivity {
 
         topUpDialog = new Dialog(this);
 
+        // Wallet balance
+        name.setText(UserInstance.getUsername());
+        wallet_balance.setText(String.format("%.2f", UserInstance.getWallet_balance()));
     }
 
     public void show_TopUpDialog(View v){
         topUpDialog.setContentView(R.layout.top_up_window);
         topUpDialog.show();
-
     }
 
     // this event will enable the back function to the button on press

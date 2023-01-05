@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="300dp"
-    android:layout_height="260dp">
+    android:layout_height="300dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,12 +27,35 @@
             android:id="@+id/pick_up_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:textSize="18sp"
             android:text="11.30 AM"
-            android:fontFamily="@font/montserrat_bold"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
             android:textColor="#000000"
-            android:layout_marginStart="1dp"/>
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="5dp"
+            android:letterSpacing="0.1"/>
+
+        <TextView
+            android:id="@+id/total_price_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Price:"
+            android:fontFamily="@font/caudex_bold"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:id="@+id/total_price_text_view"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="22sp"
+            android:fontFamily="@font/montserrat"
+            android:text="RM 13.00"
+            android:textAlignment="center"
+            android:background="@drawable/total_price_shape" />
 
         <TextView
             android:id="@+id/wallet_balance_title"
@@ -42,15 +65,15 @@
             android:fontFamily="@font/caudex_bold"
             android:textColor="#000000"
             android:textSize="14sp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="15dp"/>
 
         <TextView
             android:id="@+id/wallet_balance"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textSize="25sp"
-            android:fontFamily="@font/montserrat_bold"
+            android:layout_marginTop="5dp"
+            android:textSize="22sp"
+            android:fontFamily="@font/montserrat"
             android:text="RM 13.00"
             android:textAlignment="center"
             android:background="@drawable/wallet_balance_shape"/>
@@ -69,7 +92,7 @@
                 android:fontFamily="@font/caudex_bold"
                 android:textSize="11sp"
                 android:textColor="#000000"
-                android:background="@drawable/cart_cancel_button_shape"
+                android:background="@drawable/cancel_button_shape"
                 android:elevation="1dp"/>
 
             <Button
@@ -80,7 +103,7 @@
                 android:fontFamily="@font/caudex_bold"
                 android:textSize="11sp"
                 android:textColor="#FFFFFF"
-                android:background="@drawable/cart_confirm_button_shape"
+                android:background="@drawable/button_shape"
                 android:layout_marginStart="30dp"/>
         </LinearLayout>
     </LinearLayout>

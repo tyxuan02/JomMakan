@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -60,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
             UserInstance.setUsername(user.getUsername());
             UserInstance.setUser_email_address(user.getUser_email_address());
         }
+        User user = (User) bundle.get("user");
+        // Store user credential into UserInstance class
+        UserInstance.setUsername(user.getUsername());
+        UserInstance.setUser_email_address(user.getUser_email_address());
+        UserInstance.setPhone_number(user.getPhone_number());
+        UserInstance.setPassword(user.getPassword());
+        UserInstance.setWallet_balance(user.getWallet_balance());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // TextView toolbar_title = findViewById(R.id.toolbar_title);
