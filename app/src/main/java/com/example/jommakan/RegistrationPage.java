@@ -1,8 +1,5 @@
 package com.example.jommakan;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,10 +53,17 @@ public class RegistrationPage extends AppCompatActivity {
                         if (isValidPhoneNumber(PhoneNumber)) {
                             if (isValidPassword(NewPassword)) {
                                 if (isMatchedPassword(NewPassword, ConfirmPassword)) {
-                                    if (isEmailInUse(Email)) {
-                                        createNewAccount(Email, Username, NewPassword, PhoneNumber);
-                                        Toast.makeText(RegistrationPage.this, "Your account has been successfully created.", Toast.LENGTH_SHORT).show();
-                                        onBackPressed();
+                                    if (!isEmailInUse(Email)) {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("email_address", Email);
+                                        bundle.putString("username", Username);
+                                        bundle.putString("password", NewPassword);
+                                        bundle.putString("phone_number", PhoneNumber);
+
+                                        VerificationCodeForRegistrationDialogFragment verificationCodeForRegistrationDialogFragment = new VerificationCodeForRegistrationDialogFragment();
+                                        verificationCodeForRegistrationDialogFragment.setArguments(bundle);
+                                        verificationCodeForRegistrationDialogFragment.show(getSupportFragmentManager(), "Verification Code for Registration Fragment");
+                                        Toast.makeText(RegistrationPage.this, "A verification code has been sent to your account. Please enter this code to complete the account registration.", Toast.LENGTH_SHORT).show();
                                     } else {
                                         Toast.makeText(RegistrationPage.this, "The email address you entered is already registered. Please use a different email address", Toast.LENGTH_SHORT).show();
                                     }
@@ -140,12 +147,6 @@ public class RegistrationPage extends AppCompatActivity {
 
     // Check if the email address entered by the user is registered
     private boolean isEmailInUse(String email_address) {
-        return userDatabase.userDAO().checkIfUserExist(email_address) == null;
-    }
-
-    // Create a new account
-    private void createNewAccount(String email_address, String username, String password, String phone_number) {
-        User user = new User(email_address, username, password, phone_number);
-        userDatabase.userDAO().insertUser(user);
+        return userDatabase.userDAO().checkIfUserExist(email_address) != null;
     }
 }

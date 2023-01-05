@@ -30,6 +30,5 @@ public class RatingDialogFragment extends DialogFragment {
         });
 
         return popUp;
-
     }
 }
