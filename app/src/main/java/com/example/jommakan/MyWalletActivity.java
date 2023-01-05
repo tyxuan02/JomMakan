@@ -49,8 +49,8 @@ public class MyWalletActivity extends AppCompatActivity {
     }
 
     public void show_TopUpDialog(View v){
-        topUpDialog.setContentView(R.layout.top_up_window);
-        topUpDialog.show();
+        TopUpDialogFragment topUpDialogFragment = new TopUpDialogFragment();
+        topUpDialogFragment.show(getSupportFragmentManager(),"top up dialog");
     }
 
     // this event will enable the back function to the button on press
