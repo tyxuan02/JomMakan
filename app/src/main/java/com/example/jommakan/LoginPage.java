@@ -3,10 +3,9 @@ package com.example.jommakan;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
-//import android.content.Context;
 import android.content.Context;
 import android.content.Intent;
-//import android.content.SharedPreferences;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -15,18 +14,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-//
-//import java.io.FileNotFoundException;
-//import java.io.FileOutputStream;
-//import java.io.IOException;
-//
-//import java.io.File;
-//import java.io.FileNotFoundException;
-//import java.io.FileOutputStream;
-//import java.io.IOException;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -35,8 +35,6 @@ public class LoginPage extends AppCompatActivity {
     Button login_button;
 
     UserDatabase userDatabase;
-
-//    private static final String USER_FILE_NAME = "user_file";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,21 +50,33 @@ public class LoginPage extends AppCompatActivity {
         // Database connection
         userDatabase = Room.databaseBuilder(this, UserDatabase.class, "UserDB").allowMainThreadQueries().build();
 
-//        // check if the file exists
-//        Context context = getApplicationContext();
-//        // create file handler
-//        File userFile = new File(context.getFilesDir(), USER_FILE_NAME);
-
         //Login (need to check the validity of email and password)
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//
-//                Context context = v.getContext();
+
+                // user has already log in -> check if local storage has 'user_file'
+                // which stores the user email and password
+                // if no user_file exist, ask the user to log in
+                // jump to log in page
+                Context context = v.getContext();
+
+                // first time login - check if the user data exists in database
+                String filename = "user_file";
                 String Email = email_edit_text.getText().toString();
                 String Password = password_edit_text.getText().toString();
                 User user = userDatabase.userDAO().getUser(Email, Password);
                 if(user != null){
+                    try(FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
+                        fos.write(Email.getBytes());
+                        fos.write(10);
+                        fos.write(Password.getBytes());
+                        fos.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     Toast.makeText(LoginPage.this, "Login successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     intent.putExtra("user", user);
@@ -74,19 +84,6 @@ public class LoginPage extends AppCompatActivity {
                 }else{
                     Toast.makeText(LoginPage.this, "The email address or password you entered is incorrect. Please try again.", Toast.LENGTH_SHORT).show();
                 }
-//
-//                // write user_email and user_password in storage file
-//                String filename = "user_file";
-//                String user_email = email_edit_text.getText().toString();
-//                String user_password = password_edit_text.getText().toString();
-//                try (FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
-//                    fos.write(user_email.getBytes());
-//                    fos.write(user_password.getBytes());
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
             }
         });
 
@@ -114,12 +111,19 @@ public class LoginPage extends AppCompatActivity {
 //        super.onResume();
 //
 //        SharedPreferences sh = getSharedPreferences("UserSharedPref", MODE_PRIVATE);
+//        boolean defaultState = false;
+//        boolean isUserLogged = sh.getBoolean("UserSharedPref", defaultState);
+//        if (isUserLogged) {
+//            Intent intent = new Intent(this, MainActivity.class);
+//            String email = sh.getString("email", "");
+//            String password = sh.getString("password", "");
+//            email_edit_text.setText(email);
+//            password_edit_text.setText(password);
+//            intent.putExtra(email, password);
+//            startActivity(intent);
+//        }
 //
-//        String email = sh.getString("email", "");
-//        String password = sh.getString("password", "");
 //
-//        email_edit_text.setText(email);
-//        password_edit_text.setText(password);
 //    }
 //
 //    // save data to SharedPreference
@@ -128,10 +132,10 @@ public class LoginPage extends AppCompatActivity {
 //        super.onPause();
 //        SharedPreferences sharedPreferences = getSharedPreferences("UserSharedPref", MODE_PRIVATE);
 //        SharedPreferences.Editor edit = sharedPreferences.edit();
-//
 //        edit.putString("email", email_edit_text.getText().toString());
 //        edit.putString("password", password_edit_text.getText().toString());
 //        edit.apply();
+//        edit.putBoolean("UserSharedPref", true).commit();
 //    }
-//
+
 }

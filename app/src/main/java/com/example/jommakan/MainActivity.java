@@ -9,7 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
 
-//import android.content.SharedPreferences;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -36,14 +37,30 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<CartFood> cart_food_list;
 
+    private static final String USER_FILE_NAME = "user_file";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Get intent passed from Login Page
+        // check if user_file exist
+        Context context = getApplicationContext();
+        File userFile = new File(context.getFilesDir(), USER_FILE_NAME);
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+        if (userFile.exists()) {
+            // Get intent passed from Loading Page
+            User userLogged = (User) bundle.get("userLogged");
+            UserInstance.setUsername(userLogged.getUsername());
+            UserInstance.setUser_email_address(userLogged.getUser_email_address());
+        } else {
+            // Get intent passed from Login Page
+            User user = (User) bundle.get("user");
+            UserInstance.setUsername(user.getUsername());
+            UserInstance.setUser_email_address(user.getUser_email_address());
+        }
         User user = (User) bundle.get("user");
         // Store user credential into UserInstance class
         UserInstance.setUsername(user.getUsername());
