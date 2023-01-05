@@ -1,5 +1,6 @@
 package com.example.jommakan;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +59,9 @@ public class TopUpDialogFragment extends DialogFragment {
                         UserInstance.setWallet_balance(sumOfTopUpAmount);
                         userDatabase.userDAO().updateWalletBalance(UserInstance.getWallet_balance(), UserInstance.getUser_email_address());
                         dismiss();
+                        Intent intent = new Intent(getActivity(), MyWalletActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     }
                     else{
                         Toast.makeText(getActivity(), "Incorrect password!", Toast.LENGTH_SHORT).show();
