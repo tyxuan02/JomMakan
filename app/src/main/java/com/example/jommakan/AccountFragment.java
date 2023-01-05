@@ -1,5 +1,7 @@
 package com.example.jommakan;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,15 +22,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
+
 public class AccountFragment extends Fragment {
 
     TextView logOutBtn;
     TextView username_text_view;
     TextView email_address_text_view;
 
+    Context context;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_account, container, false);
+
     }
 
     @Override
@@ -50,9 +57,12 @@ public class AccountFragment extends Fragment {
 
         // log out textView click
         logOutBtn = view.findViewById(R.id.log_out_btn);
+        // get file dir
+        context = view.getContext();
         logOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                context.deleteFile("user_file");
                 Intent intent = new Intent(getActivity(),LoginPage.class);
                 startActivity(intent);
             }
