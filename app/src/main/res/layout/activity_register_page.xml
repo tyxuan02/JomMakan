@@ -87,6 +87,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/confirmPassword_layout"
         android:layout_below="@+id/newPassword_layout"
+        app:passwordToggleEnabled="true"
         app:hintEnabled="false"
         android:layout_marginTop="30dp">
 
@@ -95,6 +96,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/login_registration_edit_text_background"
             android:id="@+id/confirmPassword_edit_text"
+            android:inputType="textVisiblePassword"
             android:hint=" Confirm Password"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/caudex"
