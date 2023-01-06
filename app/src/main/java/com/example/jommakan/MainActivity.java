@@ -85,52 +85,52 @@ public class MainActivity extends AppCompatActivity {
     private void addFood() {
         // KK3
         // Restoran Al-Ehsan
-        Food food1 = new Food("Nasi Goreng Kampung", "Kolej Kediaman Tuanku Kursiah (KK3)", "Restoran Al-Ehsan", 6.00, new ArrayList<>(), R.drawable.nasi_goreng_kampung, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Food food2 = new Food("Mi Goreng", "Kolej Kediaman Tuanku Kursiah (KK3)", "Restoran Al-Ehsan", 4.00, new ArrayList<>(), R.drawable.mi_goreng, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food1 = new Food("Nasi Goreng Kampung", "Kolej Kediaman Tuanku Kursiah (KK3)", "Restoran Al-Ehsan", 6.00, new ArrayList<>(Arrays.asList("Spicy")), R.drawable.nasi_goreng_kampung, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food2 = new Food("Mi Goreng", "Kolej Kediaman Tuanku Kursiah (KK3)", "Restoran Al-Ehsan", 4.00, new ArrayList<>(Arrays.asList("Delicious", "Spicy")), R.drawable.mi_goreng, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
 
 
         // KK8
         // Restoran Murni
-        Food food3 = new Food("Nasi Goreng Kampung", "Kolej Kediaman Kinabalu (KK8)", "Restoran Murni", 5.00, new ArrayList<>(), R.drawable.nasi_goreng_kampung, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Food food4 = new Food("Nasi Goreng Cina", "Kolej Kediaman Kinabalu (KK8)", "Restoran Murni", 5.00, new ArrayList<>(), R.drawable.nasi_goreng_cina, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Food food5 = new Food("Nasi Goreng Tomyam", "Kolej Kediaman Kinabalu (KK8)", "Restoran Murni", 5.50, new ArrayList<>(), R.drawable.nasi_goreng_tomyam, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Food food6 = new Food("Nasi Goreng Pattaya", "Kolej Kediaman Kinabalu (KK8)", "Restoran Murni", 5.00, new ArrayList<>(), R.drawable.nasi_goreng_pattaya, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food3 = new Food("Nasi Goreng Kampung", "Kolej Kediaman Kinabalu (KK8)", "Restoran Murni", 5.00, new ArrayList<>(Arrays.asList("Aromatic", "Greasy")), R.drawable.nasi_goreng_kampung, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food4 = new Food("Nasi Goreng Cina", "Kolej Kediaman Kinabalu (KK8)", "Restoran Murni", 5.00, new ArrayList<>(Arrays.asList("Nutritious")), R.drawable.nasi_goreng_cina, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food5 = new Food("Nasi Goreng Tomyam", "Kolej Kediaman Kinabalu (KK8)", "Restoran Murni", 5.50, new ArrayList<>(Arrays.asList("Spicy", "Contains prawn", "Sour")), R.drawable.nasi_goreng_tomyam, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food6 = new Food("Nasi Goreng Pattaya", "Kolej Kediaman Kinabalu (KK8)", "Restoran Murni", 5.00, new ArrayList<>(Arrays.asList("Delicious")), R.drawable.nasi_goreng_pattaya, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
 
         // Restoran Bidayah Bistro
-        Food food7 = new Food("Roti Canai", "Kolej Kediaman Kinabalu (KK8)", "Restoran Bidayah Bistro", 1.20, new ArrayList<>(), R.drawable.roti_canai, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Food food8 = new Food("Roti Bawang", "Kolej Kediaman Kinabalu (KK8)", "Restoran Bidayah Bistro", 2.80, new ArrayList<>(), R.drawable.roti_bawang, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food7 = new Food("Roti Canai", "Kolej Kediaman Kinabalu (KK8)", "Restoran Bidayah Bistro", 1.20, new ArrayList<>(Arrays.asList("Local delight")), R.drawable.roti_canai, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food8 = new Food("Roti Bawang", "Kolej Kediaman Kinabalu (KK8)", "Restoran Bidayah Bistro", 2.80, new ArrayList<>(Arrays.asList("Delicious")), R.drawable.roti_bawang, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
 
 
         // KK4
         // Restoran Famidah
-        Food food9 = new Food("Nasi Goreng Kampung", "Kolej Kediaman Bestari (KK4)", "Restoran Famidah", 5.00, new ArrayList<>(), R.drawable.nasi_goreng_kampung, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Food food10 = new Food("Nasi Goreng Cina", "Kolej Kediaman Bestari (KK4)", "Restoran Famidah", 5.00, new ArrayList<>(), R.drawable.nasi_goreng_cina, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food9 = new Food("Nasi Goreng Kampung", "Kolej Kediaman Bestari (KK4)", "Restoran Famidah", 5.00, new ArrayList<>(Arrays.asList("Spicy", "Delicious")), R.drawable.nasi_goreng_kampung, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food10 = new Food("Nasi Goreng Cina", "Kolej Kediaman Bestari (KK4)", "Restoran Famidah", 5.00, new ArrayList<>(Arrays.asList("Aromatic")), R.drawable.nasi_goreng_cina, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
 
         // Restoran Al-Safuan
-        Food food11 = new Food("Roti Canai", "Kolej Kediaman Bestari (KK4)", "Restoran Al-Safuan", 1.20, new ArrayList<>(), R.drawable.roti_canai, new ArrayList<>(Arrays.asList("8.00 AM", "7.00 PM")));
-        Food food12 = new Food("Nasi Lemak", "Kolej Kediaman Bestari (KK4)", "Restoran Al-Safuan", 6.00, new ArrayList<>(), R.drawable.nasi_lemak, new ArrayList<>(Arrays.asList("8.00 AM", "7.00 PM")));
+        Food food11 = new Food("Roti Canai", "Kolej Kediaman Bestari (KK4)", "Restoran Al-Safuan", 1.20, new ArrayList<>(Arrays.asList("Local delight")), R.drawable.roti_canai, new ArrayList<>(Arrays.asList("8.00 AM", "7.00 PM")));
+        Food food12 = new Food("Nasi Lemak", "Kolej Kediaman Bestari (KK4)", "Restoran Al-Safuan", 6.00, new ArrayList<>(Arrays.asList("Local delight", "Spicy")), R.drawable.nasi_lemak, new ArrayList<>(Arrays.asList("8.00 AM", "7.00 PM")));
 
         // Brotherhood Western & Grill
-        Food food13 = new Food("Chicken Chop", "Kolej Kediaman Bestari (KK4)", "Brotherhood Western & Grill", 9.00, new ArrayList<>(), R.drawable.chicken_chop, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
-        Food food14 = new Food("Fish and Chips", "Kolej Kediaman Bestari (KK4)", "Brotherhood Western & Grill", 9.00, new ArrayList<>(), R.drawable.fish_and_chips, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
-        Food food15 = new Food("Spaghetti Carbonara", "Kolej Kediaman Bestari (KK4)", "Brotherhood Western & Grill", 7.00, new ArrayList<>(), R.drawable.spaghetti_carbonara, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
+        Food food13 = new Food("Chicken Chop", "Kolej Kediaman Bestari (KK4)", "Brotherhood Western & Grill", 9.00, new ArrayList<>(Arrays.asList("Crispy", "Greasy")), R.drawable.chicken_chop, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
+        Food food14 = new Food("Fish and Chips", "Kolej Kediaman Bestari (KK4)", "Brotherhood Western & Grill", 9.00, new ArrayList<>(Arrays.asList("Crispy")), R.drawable.fish_and_chips, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
+        Food food15 = new Food("Spaghetti Carbonara", "Kolej Kediaman Bestari (KK4)", "Brotherhood Western & Grill", 7.00, new ArrayList<>(Arrays.asList("Aromatic", "Decadent")), R.drawable.spaghetti_carbonara, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
 
 
         // Faculty of Education
         // Restoran Abu Khalid
-        Food food16 = new Food("Chicken Chop", "Faculty of Education", "Restoran Abu Khalid", 9.00, new ArrayList<>(), R.drawable.chicken_chop, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Food food17 = new Food("Nasi Kerabu", "Faculty of Education", "Restoran Abu Khalid", 6.00, new ArrayList<>(), R.drawable.nasi_kerabu, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food16 = new Food("Chicken Chop", "Faculty of Education", "Restoran Abu Khalid", 9.00, new ArrayList<>(Arrays.asList("Crispy")), R.drawable.chicken_chop, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food17 = new Food("Nasi Kerabu", "Faculty of Education", "Restoran Abu Khalid", 6.00, new ArrayList<>(Arrays.asList("Local delight", "Spicy")), R.drawable.nasi_kerabu, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
 
         // Piccadilly
-        Food food18 = new Food("Bihun Tomyam", "Faculty of Education", "Piccadilly", 5.00, new ArrayList<>(), R.drawable.bihun_tomyam, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Food food19 = new Food("Mi Goreng", "Faculty of Education", "Piccadilly", 4.00, new ArrayList<>(), R.drawable.mi_goreng, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Food food20 = new Food("Maggi Kerabu", "Faculty of Education", "Piccadilly", 5.00, new ArrayList<>(), R.drawable.maggi_kerabu, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food18 = new Food("Bihun Tomyam", "Faculty of Education", "Piccadilly", 5.00, new ArrayList<>(Arrays.asList("Spicy", "Contains prawn")), R.drawable.bihun_tomyam, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food19 = new Food("Mi Goreng", "Faculty of Education", "Piccadilly", 4.00, new ArrayList<>(Arrays.asList("Delicious")), R.drawable.mi_goreng, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food20 = new Food("Maggi Kerabu", "Faculty of Education", "Piccadilly", 5.00, new ArrayList<>(Arrays.asList("Sour", "Contains prawn")), R.drawable.maggi_kerabu, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
 
 
         // Faculty of Computer Science and Information Technology
         // Ali Food Corner
-        Food food21 = new Food("Nasi Lemak", "Faculty of Computer Science and Information Technology", "Ali Food Corner", 6.00, new ArrayList<>(), R.drawable.nasi_lemak, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Food food22 = new Food("Maggi Goreng", "Faculty of Computer Science and Information Technology", "Ali Food Corner", 4.00, new ArrayList<>(), R.drawable.maggi_goreng, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food21 = new Food("Nasi Lemak", "Faculty of Computer Science and Information Technology", "Ali Food Corner", 6.00, new ArrayList<>(Arrays.asList("Local delight", "Spicy")), R.drawable.nasi_lemak, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food22 = new Food("Maggi Goreng", "Faculty of Computer Science and Information Technology", "Ali Food Corner", 4.00, new ArrayList<>(Arrays.asList("Delicious")), R.drawable.maggi_goreng, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
 
         // Add food into database
         foodDatabase.foodDAO().insertAll(food1, food2, food3, food4, food5, food6, food7, food8, food9, food10, food11, food12, food13, food14, food15, food16, food17, food18, food19, food20, food21, food22);
@@ -150,15 +150,15 @@ public class MainActivity extends AppCompatActivity {
 
     // Add stalls into database
     private void addStall() {
-        Stall stall1 = new Stall("Restoran Al-Ehsan", "Kolej Kediaman Tuanku Kursiah (KK3)", new ArrayList<>(Arrays.asList("Nasi Goreng", "Nasi Goreng Kampung", "Mi Goreng")), "", R.drawable.restoran_al_ehsan, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Stall stall2 = new Stall("Restoran Murni", "Kolej Kediaman Kinabalu (KK8)", new ArrayList<>(Arrays.asList("Nasi Goreng Kampung", "Nasi Goreng Cina", "Nasi Goreng Tomyam", "Nasi Goreng Pattaya")), "", R.drawable.restoran_murni, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Stall stall3 = new Stall("Restoran Bidayah Bistro", "Kolej Kediaman Kinabalu (KK8)", new ArrayList<>(Arrays.asList("Roti Canai", "Roti Bawang")), "", R.drawable.restoran_bidayah_bistro, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Stall stall4 = new Stall("Restoran Famidah", "Kolej Kediaman Bestari (KK4)", new ArrayList<>(Arrays.asList("Nasi Goreng Kampung", "Nasi Goreng Cina")), "", R.drawable.restoran_famidah, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Stall stall5 = new Stall("Restoran Al-Safuan", "Kolej Kediaman Bestari (KK4)", new ArrayList<>(Arrays.asList("Roti Canai", "Nasi Lemak")), "", R.drawable.restoran_al_safuan, new ArrayList<>(Arrays.asList("8.00 AM", "7.00 PM")));
-        Stall stall6 = new Stall("Brotherhood Western & Grill", "Kolej Kediaman Bestari (KK4)", new ArrayList<>(Arrays.asList("Chicken Chop", "Fish and Chips", "Spaghetti Carbonara")), "", R.drawable.brotherhood_western_grill, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
-        Stall stall7 = new Stall("Restoran Abu Khalid", "Faculty of Education", new ArrayList<>(Arrays.asList("Chicken Chop", "Nasi Kerabu")), "", R.drawable.restoran_abu_khalid, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Stall stall8 = new Stall("Piccadilly", "Faculty of Education", new ArrayList<>(Arrays.asList("Bihun Tomyam", "Mi Goreng", "Maggi Kerabu")), "", R.drawable.piccadilly, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
-        Stall stall9 = new Stall("Ali Food Corner", "Faculty of Computer Science and Information Technology", new ArrayList<>(Arrays.asList("Nasi Lemak", "Maggi Goreng")), "", R.drawable.ali_food_corner, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Stall stall1 = new Stall("Restoran Al-Ehsan", "Kolej Kediaman Tuanku Kursiah (KK3)", new ArrayList<>(Arrays.asList("Nasi Goreng", "Nasi Goreng Kampung", "Mi Goreng")), "Good for large group", R.drawable.restoran_al_ehsan, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Stall stall2 = new Stall("Restoran Murni", "Kolej Kediaman Kinabalu (KK8)", new ArrayList<>(Arrays.asList("Nasi Goreng Kampung", "Nasi Goreng Cina", "Nasi Goreng Tomyam", "Nasi Goreng Pattaya")), "Local favourite", R.drawable.restoran_murni, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Stall stall3 = new Stall("Restoran Bidayah Bistro", "Kolej Kediaman Kinabalu (KK8)", new ArrayList<>(Arrays.asList("Roti Canai", "Roti Bawang")), "Budget eat", R.drawable.restoran_bidayah_bistro, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Stall stall4 = new Stall("Restoran Famidah", "Kolej Kediaman Bestari (KK4)", new ArrayList<>(Arrays.asList("Nasi Goreng Kampung", "Nasi Goreng Cina")), "Small area", R.drawable.restoran_famidah, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Stall stall5 = new Stall("Restoran Al-Safuan", "Kolej Kediaman Bestari (KK4)", new ArrayList<>(Arrays.asList("Roti Canai", "Nasi Lemak")), "Suitable for vegetarian", R.drawable.restoran_al_safuan, new ArrayList<>(Arrays.asList("8.00 AM", "7.00 PM")));
+        Stall stall6 = new Stall("Brotherhood Western & Grill", "Kolej Kediaman Bestari (KK4)", new ArrayList<>(Arrays.asList("Chicken Chop", "Fish and Chips", "Spaghetti Carbonara")), "Good for celebrations", R.drawable.brotherhood_western_grill, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
+        Stall stall7 = new Stall("Restoran Abu Khalid", "Faculty of Education", new ArrayList<>(Arrays.asList("Chicken Chop", "Nasi Kerabu")), "Lively Environment", R.drawable.restoran_abu_khalid, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Stall stall8 = new Stall("Piccadilly", "Faculty of Education", new ArrayList<>(Arrays.asList("Bihun Tomyam", "Mi Goreng", "Maggi Kerabu")), "Good for gathering", R.drawable.piccadilly, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Stall stall9 = new Stall("Ali Food Corner", "Faculty of Computer Science and Information Technology", new ArrayList<>(Arrays.asList("Nasi Lemak", "Maggi Goreng")), "Good for gathering", R.drawable.ali_food_corner, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
 
         // Add stalls into database
         stallDatabase.stallDAO().insertAll(stall1, stall2, stall3, stall4, stall5, stall6, stall7, stall8, stall9);
