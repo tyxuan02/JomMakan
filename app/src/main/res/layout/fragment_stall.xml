@@ -19,7 +19,7 @@
                 android:id="@+id/stall_image"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/restoran_famidah_image"
+                android:src="@drawable/restoran_famidah"
                 android:scaleType="centerCrop"
                 android:adjustViewBounds="true"/>
 

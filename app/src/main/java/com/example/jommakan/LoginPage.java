@@ -70,7 +70,7 @@ public class LoginPage extends AppCompatActivity {
                     intent.putExtra("user", user);
                     startActivity(intent);
                 }else{
-                    Toast.makeText(LoginPage.this, "The email address or password you entered is incorrect. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginPage.this, "The email address or password you entered is incorrect.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

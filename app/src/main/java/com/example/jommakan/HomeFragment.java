@@ -2,6 +2,11 @@ package com.example.jommakan;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,22 +17,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
 import com.google.android.material.imageview.ShapeableImageView;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 public class HomeFragment extends Fragment {
+
+    TextView welcome_text_with_name;
 
     // Top 5
     ArrayList<Food> top_5_food_list;
@@ -80,6 +85,10 @@ public class HomeFragment extends Fragment {
         locationDatabase = Room.databaseBuilder(getActivity(), LocationDatabase.class, "LocationDB").allowMainThreadQueries().build();
         cartItemDatabase = Room.databaseBuilder(getActivity(), CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
 
+        // Welcome text
+        welcome_text_with_name = view.findViewById(R.id.welcome_text_with_name);
+        welcome_text_with_name.setText("Hi, " + UserInstance.getUsername());
+
         // Randomly get 5 food from database
         top_5_food_list = new ArrayList<>();
         getTop5Food();
@@ -131,7 +140,11 @@ public class HomeFragment extends Fragment {
 
         // Random Food Picker
         random_food_picker = view.findViewById(R.id.random_food_picker);
-        random_food = foodDatabase.foodDAO().getAllFood().get(new Random().nextInt(foodDatabase.foodDAO().getAllFood().size()));
+        do {
+            // Check if the stall is open
+            // So that we can only get the food that its stall is open
+            random_food = foodDatabase.foodDAO().getAllFood().get(new Random().nextInt(foodDatabase.foodDAO().getAllFood().size()));
+        } while (!checkOpenClose(random_food));
         random_food_picker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,6 +183,36 @@ public class HomeFragment extends Fragment {
         } else {
             cart_food_list = cartItem.getCart_food_list();
         }
+    }
+
+    // Check whether the stall is open
+    // Return true if the stall is open
+    private boolean checkOpenClose(Food random_food) {
+        SimpleDateFormat format = new SimpleDateFormat("h.mm a");
+        Calendar time = Calendar.getInstance();
+        Calendar time1 = Calendar.getInstance();
+        Calendar time2 = Calendar.getInstance();
+        try {
+            time.setTime(format.parse(format.format(new Date())));
+            time.add(Calendar.DATE, 1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            time1.setTime(format.parse(random_food.getOpenAndClose().get(0)));
+            time2.setTime(format.parse(random_food.getOpenAndClose().get(1)));
+            time1.add(Calendar.DATE, 1);
+            time2.add(Calendar.DATE, 1);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Date currentTime = time.getTime();
+        Date open = time1.getTime();
+        Date close = time2.getTime();
+
+        return currentTime.after(open) && currentTime.before(close);
     }
 }
 

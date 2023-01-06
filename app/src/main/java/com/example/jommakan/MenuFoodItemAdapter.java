@@ -56,7 +56,7 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
     @Override
     public void onBindViewHolder(@NonNull MenuFoodItemAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        holder.menu_food_card_view_image.setImageResource(R.drawable.nasi_goreng_image);
+        holder.menu_food_card_view_image.setImageResource(food_list.get(position).getImage());
         holder.food_name.setText(food_list.get(position).getName());
         holder.location_name.setText(food_list.get(position).getLocation());
         holder.stall_name.setText(food_list.get(position).getStall());

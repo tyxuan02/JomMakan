@@ -24,7 +24,7 @@
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             app:shapeAppearanceOverlay="@style/rounded_20_top"
-            android:src="@drawable/restoran_famidah_image" />
+            android:src="@drawable/restoran_famidah" />
 
         <TextView
             android:id="@+id/stall_name"
