@@ -1,23 +1,21 @@
 package com.example.jommakan;
 
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,12 +28,12 @@ public class StallFragment extends Fragment {
     ImageView stall_image;
     ImageButton back_button;
     TextView location_name, stall_name, open_or_close, operation_time, stall_description;
-    FoodDatabase foodDatabase;
     ArrayList<Food> food_list;
     StallFoodItemAdapter stallFoodItemAdapter;
     RecyclerView food_recycle_view;
     Stall stall;
     StallDatabase stallDatabase;
+    FoodDatabase foodDatabase;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,7 +95,15 @@ public class StallFragment extends Fragment {
     }
 
     private void getAllStalls(String location, String stall_name) {
-        food_list.addAll(foodDatabase.foodDAO().getStallFood(location, stall_name));
+        try {
+            food_list.addAll(foodDatabase.foodDAO().getStallFood(location, stall_name));
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            foodDatabase.close();
+        }
     }
 
     private String checkOpenOrClose(String open_time, String close_time) {
@@ -138,6 +144,14 @@ public class StallFragment extends Fragment {
     }
 
     private void getStall(String location_name, String stall_name) {
-        stall = stallDatabase.stallDAO().getStall(location_name, stall_name);
+        try {
+            stall = stallDatabase.stallDAO().getStall(location_name, stall_name);
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            stallDatabase.close();
+        }
     }
 }

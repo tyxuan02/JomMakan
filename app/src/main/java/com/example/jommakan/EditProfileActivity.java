@@ -1,8 +1,6 @@
 package com.example.jommakan;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
@@ -51,20 +51,30 @@ public class EditProfileActivity extends AppCompatActivity {
         inputPhoneNum = findViewById(R.id.inputPhoneNum);
         inputPassword = findViewById(R.id.inputPassword);
 
-        inputName.setText(UserInstance.getUsername());
-        inputEmail.setText(UserInstance.getUser_email_address());
-        inputPhoneNum.setText(UserInstance.getPhone_number());
-        inputPassword.setText(UserInstance.getPassword());
+        inputName.setText(UserHolder.getUsername());
+        inputEmail.setText(UserHolder.getUser_email_address());
+        inputPhoneNum.setText(UserHolder.getPhone_number());
+        inputPassword.setText(UserHolder.getPassword());
 
         save_button = findViewById(R.id.save_button);
         save_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isValidPassword(String.valueOf(inputPassword.getText()))) {
-                    if (!String.valueOf(inputPassword.getText()).equals(UserInstance.getPassword())) {
+                    if (!String.valueOf(inputPassword.getText()).equals(UserHolder.getPassword())) {
                         Toast.makeText(EditProfileActivity.this, "Password changed successfully.", Toast.LENGTH_SHORT).show();
-                        UserInstance.setPassword(String.valueOf(inputPassword.getText()));
-                        userDatabase.userDAO().changePassword(UserInstance.getUser_email_address(), UserInstance.getPassword());
+                        UserHolder.setPassword(String.valueOf(inputPassword.getText()));
+
+                        try {
+                            userDatabase.userDAO().changePassword(UserHolder.getUser_email_address(), UserHolder.getPassword());
+                        } catch (SQLiteException e) {
+                            // Handle errors
+                            e.printStackTrace();
+                        } finally {
+                            // Close the database connection
+                            userDatabase.close();
+                        }
+
                         onBackPressed();
                     } else {
                         Toast.makeText(EditProfileActivity.this, "Please use a different password.", Toast.LENGTH_SHORT).show();

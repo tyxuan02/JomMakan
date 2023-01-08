@@ -1,5 +1,6 @@
 package com.example.jommakan;
 
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,17 @@ public class ForgotPasswordDialogFragment3 extends DialogFragment {
                 if (isValidPassword(new_password_text_view.getText().toString())) {
                     if (isMatchedPassword(new_password_text_view.getText().toString(), confirm_password_text_view.getText().toString())) {
                         String email_address = getArguments().getString("email_address");
-                        userDatabase.userDAO().changePassword(email_address, new_password_text_view.getText().toString());
+
+                        try {
+                            userDatabase.userDAO().changePassword(email_address, new_password_text_view.getText().toString());
+                        } catch (SQLiteException e) {
+                            // Handle errors
+                            e.printStackTrace();
+                        } finally {
+                            // Close the database connection
+                            userDatabase.close();
+                        }
+
                         Toast.makeText(getActivity(), "Your password was successfully changed.", Toast.LENGTH_SHORT).show();
                         dismiss();
                     }

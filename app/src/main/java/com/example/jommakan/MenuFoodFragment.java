@@ -1,27 +1,21 @@
 package com.example.jommakan;
 
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class MenuFoodFragment extends Fragment {
 
@@ -86,7 +80,14 @@ public class MenuFoodFragment extends Fragment {
 
     // Get all food from database
     private void getAllFood() {
-        food_list.addAll(foodDatabase.foodDAO().getAllFood());
+        try {
+            food_list.addAll(foodDatabase.foodDAO().getAllFood());
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            foodDatabase.close();
+        }
     }
-
 }

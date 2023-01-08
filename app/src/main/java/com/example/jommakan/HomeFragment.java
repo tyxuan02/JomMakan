@@ -1,5 +1,6 @@
 package com.example.jommakan;
 
+import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -87,7 +88,7 @@ public class HomeFragment extends Fragment {
 
         // Welcome text
         welcome_text_with_name = view.findViewById(R.id.welcome_text_with_name);
-        welcome_text_with_name.setText("Hi, " + UserInstance.getUsername());
+        welcome_text_with_name.setText("Hi, " + UserHolder.getUsername());
 
         // Randomly get 5 food from database
         top_5_food_list = new ArrayList<>();
@@ -162,22 +163,56 @@ public class HomeFragment extends Fragment {
 
     // Randomly get 5 food from database
     private void getTop5Food() {
-        top_5_food_list.addAll(foodDatabase.foodDAO().getTop5Food());
+        try {
+            top_5_food_list.addAll(foodDatabase.foodDAO().getTop5Food());
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            foodDatabase.close();
+        }
     }
 
     // Randomly get 3 food from database
     private void getThreeFood() {
-        menu_food_list.addAll(foodDatabase.foodDAO().getThreeFood());
+        try {
+            menu_food_list.addAll(foodDatabase.foodDAO().getThreeFood());
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            foodDatabase.close();
+        }
     }
 
     // Randomly get 3 locations from database
     private void getThreeLocations() {
-        menu_location_list.addAll(locationDatabase.locationDAO().getRandomLocations());
+        try {
+            menu_location_list.addAll(locationDatabase.locationDAO().getRandomLocations());
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            locationDatabase.close();
+        }
+
     }
 
     // Get the food of that stall that user has added to cart from database
     private void getCartFoodList(String location, String stall) {
-        cartItem = cartItemDatabase.cartItemDAO().getCartItem(UserInstance.getUser_email_address(), location, stall);
+        try {
+            cartItem = cartItemDatabase.cartItemDAO().getCartItem(UserHolder.getUser_email_address(), location, stall);
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            cartItemDatabase.close();
+        }
+
         if (cartItem == null) {
             cart_food_list = new ArrayList<>();
         } else {

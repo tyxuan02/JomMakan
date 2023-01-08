@@ -1,6 +1,7 @@
 package com.example.jommakan;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -43,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
         User user = (User) bundle.get("user");
 
         // Store user credential into UserInstance class
-        UserInstance.setUsername(user.getUsername());
-        UserInstance.setUser_email_address(user.getUser_email_address());
-        UserInstance.setPhone_number(user.getPhone_number());
-        UserInstance.setPassword(user.getPassword());
-        UserInstance.setWallet_balance(user.getWallet_balance());
+        UserHolder.setUsername(user.getUsername());
+        UserHolder.setUser_email_address(user.getUser_email_address());
+        UserHolder.setPhone_number(user.getPhone_number());
+        UserHolder.setPassword(user.getPassword());
+        UserHolder.setWallet_balance(user.getWallet_balance());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // TextView toolbar_title = findViewById(R.id.toolbar_title);
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Brotherhood Western & Grill
         Food food13 = new Food("Chicken Chop", "Kolej Kediaman Bestari (KK4)", "Brotherhood Western & Grill", 9.00, new ArrayList<>(Arrays.asList("Crispy", "Greasy")), R.drawable.chicken_chop, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
-        Food food14 = new Food("Fish and Chips", "Kolej Kediaman Bestari (KK4)", "Brotherhood Western & Grill", 9.00, new ArrayList<>(Arrays.asList("Crispy")), R.drawable.fish_and_chips, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
+        Food food14 = new Food("Fish and Chips", "Kolej Kediaman Bestari (KK4)", "Brotherhood Western & Grill", 9.00, new ArrayList<>(Arrays.asList("Crispy", "Sour")), R.drawable.fish_and_chips, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
         Food food15 = new Food("Spaghetti Carbonara", "Kolej Kediaman Bestari (KK4)", "Brotherhood Western & Grill", 7.00, new ArrayList<>(Arrays.asList("Aromatic", "Decadent")), R.drawable.spaghetti_carbonara, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
 
 
@@ -132,8 +133,16 @@ public class MainActivity extends AppCompatActivity {
         Food food21 = new Food("Nasi Lemak", "Faculty of Computer Science and Information Technology", "Ali Food Corner", 6.00, new ArrayList<>(Arrays.asList("Local delight", "Spicy")), R.drawable.nasi_lemak, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
         Food food22 = new Food("Maggi Goreng", "Faculty of Computer Science and Information Technology", "Ali Food Corner", 4.00, new ArrayList<>(Arrays.asList("Delicious")), R.drawable.maggi_goreng, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
 
-        // Add food into database
-        foodDatabase.foodDAO().insertAll(food1, food2, food3, food4, food5, food6, food7, food8, food9, food10, food11, food12, food13, food14, food15, food16, food17, food18, food19, food20, food21, food22);
+        try {
+            // Add food into database
+            foodDatabase.foodDAO().insertAll(food1, food2, food3, food4, food5, food6, food7, food8, food9, food10, food11, food12, food13, food14, food15, food16, food17, food18, food19, food20, food21, food22);
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            foodDatabase.close();
+        }
     }
 
     // Add locations into database
@@ -144,8 +153,16 @@ public class MainActivity extends AppCompatActivity {
         Location location4 = new Location("Faculty of Education", R.drawable.edu, new ArrayList<>(Arrays.asList("Restoran Abu Khalid", "Piccadilly")));
         Location location5 = new Location("Faculty of Computer Science and Information Technology", R.drawable.cs, new ArrayList<>(Arrays.asList("Ali Food Corner")));
 
+        try {
         // Add locations into database
-        locationDatabase.locationDAO().insertAll(location1, location2, location3, location4, location5);
+            locationDatabase.locationDAO().insertAll(location1, location2, location3, location4, location5);
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            locationDatabase.close();
+        }
     }
 
     // Add stalls into database
@@ -160,7 +177,15 @@ public class MainActivity extends AppCompatActivity {
         Stall stall8 = new Stall("Piccadilly", "Faculty of Education", new ArrayList<>(Arrays.asList("Bihun Tomyam", "Mi Goreng", "Maggi Kerabu")), "Good for gathering", R.drawable.piccadilly, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
         Stall stall9 = new Stall("Ali Food Corner", "Faculty of Computer Science and Information Technology", new ArrayList<>(Arrays.asList("Nasi Lemak", "Maggi Goreng")), "Good for gathering", R.drawable.ali_food_corner, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
 
-        // Add stalls into database
-        stallDatabase.stallDAO().insertAll(stall1, stall2, stall3, stall4, stall5, stall6, stall7, stall8, stall9);
+        try {
+            // Add stalls into database
+            stallDatabase.stallDAO().insertAll(stall1, stall2, stall3, stall4, stall5, stall6, stall7, stall8, stall9);
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            stallDatabase.close();
+        }
     }
 }

@@ -2,7 +2,7 @@ package com.example.jommakan;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,7 +93,16 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
 
     // Get the food of that stall that user has added to cart from database
     private void getCartFoodList(String location, String stall) {
-        cartItem = cartItemDatabase.cartItemDAO().getCartItem(UserInstance.getUser_email_address(), location, stall);
+        try {
+            cartItem = cartItemDatabase.cartItemDAO().getCartItem(UserHolder.getUser_email_address(), location, stall);
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            cartItemDatabase.close();
+        }
+
         if (cartItem == null) {
             cart_food_list = new ArrayList<>();
         } else {

@@ -1,6 +1,7 @@
 package com.example.jommakan;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -80,7 +81,16 @@ public class VerificationCodeForRegistrationDialogFragment extends DialogFragmen
     // Create a new account
     private void createNewAccount(String email_address, String username, String password, String phone_number) {
         User user = new User(email_address, username, password, phone_number);
-        userDatabase.userDAO().insertUser(user);
+
+        try {
+            userDatabase.userDAO().insertUser(user);
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            userDatabase.close();
+        }
     }
 
     // Send verification code to user Gmail
