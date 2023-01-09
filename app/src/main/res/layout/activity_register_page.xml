@@ -128,7 +128,7 @@
             android:id="@+id/question_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don't have an account yet?"
+            android:text="Already have an account?"
             android:fontFamily="@font/caudex"
             android:textColor="#575757"
             android:textSize="15sp"/>
