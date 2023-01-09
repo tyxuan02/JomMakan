@@ -2,12 +2,11 @@ package com.example.jommakan;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -21,9 +20,6 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView toolbar_title;
-    FragmentContainerView fragment_container;
-
     NavController navController;
     AppBarConfiguration appBarConfiguration;
 
@@ -31,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
     FoodDatabase foodDatabase;
     LocationDatabase locationDatabase;
     StallDatabase stallDatabase;
-
-    private static final String USER_FILE_NAME = "user_file";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +45,7 @@ public class MainActivity extends AppCompatActivity {
         UserHolder.setWallet_balance(user.getWallet_balance());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // TextView toolbar_title = findViewById(R.id.toolbar_title);
         setSupportActionBar(toolbar);
-        // toolbar_title.setText(toolbar.getTitle());
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
@@ -66,11 +58,10 @@ public class MainActivity extends AppCompatActivity {
         setupBottomNavMenu(navController);
 
         // Database connection
-        foodDatabase = Room.databaseBuilder(this, FoodDatabase.class, "FoodDB").allowMainThreadQueries().build();
-        locationDatabase = Room.databaseBuilder(this, LocationDatabase.class, "LocationDB").allowMainThreadQueries().build();
-        stallDatabase = Room.databaseBuilder(this, StallDatabase.class, "StallDB").allowMainThreadQueries().build();
+        foodDatabase = Room.databaseBuilder(this, FoodDatabase.class, "FoodDB").build();
+        locationDatabase = Room.databaseBuilder(this, LocationDatabase.class, "LocationDB").build();
+        stallDatabase = Room.databaseBuilder(this, StallDatabase.class, "StallDB").build();
 
-        // Add necessary data into database
         addFood();
         addLocation();
         addStall();
@@ -135,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             // Add food into database
-            foodDatabase.foodDAO().insertAll(food1, food2, food3, food4, food5, food6, food7, food8, food9, food10, food11, food12, food13, food14, food15, food16, food17, food18, food19, food20, food21, food22);
+            new InsertFoodTask(foodDatabase.foodDAO()).execute(food1, food2, food3, food4, food5, food6, food7, food8, food9, food10, food11, food12, food13, food14, food15, food16, food17, food18, food19, food20, food21, food22);
         } catch (SQLiteException e) {
             // Handle errors
             e.printStackTrace();
@@ -155,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
         // Add locations into database
-            locationDatabase.locationDAO().insertAll(location1, location2, location3, location4, location5);
+            new InsertLocationTask(locationDatabase.locationDAO()).execute(location1, location2, location3, location4, location5);
         } catch (SQLiteException e) {
             // Handle errors
             e.printStackTrace();
@@ -179,13 +170,55 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             // Add stalls into database
-            stallDatabase.stallDAO().insertAll(stall1, stall2, stall3, stall4, stall5, stall6, stall7, stall8, stall9);
+            new InsertStallTask(stallDatabase.stallDAO()).execute(stall1, stall2, stall3, stall4, stall5, stall6, stall7, stall8, stall9);
         } catch (SQLiteException e) {
             // Handle errors
             e.printStackTrace();
         } finally {
             // Close the database connection
             stallDatabase.close();
+        }
+    }
+
+    private static class InsertFoodTask extends AsyncTask<Food, Void, Void> {
+        FoodDAO foodDAO;
+
+        InsertFoodTask(FoodDAO foodDAO) {
+            this.foodDAO = foodDAO;
+        }
+
+        @Override
+        protected Void doInBackground(Food... foods) {
+            foodDAO.insertAll(foods);
+            return null;
+        }
+    }
+
+    private static class InsertLocationTask extends AsyncTask<Location, Void, Void> {
+        LocationDAO locationDAO;
+
+        InsertLocationTask(LocationDAO locationDAO) {
+            this.locationDAO = locationDAO;
+        }
+
+        @Override
+        protected Void doInBackground(Location... locations) {
+            locationDAO.insertAll(locations);
+            return null;
+        }
+    }
+
+    private static class InsertStallTask extends AsyncTask<Stall, Void, Void> {
+        StallDAO stallDAO;
+
+        InsertStallTask(StallDAO stallDAO) {
+            this.stallDAO = stallDAO;
+        }
+
+        @Override
+        protected Void doInBackground(Stall... stalls) {
+            stallDAO.insertAll(stalls);
+            return null;
         }
     }
 }

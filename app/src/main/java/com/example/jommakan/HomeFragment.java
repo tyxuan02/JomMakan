@@ -141,11 +141,26 @@ public class HomeFragment extends Fragment {
 
         // Random Food Picker
         random_food_picker = view.findViewById(R.id.random_food_picker);
-        do {
-            // Check if the stall is open
-            // So that we can only get the food that its stall is open
-            random_food = foodDatabase.foodDAO().getAllFood().get(new Random().nextInt(foodDatabase.foodDAO().getAllFood().size()));
-        } while (!checkOpenClose(random_food));
+
+        try {
+            do {
+                // Check if the stall is open
+                // So that we can only get the food that its stall is open
+                int size = foodDatabase.foodDAO().getAllFood().size();
+                if (size >= 1) {
+                    random_food = foodDatabase.foodDAO().getAllFood().get(new Random().nextInt(size));
+                } else {
+                    break;
+                }
+            } while (!checkOpenClose(random_food));
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            foodDatabase.close();
+        }
+
         random_food_picker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

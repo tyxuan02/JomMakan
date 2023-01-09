@@ -32,6 +32,6 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/menu_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="650dp"
+        android:layout_height="620dp"
         android:nestedScrollingEnabled="false"/>
 </LinearLayout>
