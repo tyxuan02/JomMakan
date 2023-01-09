@@ -13,7 +13,7 @@
         android:id="@+id/logo_image_view"
         android:layout_width="200dp"
         android:layout_height="120dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
         android:layout_gravity="center"
@@ -109,19 +109,19 @@
         android:id="@+id/signUp_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/login_registration_button_shape"
         android:text="SIGN UP"
         android:fontFamily="@font/caudex_bold"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp" />
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:gravity="center">
 
         <TextView
