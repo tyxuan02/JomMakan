@@ -1,5 +1,6 @@
 package com.example.jommakan;
 
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,25 +48,34 @@ public class ForgotPasswordDialogFragment1 extends DialogFragment {
         send_code_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (email_address_text_view.getText().toString().isEmpty()) {
-                    // If users didn't enter any email address
-                    Toast.makeText(getActivity(), "Please enter your email address.", Toast.LENGTH_SHORT).show();
-                } else if (userDatabase.userDAO().checkIfUserExist(String.valueOf(email_address_text_view.getText())) == null) {
-                    // If the email address entered by the user is not registered yet
-                    Toast.makeText(getActivity(), "The email address you provided is not associated with any account in our application.", Toast.LENGTH_SHORT).show();
-                } else {
-                    // If users enter a correct email address
-                    // Close current dialog fragment
-                    dismiss();
+                try {
+                    if (email_address_text_view.getText().toString().isEmpty()) {
+                        // If users didn't enter any email address
+                        Toast.makeText(getActivity(), "Please enter your email address.", Toast.LENGTH_SHORT).show();
+                    } else if (userDatabase.userDAO().checkIfUserExist(String.valueOf(email_address_text_view.getText())) == null) {
+                        // If the email address entered by the user is not registered yet
+                        Toast.makeText(getActivity(), "The email address you provided is not associated with any account in our application.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // If users enter a correct email address
+                        // Close current dialog fragment
+                        dismiss();
 
-                    Bundle bundle = new Bundle();
-                    bundle.putString("email_address", email_address_text_view.getText().toString());
-                    ForgotPasswordDialogFragment2 forgotPasswordDialogFragment2 = new ForgotPasswordDialogFragment2();
-                    forgotPasswordDialogFragment2.setArguments(bundle);
-                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    forgotPasswordDialogFragment2.show(transaction, "Forgot Password Fragment 2");
-                    Toast.makeText(getActivity(), "A verification code has been sent to your Gmail account. Please use it to reset your account password.", Toast.LENGTH_SHORT).show();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("email_address", email_address_text_view.getText().toString());
+                        ForgotPasswordDialogFragment2 forgotPasswordDialogFragment2 = new ForgotPasswordDialogFragment2();
+                        forgotPasswordDialogFragment2.setArguments(bundle);
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        forgotPasswordDialogFragment2.show(transaction, "Forgot Password Fragment 2");
+                        Toast.makeText(getActivity(), "A verification code has been sent to your Gmail account. Please use it to reset your account password.", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (SQLiteException e) {
+                    // Handle errors
+                    e.printStackTrace();
+                } finally {
+                    // Close the database connection
+                    userDatabase.close();
                 }
+
             }
         });
     }

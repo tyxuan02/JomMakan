@@ -53,8 +53,7 @@
                 android:textAllCaps="true"
                 android:fontFamily="@font/caudex_bold"
                 android:textSize="15sp"
-                android:background="@drawable/button_shape"
-                android:backgroundTint="@color/white"/>
+                android:background="@drawable/cancel_button_shape"/>
 
             <Button
                 android:id="@+id/confirm_button"

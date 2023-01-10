@@ -1,17 +1,7 @@
 package com.example.jommakan;
 
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
-
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.NavOptions;
-import androidx.navigation.Navigation;
-import androidx.room.Room;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.Serializable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.room.Room;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -157,53 +151,61 @@ public class FoodFragment extends Fragment {
         add_to_cart_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (checkNumberOfFoodInCartItem() == 0) {
-                    // If there are no food from that stall in the cart item
-                    if (Integer.parseInt(quantity.getText().toString()) == 0) {
-                        Toast.makeText(getActivity(), "Please make sure to select a quantity for the food that is greater than zero", Toast.LENGTH_SHORT).show();
-                    } else {
-                        changeFoodQuantityInCartItem(index);
-                        cartItemDatabase.cartItemDAO().insertCartItem(new CartItem(UserInstance.getUser_email_address(), chosen_food.getLocation(), chosen_food.getStall(), cart_food_list));
-                        Toast.makeText(getActivity(), "The food has been added to the cart", Toast.LENGTH_SHORT).show();
-                    }
-                    getActivity().onBackPressed();
-                } else if (checkNumberOfFoodInCartItem() < 3) {
-                    // If there are 1 to 2 food from that stall in the cart
-                    if (Integer.parseInt(quantity.getText().toString()) == 0) {
-                        if (index != -1) {
-                            removeFoodFromCartItem(index);
-                            Toast.makeText(getActivity(), "The food has been removed from the cart", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getActivity(), "Please make sure to select a quantity for the food that is greater than zero", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(getActivity(), "The food has been added to the cart", Toast.LENGTH_SHORT).show();
-                        changeFoodQuantityInCartItem(index);
-                    }
-
-                    if (cart_food_list.size() == 0) {
-                        cartItemDatabase.cartItemDAO().deleteCartItem(UserInstance.getUser_email_address(), chosen_food.getLocation(), chosen_food.getStall());
-                    } else {
-                        cartItemDatabase.cartItemDAO().updateCartItem(UserInstance.getUser_email_address(), chosen_food.getLocation(), chosen_food.getStall(), cart_food_list);
-                    }
-                    getActivity().onBackPressed();
-                } else if (checkNumberOfFoodInCartItem() == 3) {
-                    // If there are 3 food from that stall in the cart
-                    if (index != -1) {
-                        // If the food from that stall is already in the cart
+                try {
+                    if (checkNumberOfFoodInCartItem() == 0) {
+                        // If there are no food from that stall in the cart item
                         if (Integer.parseInt(quantity.getText().toString()) == 0) {
-                            removeFoodFromCartItem(index);
-                            Toast.makeText(getActivity(), "The food has been removed from the cart", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Please make sure to select a quantity for the food that is greater than zero", Toast.LENGTH_SHORT).show();
+                        } else {
+                            changeFoodQuantityInCartItem(index);
+                            cartItemDatabase.cartItemDAO().insertCartItem(new CartItem(UserInstance.getUser_email_address(), chosen_food.getLocation(), chosen_food.getStall(), cart_food_list));
+                            Toast.makeText(getActivity(), "The food has been added to the cart", Toast.LENGTH_SHORT).show();
+                        }
+                        getActivity().onBackPressed();
+                    } else if (checkNumberOfFoodInCartItem() < 3) {
+                        // If there are 1 to 2 food from that stall in the cart
+                        if (Integer.parseInt(quantity.getText().toString()) == 0) {
+                            if (index != -1) {
+                                removeFoodFromCartItem(index);
+                                Toast.makeText(getActivity(), "The food has been removed from the cart", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), "Please make sure to select a quantity for the food that is greater than zero", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Toast.makeText(getActivity(), "The food has been added to the cart", Toast.LENGTH_SHORT).show();
                             changeFoodQuantityInCartItem(index);
                         }
-                        cartItemDatabase.cartItemDAO().updateCartItem(UserInstance.getUser_email_address(), chosen_food.getLocation(), chosen_food.getStall(), cart_food_list);
+
+                        if (cart_food_list.size() == 0) {
+                            cartItemDatabase.cartItemDAO().deleteCartItem(UserInstance.getUser_email_address(), chosen_food.getLocation(), chosen_food.getStall());
+                        } else {
+                            cartItemDatabase.cartItemDAO().updateCartItem(UserInstance.getUser_email_address(), chosen_food.getLocation(), chosen_food.getStall(), cart_food_list);
+                        }
                         getActivity().onBackPressed();
-                    } else {
-                        // If the user wants to add more food of that stall to cart item
-                        Toast.makeText(getActivity(), "You can only add 3 different food from each store to cart", Toast.LENGTH_SHORT).show();
+                    } else if (checkNumberOfFoodInCartItem() == 3) {
+                        // If there are 3 food from that stall in the cart
+                        if (index != -1) {
+                            // If the food from that stall is already in the cart
+                            if (Integer.parseInt(quantity.getText().toString()) == 0) {
+                                removeFoodFromCartItem(index);
+                                Toast.makeText(getActivity(), "The food has been removed from the cart", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), "The food has been added to the cart", Toast.LENGTH_SHORT).show();
+                                changeFoodQuantityInCartItem(index);
+                            }
+                            cartItemDatabase.cartItemDAO().updateCartItem(UserInstance.getUser_email_address(), chosen_food.getLocation(), chosen_food.getStall(), cart_food_list);
+                            getActivity().onBackPressed();
+                        } else {
+                            // If the user wants to add more food of that stall to cart item
+                            Toast.makeText(getActivity(), "You can only add 3 different food from each store to cart", Toast.LENGTH_SHORT).show();
+                        }
                     }
+                } catch (SQLiteException e) {
+                    // Handle errors
+                    e.printStackTrace();
+                } finally {
+                    // Close the database connection
+                    cartItemDatabase.close();
                 }
             }
         });

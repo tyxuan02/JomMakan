@@ -23,7 +23,6 @@ public class ForgotPasswordDialogFragment2 extends DialogFragment {
     TextView verification_code_text_view;
     String email_address;
     String verification_code;
-    Email email;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

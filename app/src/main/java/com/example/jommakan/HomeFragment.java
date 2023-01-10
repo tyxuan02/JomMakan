@@ -1,7 +1,13 @@
 package com.example.jommakan;
 
+import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,12 +17,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.google.android.material.imageview.ShapeableImageView;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
@@ -80,9 +80,32 @@ public class HomeFragment extends Fragment {
         locationDatabase = Room.databaseBuilder(getActivity(), LocationDatabase.class, "LocationDB").allowMainThreadQueries().build();
         cartItemDatabase = Room.databaseBuilder(getActivity(), CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
 
-        // Randomly get 5 food from database
         top_5_food_list = new ArrayList<>();
-        getTop5Food();
+        menu_food_list = new ArrayList<>();
+        menu_location_list = new ArrayList<>();
+
+        try {
+            // Randomly get 5 food from database
+            getTop5Food();
+
+            // Randomly get 3 food from database
+            getThreeFood();
+
+            // Randomly get 3 locations from database
+            getThreeLocations();
+
+            // Get random food from database
+            random_food = foodDatabase.foodDAO().getAllFood().get(new Random().nextInt(foodDatabase.foodDAO().getAllFood().size()));
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            foodDatabase.close();
+            locationDatabase.close();
+            cartItemDatabase.close();
+        }
+
         // Top 5 Slider
         sliderAdapter = new SliderAdapter(top_5_food_list, getActivity());
         top_5_image_slider = view.findViewById(R.id.top_5_image_slider);
@@ -91,9 +114,6 @@ public class HomeFragment extends Fragment {
         top_5_image_slider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
         top_5_image_slider.startAutoCycle();
 
-        // Randomly get 3 food from database
-        menu_food_list = new ArrayList<>();
-        getThreeFood();
         // Home Menu
         homeMenuItemAdapter = new HomeMenuItemAdapter(getActivity(), menu_food_list);
         home_menu_recycle_view = view.findViewById(R.id.home_menu_recycle_view);
@@ -109,10 +129,6 @@ public class HomeFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.DestMenu);
             }
         });
-
-        // Randomly get 3 locations from database
-        menu_location_list = new ArrayList<>();
-        getThreeLocations();
 
         homeLocationItemAdapter = new HomeLocationItemAdapter(getActivity(), menu_location_list);
         home_location_recycle_view = view.findViewById(R.id.home_location_recycle_view);
@@ -131,7 +147,6 @@ public class HomeFragment extends Fragment {
 
         // Random Food Picker
         random_food_picker = view.findViewById(R.id.random_food_picker);
-        random_food = foodDatabase.foodDAO().getAllFood().get(new Random().nextInt(foodDatabase.foodDAO().getAllFood().size()));
         random_food_picker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,5 +1,10 @@
 package com.example.jommakan;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteException;
+import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentContainerView;
@@ -9,15 +14,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -86,120 +84,108 @@ public class MainActivity extends AppCompatActivity {
 
     // Add food into database
     private void addFood() {
-        String open = "";
-        String close = "";
-        open = "10.00 AM";
-        close = "10.00 PM";
+        // KK3
+        // Restoran Al-Ehsan
+        Food food1 = new Food("Nasi Goreng Kampung", "Kolej Kediaman Tuanku Kursiah (KK3)", "Restoran Al-Ehsan", 6.00, new ArrayList<>(Arrays.asList("Spicy")), R.drawable.nasi_goreng_kampung, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food2 = new Food("Mi Goreng", "Kolej Kediaman Tuanku Kursiah (KK3)", "Restoran Al-Ehsan", 4.00, new ArrayList<>(Arrays.asList("Delicious", "Spicy")), R.drawable.mi_goreng, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
 
-        ArrayList<String> open_close_list = new ArrayList<>();
-        open_close_list.add(open);
-        open_close_list.add(close);
-        ArrayList<String> open_close_list1 = new ArrayList<>();
-        open_close_list1.add(open);
-        open_close_list1.add("11.30 pm");
 
-        ArrayList<String> description_list = new ArrayList<>();
-        description_list.add("Local delight");
-        description_list.add("Spicy");
-        description_list.add("Contains prawn");
+        // KK8
+        // Restoran Murni
+        Food food3 = new Food("Nasi Goreng Kampung", "Kolej Kediaman Kinabalu (KK8)", "Restoran Murni", 5.00, new ArrayList<>(Arrays.asList("Aromatic", "Greasy")), R.drawable.nasi_goreng_kampung, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food4 = new Food("Nasi Goreng Cina", "Kolej Kediaman Kinabalu (KK8)", "Restoran Murni", 5.00, new ArrayList<>(Arrays.asList("Nutritious")), R.drawable.nasi_goreng_cina, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food5 = new Food("Nasi Goreng Tomyam", "Kolej Kediaman Kinabalu (KK8)", "Restoran Murni", 5.50, new ArrayList<>(Arrays.asList("Spicy", "Contains prawn", "Sour")), R.drawable.nasi_goreng_tomyam, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food6 = new Food("Nasi Goreng Pattaya", "Kolej Kediaman Kinabalu (KK8)", "Restoran Murni", 5.00, new ArrayList<>(Arrays.asList("Delicious")), R.drawable.nasi_goreng_pattaya, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
 
-        Food food1 = new Food("Nasi Goreng", "Kolej Kediaman Kinabalu", "Restoran Famidah", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-        Food food2 = new Food("Nasi Goreng Kampung", "Kolej Kediaman Abdul Rahman", "Restoran Bistro", 5.00, description_list, R.drawable.top_5_image, open_close_list1);
-        Food food3 = new Food("Nasi Goreng Cina", "Kolej Kediaman Kinabalu", "Restoran Famidah", 5.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-        Food food4 = new Food("Nasi Lemak", "Kolej Kediaman Abdul Rahman", "Restoran Bistro", 7.00, description_list, R.drawable.top_5_image, open_close_list1);
-        Food food5 = new Food("Roti Canai", "Kolej Kediaman Kinabalu", "Restoran Famidah", 2.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
-        Food food6 = new Food("Roti Telur", "Kolej Kediaman Abdul Rahman", "Restoran Bistro", 3.00, description_list, R.drawable.top_5_image, open_close_list1);
-        Food food100 = new Food("Nasi Kukus", "Kolej Kediaman Kinabalu", "Restoran Famidah", 6.00, description_list, R.drawable.nasi_goreng_image, open_close_list);
+        // Restoran Ridayah Bistro
+        Food food7 = new Food("Roti Canai", "Kolej Kediaman Kinabalu (KK8)", "Restoran Ridayah Bistro", 1.20, new ArrayList<>(Arrays.asList("Local delight")), R.drawable.roti_canai, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food8 = new Food("Roti Bawang", "Kolej Kediaman Kinabalu (KK8)", "Restoran Ridayah Bistro", 2.80, new ArrayList<>(Arrays.asList("Delicious")), R.drawable.roti_bawang, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
 
-        foodDatabase.foodDAO().insertAll(food1, food2, food3, food4, food5, food6, food100);
+
+        // KK4
+        // Restoran Famidah
+        Food food9 = new Food("Nasi Goreng Kampung", "Kolej Kediaman Bestari (KK4)", "Restoran Famidah", 5.00, new ArrayList<>(Arrays.asList("Spicy", "Delicious")), R.drawable.nasi_goreng_kampung, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food10 = new Food("Nasi Goreng Cina", "Kolej Kediaman Bestari (KK4)", "Restoran Famidah", 5.00, new ArrayList<>(Arrays.asList("Aromatic")), R.drawable.nasi_goreng_cina, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+
+        // Restoran Al-Safuan
+        Food food11 = new Food("Roti Canai", "Kolej Kediaman Bestari (KK4)", "Restoran Al-Safuan", 1.20, new ArrayList<>(Arrays.asList("Local delight")), R.drawable.roti_canai, new ArrayList<>(Arrays.asList("8.00 AM", "7.00 PM")));
+        Food food12 = new Food("Nasi Lemak", "Kolej Kediaman Bestari (KK4)", "Restoran Al-Safuan", 6.00, new ArrayList<>(Arrays.asList("Local delight", "Spicy")), R.drawable.nasi_lemak, new ArrayList<>(Arrays.asList("8.00 AM", "7.00 PM")));
+
+        // Brotherhood Western & Grill
+        Food food13 = new Food("Chicken Chop", "Kolej Kediaman Bestari (KK4)", "Brotherhood Western & Grill", 9.00, new ArrayList<>(Arrays.asList("Crispy", "Greasy")), R.drawable.chicken_chop, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
+        Food food14 = new Food("Fish and Chips", "Kolej Kediaman Bestari (KK4)", "Brotherhood Western & Grill", 9.00, new ArrayList<>(Arrays.asList("Crispy", "Sour")), R.drawable.fish_and_chips, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
+        Food food15 = new Food("Spaghetti Carbonara", "Kolej Kediaman Bestari (KK4)", "Brotherhood Western & Grill", 7.00, new ArrayList<>(Arrays.asList("Aromatic", "Decadent")), R.drawable.spaghetti_carbonara, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
+
+
+        // Faculty of Education
+        // Restoran Abu Khalid
+        Food food16 = new Food("Chicken Chop", "Faculty of Education", "Restoran Abu Khalid", 9.00, new ArrayList<>(Arrays.asList("Crispy")), R.drawable.chicken_chop, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food17 = new Food("Nasi Kerabu", "Faculty of Education", "Restoran Abu Khalid", 6.00, new ArrayList<>(Arrays.asList("Local delight", "Spicy")), R.drawable.nasi_kerabu, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+
+        // Piccadilly
+        Food food18 = new Food("Bihun Tomyam", "Faculty of Education", "Piccadilly", 5.00, new ArrayList<>(Arrays.asList("Spicy", "Contains prawn")), R.drawable.bihun_tomyam, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food19 = new Food("Mi Goreng", "Faculty of Education", "Piccadilly", 4.00, new ArrayList<>(Arrays.asList("Delicious")), R.drawable.mi_goreng, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food20 = new Food("Maggi Kerabu", "Faculty of Education", "Piccadilly", 5.00, new ArrayList<>(Arrays.asList("Sour", "Contains prawn")), R.drawable.maggi_kerabu, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+
+
+        // Faculty of Computer Science and Information Technology
+        // Ali Food Corner
+        Food food21 = new Food("Nasi Lemak", "Faculty of Computer Science and Information Technology", "Ali Food Corner", 6.00, new ArrayList<>(Arrays.asList("Local delight", "Spicy")), R.drawable.nasi_lemak, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Food food22 = new Food("Maggi Goreng", "Faculty of Computer Science and Information Technology", "Ali Food Corner", 4.00, new ArrayList<>(Arrays.asList("Delicious")), R.drawable.maggi_goreng, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+
+        try {
+            // Add food into database
+            foodDatabase.foodDAO().insertAll(food1, food2, food3, food4, food5, food6, food7, food8, food9, food10, food11, food12, food13, food14, food15, food16, food17, food18, food19, food20, food21, food22);
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            foodDatabase.close();
+        }
     }
 
     // Add locations into database
     private void addLocation() {
-        String open = "";
-        String close = "";
-        open = "10.00 AM";
-        close = "10.00 PM";
+        Location location1 = new Location("Kolej Kediaman Tuanku Kursiah (KK3)", R.drawable.kk3, new ArrayList<>(Arrays.asList("Restoran Al-Ehsan")));
+        Location location2 = new Location("Kolej Kediaman Kinabalu (KK8)", R.drawable.kk8, new ArrayList<>(Arrays.asList("Restoran Murni", "Restoran Ridayah Bistro")));
+        Location location3 = new Location("Kolej Kediaman Bestari (KK4)", R.drawable.kk4, new ArrayList<>(Arrays.asList("Restoran Famidah", "Restoran Al-Safuan", "Brotherhood Western & Grill")));
+        Location location4 = new Location("Faculty of Education", R.drawable.fe, new ArrayList<>(Arrays.asList("Restoran Abu Khalid", "Piccadilly")));
+        Location location5 = new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, new ArrayList<>(Arrays.asList("Ali Food Corner")));
 
-        ArrayList<String> open_close_list = new ArrayList<>();
-        open_close_list.add(open);
-        open_close_list.add(close);
-        ArrayList<String> open_close_list1 = new ArrayList<>();
-        open_close_list1.add(open);
-        open_close_list1.add("11.30 pm");
-
-        ArrayList<String> description_list = new ArrayList<>();
-        description_list.add("Local delight");
-        description_list.add("Spicy");
-        description_list.add("Contains prawn");
-
-        Location location1 = new Location("Kolej Kediaman Kinabalu", R.drawable.fsktm_image, new ArrayList<>(Arrays.asList("Restoran Famidah")));
-        Location location2 = new Location("Kolej Kediaman Abdul Rahman", R.drawable.fsktm_image, new ArrayList<>(Arrays.asList("Restoran Bistro")));
-        Location location3 = new Location("Kolej Kediaman Pertama", R.drawable.fsktm_image, new ArrayList<>());
-        Location location4 = new Location("Kolej Kediaman Ke-12", R.drawable.fsktm_image, new ArrayList<>());
-        Location location5 = new Location("Faculty of Computer Science and Information Technology", R.drawable.fsktm_image, new ArrayList<>());
-        Location location6 = new Location("Faculty of Engineering", R.drawable.fsktm_image, new ArrayList<>());
-        locationDatabase.locationDAO().insertAll(location1, location2, location3, location4, location5, location6);
+        try {
+            // Add locations into database
+            locationDatabase.locationDAO().insertAll(location1, location2, location3, location4, location5);
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            locationDatabase.close();
+        }
     }
 
     // Add stalls into database
     private void addStall() {
-        String open = "";
-        String close = "";
-        open = "10.00 AM";
-        close = "10.00 PM";
+        Stall stall1 = new Stall("Restoran Al-Ehsan", "Kolej Kediaman Tuanku Kursiah (KK3)", new ArrayList<>(Arrays.asList("Nasi Goreng", "Nasi Goreng Kampung", "Mi Goreng")), "Good for large group", R.drawable.restoran_al_ehsan, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Stall stall2 = new Stall("Restoran Murni", "Kolej Kediaman Kinabalu (KK8)", new ArrayList<>(Arrays.asList("Nasi Goreng Kampung", "Nasi Goreng Cina", "Nasi Goreng Tomyam", "Nasi Goreng Pattaya")), "Local favourite", R.drawable.restoran_murni, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Stall stall3 = new Stall("Restoran Ridayah Bistro", "Kolej Kediaman Kinabalu (KK8)", new ArrayList<>(Arrays.asList("Roti Canai", "Roti Bawang")), "Budget eat", R.drawable.restoran_ridayah_bistro, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Stall stall4 = new Stall("Restoran Famidah", "Kolej Kediaman Bestari (KK4)", new ArrayList<>(Arrays.asList("Nasi Goreng Kampung", "Nasi Goreng Cina")), "Small area", R.drawable.restoran_famidah_image, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Stall stall5 = new Stall("Restoran Al-Safuan", "Kolej Kediaman Bestari (KK4)", new ArrayList<>(Arrays.asList("Roti Canai", "Nasi Lemak")), "Suitable for vegetarian", R.drawable.restoran_al_safuan, new ArrayList<>(Arrays.asList("8.00 AM", "7.00 PM")));
+        Stall stall6 = new Stall("Brotherhood Western & Grill", "Kolej Kediaman Bestari (KK4)", new ArrayList<>(Arrays.asList("Chicken Chop", "Fish and Chips", "Spaghetti Carbonara")), "Good for celebrations", R.drawable.brotherhood_western_grill, new ArrayList<>(Arrays.asList("11.00 AM", "10.00 PM")));
+        Stall stall7 = new Stall("Restoran Abu Khalid", "Faculty of Education", new ArrayList<>(Arrays.asList("Chicken Chop", "Nasi Kerabu")), "Lively Environment", R.drawable.restoran_abu_khalid, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Stall stall8 = new Stall("Piccadilly", "Faculty of Education", new ArrayList<>(Arrays.asList("Bihun Tomyam", "Mi Goreng", "Maggi Kerabu")), "Good for gathering", R.drawable.piccadilly, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
+        Stall stall9 = new Stall("Ali Food Corner", "Faculty of Computer Science and Information Technology", new ArrayList<>(Arrays.asList("Nasi Lemak", "Maggi Goreng")), "Good for gathering", R.drawable.ali_food_corner, new ArrayList<>(Arrays.asList("7.00 AM", "10.00 PM")));
 
-        ArrayList<String> open_close_list = new ArrayList<>();
-        open_close_list.add(open);
-        open_close_list.add(close);
-        ArrayList<String> open_close_list1 = new ArrayList<>();
-        open_close_list1.add(open);
-        open_close_list1.add("11.30 pm");
-
-        Stall stall1 = new Stall("Restoran Famidah", "Kolej Kediaman Kinabalu", new ArrayList<>(Arrays.asList("Nasi Goreng", "Nasi Goreng Cina", "Roti Canai", "Nasi Kukus")), "Good for gathering", R.drawable.restoran_famidah_image, open_close_list);
-        Stall stall2 = new Stall("Restoran Bistro", "Kolej Kediaman Abdul Rahman", new ArrayList<>(Arrays.asList("Nasi Goreng Kampung", "Nasi Lemak", "Telur")), "Good for gathering", R.drawable.restoran_famidah_image, open_close_list1);
-
-
-        stallDatabase.stallDAO().insertAll(stall1, stall2);
+        try {
+            // Add stalls into database
+            stallDatabase.stallDAO().insertAll(stall1, stall2, stall3, stall4, stall5, stall6, stall7, stall8, stall9);
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            stallDatabase.close();
+        }
     }
-
-//    private void addCartItem() {
-//        String email = "sdjkfh";
-//        String stall = "Restoran";
-//        String location = "KK8";
-//        ArrayList<CartFood> cartFoodArrayList = new ArrayList<>();
-//        CartFood cartFood1 = new CartFood("nasi", 1, 2.00);
-//        CartFood cartFood2 = new CartFood("nasi1", 2, 3.00);
-//        CartFood cartFood3 = new CartFood("nasi2", 3, 5.00);
-//        cartFoodArrayList.add(cartFood1);
-//        cartFoodArrayList.add(cartFood2);
-//        cartFoodArrayList.add(cartFood3);
-//
-//        cartItemDatabase.cartItemDAO().insertCartItem(new CartItem(email, location, stall, cartFoodArrayList));
-//        cartItemDatabase.cartItemDAO().insertCartItem(new CartItem("email", location, stall, cartFoodArrayList));
-//    }
-//
-
-//
-//    private void updateCartItems() {
-//        CartItem cartItem = cartItemDatabase.cartItemDAO().getCartItem("sdjkfh", "KK8", "Restoran");
-//        String food = "nasi2";
-//        for (int i = 0; i < cart_food_list.size(); i++) {
-//            if (cart_food_list.get(i).getFood_name().equals(food)) {
-//                cart_food_list.get(i).setQuantity(222);
-//                break;
-//            }
-//        }
-//        cartItemDatabase.cartItemDAO().updateCartItem("sdjkfh", "KK8", "Restoran", cart_food_list);
-//    }
-//
-//    private void delete() {
-//        CartItem cartItem = cartItemDatabase.cartItemDAO().getCartItem("sdjkfh", "KK8", "Restoran");
-//        cartItem.getCart_food_list().remove(1);
-//        cartItemDatabase.cartItemDAO().updateCartItem("sdjkfh", "KK8", "Restoran", cartItem.getCart_food_list());
-//    }
-//
-//    private void deleteWhole() {
-//        cartItemDatabase.cartItemDAO().deleteCartItem("email", "KK8", "Restoran");
-//    }
 }

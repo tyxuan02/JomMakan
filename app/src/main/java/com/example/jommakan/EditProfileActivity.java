@@ -1,8 +1,6 @@
 package com.example.jommakan;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
@@ -64,7 +64,17 @@ public class EditProfileActivity extends AppCompatActivity {
                     if (!String.valueOf(inputPassword.getText()).equals(UserInstance.getPassword())) {
                         Toast.makeText(EditProfileActivity.this, "Password changed successfully.", Toast.LENGTH_SHORT).show();
                         UserInstance.setPassword(String.valueOf(inputPassword.getText()));
-                        userDatabase.userDAO().changePassword(UserInstance.getUser_email_address(), UserInstance.getPassword());
+
+                        try {
+                            userDatabase.userDAO().changePassword(UserInstance.getUser_email_address(), UserInstance.getPassword());
+                        } catch (SQLiteException e) {
+                            // Handle errors
+                            e.printStackTrace();
+                        } finally {
+                            // Close the database connection
+                            userDatabase.close();
+                        }
+
                         onBackPressed();
                     } else {
                         Toast.makeText(EditProfileActivity.this, "Please use a different password.", Toast.LENGTH_SHORT).show();

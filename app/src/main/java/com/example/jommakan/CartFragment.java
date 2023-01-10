@@ -1,7 +1,12 @@
 package com.example.jommakan;
 
+import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,11 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -58,6 +58,13 @@ public class CartFragment extends Fragment {
 
     // Get all cart items from database
     private void getCartItems(String email_address) {
-        cart_item_list = (ArrayList<CartItem>) cartItemDatabase.cartItemDAO().getAllCartItems(email_address);
+        try {
+            cart_item_list = (ArrayList<CartItem>) cartItemDatabase.cartItemDAO().getAllCartItems(email_address);        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            cartItemDatabase.close();
+        }
     }
 }
