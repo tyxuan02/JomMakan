@@ -43,8 +43,8 @@ public class MyWalletActivity extends AppCompatActivity {
         topUpDialog = new Dialog(this);
 
         // Wallet balance
-        name.setText(UserHolder.getUsername());
-        wallet_balance.setText(String.format("%.2f", UserHolder.getWallet_balance()));
+        name.setText(UserInstance.getUsername());
+        wallet_balance.setText(String.format("%.2f", UserInstance.getWallet_balance()));
     }
 
     public void show_TopUpDialog(View v){

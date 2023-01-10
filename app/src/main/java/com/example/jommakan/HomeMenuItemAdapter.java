@@ -94,7 +94,7 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
     // Get the food of that stall that user has added to cart from database
     private void getCartFoodList(String location, String stall) {
         try {
-            cartItem = cartItemDatabase.cartItemDAO().getCartItem(UserHolder.getUser_email_address(), location, stall);
+            cartItem = cartItemDatabase.cartItemDAO().getCartItem(UserInstance.getUser_email_address(), location, stall);
         } catch (SQLiteException e) {
             // Handle errors
             e.printStackTrace();

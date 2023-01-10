@@ -64,7 +64,7 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
 
         pick_up_time.setText(getEstimatedTime());
         total_price_text_view.setText("RM "  + String.format("%.2f", total_price));
-        wallet_balance.setText("RM "  + String.format("%.2f", UserHolder.getWallet_balance()));
+        wallet_balance.setText("RM "  + String.format("%.2f", UserInstance.getWallet_balance()));
 
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +76,7 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (UserHolder.getWallet_balance() >= total_price) {
+                if (UserInstance.getWallet_balance() >= total_price) {
                     // If user has sufficient wallet balance
                     removeCartItem();
                     addToOrderHistory();
@@ -96,7 +96,7 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
     // Remove cart item from cart
     private void removeCartItem() {
         try {
-            cartItemDatabase.cartItemDAO().deleteCartItem(UserHolder.getUser_email_address(), location, stall);
+            cartItemDatabase.cartItemDAO().deleteCartItem(UserInstance.getUser_email_address(), location, stall);
 
         } catch (SQLiteException e) {
             // Handle errors
@@ -115,7 +115,7 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
         int randomNumber = random.nextInt((max - min) + 1) + min;
 
         try {
-            orderDatabase.orderDAO().insert(new Order(UserHolder.getUser_email_address(), randomNumber, location, stall, cartItem.getCart_food_list(), getCurrentDate(), getCurrentTime()));
+            orderDatabase.orderDAO().insert(new Order(UserInstance.getUser_email_address(), randomNumber, location, stall, cartItem.getCart_food_list(), getCurrentDate(), getCurrentTime()));
         } catch (SQLiteException e) {
             // Handle errors
             e.printStackTrace();
@@ -127,11 +127,11 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
 
     // Update user wallet balance
     private void updateWalletBalance(double total_price) {
-        double wallet_balance = UserHolder.getWallet_balance() - total_price;
-        UserHolder.setWallet_balance(wallet_balance);
+        double wallet_balance = UserInstance.getWallet_balance() - total_price;
+        UserInstance.setWallet_balance(wallet_balance);
 
         try {
-            userDatabase.userDAO().updateWalletBalance(wallet_balance, UserHolder.getUser_email_address());
+            userDatabase.userDAO().updateWalletBalance(wallet_balance, UserInstance.getUser_email_address());
         } catch (SQLiteException e) {
             // Handle errors
             e.printStackTrace();

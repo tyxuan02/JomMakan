@@ -50,7 +50,7 @@ public class OrderHistoryPage extends AppCompatActivity {
         orderDatabase = Room.databaseBuilder(this, OrderDatabase.class, "OrderDB").allowMainThreadQueries().build();
 
         try {
-            order_list = (ArrayList<Order>) orderDatabase.orderDAO().getUserOrder(UserHolder.getUser_email_address());
+            order_list = (ArrayList<Order>) orderDatabase.orderDAO().getUserOrder(UserInstance.getUser_email_address());
         } catch (SQLiteException e) {
             // Handle errors
             e.printStackTrace();

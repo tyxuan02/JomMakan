@@ -1,6 +1,6 @@
 package com.example.jommakan;
 
-public class UserHolder {
+public class UserInstance {
 
     private static String user_email_address;
     private static String username, password, phone_number;
@@ -11,7 +11,7 @@ public class UserHolder {
     }
 
     public static void setUser_email_address(String user_email_address) {
-        UserHolder.user_email_address = user_email_address;
+        UserInstance.user_email_address = user_email_address;
     }
 
     public static String getUsername() {
@@ -19,7 +19,7 @@ public class UserHolder {
     }
 
     public static void setUsername(String username) {
-        UserHolder.username = username;
+        UserInstance.username = username;
     }
 
     public static String getPassword() {
@@ -27,7 +27,7 @@ public class UserHolder {
     }
 
     public static void setPassword(String password) {
-        UserHolder.password = password;
+        UserInstance.password = password;
     }
 
     public static String getPhone_number() {
@@ -35,7 +35,7 @@ public class UserHolder {
     }
 
     public static void setPhone_number(String phone_number) {
-        UserHolder.phone_number = phone_number;
+        UserInstance.phone_number = phone_number;
     }
 
     public static double getWallet_balance() {
@@ -43,6 +43,6 @@ public class UserHolder {
     }
 
     public static void setWallet_balance(double wallet_balance) {
-        UserHolder.wallet_balance = wallet_balance;
+        UserInstance.wallet_balance = wallet_balance;
     }
 }

@@ -113,9 +113,9 @@ public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdap
         // Close and handle errors in room database
         try {
             if (cart_food_list.size() <= 0) {
-                cartItemDatabase.cartItemDAO().deleteCartItem(UserHolder.getUser_email_address(), location, stall);
+                cartItemDatabase.cartItemDAO().deleteCartItem(UserInstance.getUser_email_address(), location, stall);
             } else {
-                cartItemDatabase.cartItemDAO().updateCartItem(UserHolder.getUser_email_address(), location, stall, cart_food_list);
+                cartItemDatabase.cartItemDAO().updateCartItem(UserInstance.getUser_email_address(), location, stall, cart_food_list);
             }
         } catch (SQLiteException e) {
             // Handle errors
