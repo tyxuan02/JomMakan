@@ -1,13 +1,13 @@
 package com.example.jommakan;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -37,7 +37,7 @@ public class LoadingPage extends AppCompatActivity {
         // which stores the user email and password
         // if no user_file exist, ask the user to log in
         // jump to log in page
-//      // Context context = v.getContext();
+        // Context context = v.getContext();
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -46,7 +46,18 @@ public class LoadingPage extends AppCompatActivity {
                     String [] user_credentials = readUserCredential();
                     String userEmail = user_credentials[0];
                     String userPassword = user_credentials[1];
-                    User user = userDatabase.userDAO().getUser(userEmail, userPassword);
+
+                    User user = null;
+                    try {
+                        user = userDatabase.userDAO().getUser(userEmail, userPassword);
+                    } catch (SQLiteException e) {
+                        // Handle errors
+                        e.printStackTrace();
+                    } finally {
+                        // Close the database connection
+                        userDatabase.close();
+                    }
+
                     Intent intent = new Intent(LoadingPage.this, MainActivity.class);
                     intent.putExtra("user", user);
                     startActivity(intent);

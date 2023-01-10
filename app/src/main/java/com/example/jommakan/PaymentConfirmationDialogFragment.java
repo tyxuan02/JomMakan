@@ -1,6 +1,13 @@
 package com.example.jommakan;
 
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,14 +15,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.room.Room;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -65,7 +64,7 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
 
         pick_up_time.setText(getEstimatedTime());
         total_price_text_view.setText("RM "  + String.format("%.2f", total_price));
-        wallet_balance.setText("RM "  + String.format("%.2f", UserInstance.getWallet_balance()));
+        wallet_balance.setText("RM "  + String.format("%.2f", UserHolder.getWallet_balance()));
 
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +76,7 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (UserInstance.getWallet_balance() >= total_price) {
+                if (UserHolder.getWallet_balance() >= total_price) {
                     // If user has sufficient wallet balance
                     removeCartItem();
                     addToOrderHistory();
@@ -96,7 +95,16 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
 
     // Remove cart item from cart
     private void removeCartItem() {
-        cartItemDatabase.cartItemDAO().deleteCartItem(UserInstance.getUser_email_address(), location, stall);
+        try {
+            cartItemDatabase.cartItemDAO().deleteCartItem(UserHolder.getUser_email_address(), location, stall);
+
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            cartItemDatabase.close();
+        }
     }
 
     // Add a new order to order history
@@ -106,14 +114,31 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
         int max = 999999999;
         int randomNumber = random.nextInt((max - min) + 1) + min;
 
-        orderDatabase.orderDAO().insert(new Order(UserInstance.getUser_email_address(), randomNumber, location, stall, cartItem.getCart_food_list(), getCurrentDate(), getCurrentTime()));
+        try {
+            orderDatabase.orderDAO().insert(new Order(UserHolder.getUser_email_address(), randomNumber, location, stall, cartItem.getCart_food_list(), getCurrentDate(), getCurrentTime()));
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            orderDatabase.close();
+        }
     }
 
     // Update user wallet balance
     private void updateWalletBalance(double total_price) {
-        double wallet_balance = UserInstance.getWallet_balance() - total_price;
-        UserInstance.setWallet_balance(wallet_balance);
-        userDatabase.userDAO().updateWalletBalance(wallet_balance, UserInstance.getUser_email_address());
+        double wallet_balance = UserHolder.getWallet_balance() - total_price;
+        UserHolder.setWallet_balance(wallet_balance);
+
+        try {
+            userDatabase.userDAO().updateWalletBalance(wallet_balance, UserHolder.getUser_email_address());
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            userDatabase.close();
+        }
     }
 
     // Get current date
@@ -135,6 +160,7 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
         return timeFormat.format(currentTime);
     }
 
+    // Get estimated pickup time
     private String getEstimatedTime() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, 30);

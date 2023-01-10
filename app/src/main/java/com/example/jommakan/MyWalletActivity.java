@@ -1,16 +1,15 @@
 package com.example.jommakan;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.room.Room;
-
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class MyWalletActivity extends AppCompatActivity {
 
@@ -44,8 +43,8 @@ public class MyWalletActivity extends AppCompatActivity {
         topUpDialog = new Dialog(this);
 
         // Wallet balance
-        name.setText(UserInstance.getUsername());
-        wallet_balance.setText(String.format("%.2f", UserInstance.getWallet_balance()));
+        name.setText(UserHolder.getUsername());
+        wallet_balance.setText(String.format("%.2f", UserHolder.getWallet_balance()));
     }
 
     public void show_TopUpDialog(View v){

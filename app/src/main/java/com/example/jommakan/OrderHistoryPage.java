@@ -1,15 +1,16 @@
 package com.example.jommakan;
 
+import android.database.sqlite.SQLiteException;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-
-import android.os.Build;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,7 +19,6 @@ public class OrderHistoryPage extends AppCompatActivity {
     OrderHistoryItemAdapter orderHistoryItemAdapter;
     RecyclerView order_history_recycle_view;
     ArrayList<Order> order_list;
-    ArrayList<Food> food_list;
     OrderDatabase orderDatabase;
 
     @Override
@@ -48,7 +48,16 @@ public class OrderHistoryPage extends AppCompatActivity {
 
         // Database connection
         orderDatabase = Room.databaseBuilder(this, OrderDatabase.class, "OrderDB").allowMainThreadQueries().build();
-        order_list = (ArrayList<Order>) orderDatabase.orderDAO().getUserOrder(UserInstance.getUser_email_address());
+
+        try {
+            order_list = (ArrayList<Order>) orderDatabase.orderDAO().getUserOrder(UserHolder.getUser_email_address());
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            orderDatabase.close();
+        }
 
         orderHistoryItemAdapter = new OrderHistoryItemAdapter(this, order_list);
         order_history_recycle_view = findViewById(R.id.order_history_recycle_view);

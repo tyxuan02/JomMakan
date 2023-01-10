@@ -1,24 +1,20 @@
 package com.example.jommakan;
 
+import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavBackStackEntry;
-import androidx.navigation.NavController;
-import androidx.navigation.NavOptions;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -84,6 +80,14 @@ public class MenuStallFragment extends Fragment {
 
     // Get all locations from database
     private void getAllStalls(String location) {
-        stall_list.addAll(stallDatabase.stallDAO().getAllStalls(location));
+        try {
+            stall_list.addAll(stallDatabase.stallDAO().getAllStalls(location));
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            stallDatabase.close();
+        }
     }
 }

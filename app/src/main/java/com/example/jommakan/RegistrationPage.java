@@ -1,6 +1,7 @@
 package com.example.jommakan;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -18,9 +19,9 @@ import java.util.regex.Pattern;
 
 public class RegistrationPage extends AppCompatActivity {
 
-    private Button signUp_button;
-    private TextView signIn_text_view;
-    private EditText username_edit_text, email_edit_text, phoneNumber_edit_text, newPassword_edit_text, confirmPassword_edit_text;
+    Button signUp_button;
+    TextView signIn_text_view;
+    EditText username_edit_text, email_edit_text, phoneNumber_edit_text, newPassword_edit_text, confirmPassword_edit_text;
     UserDatabase userDatabase;
 
     @Override
@@ -83,8 +84,8 @@ public class RegistrationPage extends AppCompatActivity {
         });
     }
 
+    // Check the validity of username
     private boolean isValidUsername(String Username){
-        //Check the validity of username
         if(TextUtils.isEmpty(Username)){
             //The username is empty
             Toast.makeText(this, "Invalid username. The username can't be empty.", Toast.LENGTH_SHORT).show();
@@ -111,8 +112,8 @@ public class RegistrationPage extends AppCompatActivity {
         }
     }
 
+    // Check the validity of phone number
     private boolean isValidPhoneNumber(String PhoneNo){
-        //Check the validity of phone number
         Pattern phoneNumberPattern = Pattern.compile("\\d{3}-\\d{7}");
         Matcher phoneNumberMatcher = phoneNumberPattern.matcher(PhoneNo);
         if (phoneNumberMatcher.matches()) {
@@ -123,8 +124,8 @@ public class RegistrationPage extends AppCompatActivity {
         }
     }
 
+    // Check the validity of password
     private boolean isValidPassword(String Pass){
-        //Check the validity of password
         if (Pass.isEmpty()) {
             Toast.makeText(this, "Invalid password. Password cannot be empty.", Toast.LENGTH_SHORT).show();
             return false;
@@ -136,8 +137,8 @@ public class RegistrationPage extends AppCompatActivity {
         return true;
     }
 
+    // Check whether the password and confirm password are matched
     private boolean isMatchedPassword(String Pass, String ConfirmPass){
-        //Check whether the password and confirm password are matched
         if(!Pass.equals(ConfirmPass)){
             Toast.makeText(this, "The confirm password field does not match the password field.", Toast.LENGTH_SHORT).show();
             return false;
@@ -147,6 +148,15 @@ public class RegistrationPage extends AppCompatActivity {
 
     // Check if the email address entered by the user is registered
     private boolean isEmailInUse(String email_address) {
-        return userDatabase.userDAO().checkIfUserExist(email_address) != null;
+        try {
+            return userDatabase.userDAO().checkIfUserExist(email_address) != null;
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            userDatabase.close();
+        }
+        return false;
     }
 }

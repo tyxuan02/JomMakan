@@ -23,7 +23,6 @@ public class HomeLocationItemAdapter extends RecyclerView.Adapter<HomeLocationIt
     ArrayList<Location> location_list;
     LayoutInflater layoutInflater;
 
-
     public HomeLocationItemAdapter (Context context, ArrayList<Location> location_list) {
         this.context = context;
         this.location_list = location_list;

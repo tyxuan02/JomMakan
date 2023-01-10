@@ -1,25 +1,17 @@
 package com.example.jommakan;
 
-import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -58,6 +50,14 @@ public class MenuLocationFragment extends Fragment {
 
     // Get all locations from database
     private void getAllLocation() {
-        location_list.addAll(locationDatabase.locationDAO().getAllLocations());
+        try {
+            location_list.addAll(locationDatabase.locationDAO().getAllLocations());
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            locationDatabase.close();
+        }
     }
 }

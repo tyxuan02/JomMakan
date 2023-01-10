@@ -2,6 +2,7 @@ package com.example.jommakan;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -53,7 +54,19 @@ public class LoginPage extends AppCompatActivity {
                 String filename = "user_file";
                 String Email = email_edit_text.getText().toString();
                 String Password = password_edit_text.getText().toString();
-                User user = userDatabase.userDAO().getUser(Email, Password);
+
+                User user = null;
+
+                try {
+                    user = userDatabase.userDAO().getUser(Email, Password);
+                } catch (SQLiteException e) {
+                    // Handle errors
+                    e.printStackTrace();
+                } finally {
+                    // Close the database connection
+                    userDatabase.close();
+                }
+
                 if(user != null){
                     try(FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)) {
                         fos.write(Email.getBytes());
@@ -70,7 +83,7 @@ public class LoginPage extends AppCompatActivity {
                     intent.putExtra("user", user);
                     startActivity(intent);
                 }else{
-                    Toast.makeText(LoginPage.this, "The email address or password you entered is incorrect. Please try again.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginPage.this, "The email address or password you entered is incorrect.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,6 +34,8 @@ public class CartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // Declare and assign views here
+        Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
+        toolbar.setVisibility(View.VISIBLE);
         TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             toolbar_title.setTextAppearance(R.style.toolbar_text_secondary);
@@ -43,7 +46,7 @@ public class CartFragment extends Fragment {
         cartItemDatabase = Room.databaseBuilder(getActivity(), CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
 
         // Get all cart items from database
-        getCartItems(UserInstance.getUser_email_address());
+        getCartItems(UserHolder.getUser_email_address());
 
 
         cart_item_recycle_view = view.findViewById(R.id.cart_item_recycle_view);

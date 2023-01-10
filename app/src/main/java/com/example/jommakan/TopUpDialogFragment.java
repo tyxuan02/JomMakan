@@ -1,6 +1,7 @@
 package com.example.jommakan;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,13 +53,26 @@ public class TopUpDialogFragment extends DialogFragment {
                     Toast.makeText(getActivity(), "Please fill out the empty field!", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    if (String.valueOf(input_verified_password.getText()).equals(UserInstance.getPassword())) {
+                    if (String.valueOf(input_verified_password.getText()).equals(UserHolder.getPassword())) {
                         Toast.makeText(getActivity(), "Top up successfully.", Toast.LENGTH_SHORT).show();
-                        sumOfTopUpAmount = UserInstance.getWallet_balance();
+                        sumOfTopUpAmount = UserHolder.getWallet_balance();
                         sumOfTopUpAmount = sumOfTopUpAmount + Double.parseDouble(String.valueOf(input_top_up_amount.getText()));
-                        UserInstance.setWallet_balance(sumOfTopUpAmount);
-                        userDatabase.userDAO().updateWalletBalance(UserInstance.getWallet_balance(), UserInstance.getUser_email_address());
+                        UserHolder.setWallet_balance(sumOfTopUpAmount);
+
+                        try {
+                            userDatabase.userDAO().updateWalletBalance(UserHolder.getWallet_balance(), UserHolder.getUser_email_address());
+                        } catch (SQLiteException e) {
+                            // Handle errors
+                            e.printStackTrace();
+                        } finally {
+                            // Close the database connection
+                            userDatabase.close();
+                        }
+
+                        // Close the top up window
                         dismiss();
+
+                        // Navigate back to My Wallet Page
                         Intent intent = new Intent(getActivity(), MyWalletActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);

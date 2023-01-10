@@ -2,6 +2,7 @@ package com.example.jommakan;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +21,9 @@ import com.google.android.material.imageview.ShapeableImageView;
 
 import java.io.Serializable;
 import java.text.ParseException;
-import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapter.ViewHolder> implements Filterable {
@@ -175,7 +176,16 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
 
     // Get the food of that stall that user has added to cart from database
     private void getCartFoodList(String location, String stall) {
-        cartItem = cartItemDatabase.cartItemDAO().getCartItem(UserInstance.getUser_email_address(), location, stall);
+        try {
+            cartItem = cartItemDatabase.cartItemDAO().getCartItem(UserHolder.getUser_email_address(), location, stall);
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close the database connection
+            cartItemDatabase.close();
+        }
+
         if (cartItem == null) {
             cart_food_list = new ArrayList<>();
         } else {
