@@ -120,7 +120,7 @@ public class Email {
     }
 
     public void sendReportedIssue(String user_email_address, String description, Bitmap image, Context context) throws MessagingException {
-        String recipientEmail = "yuxuanteea@gmail.com";
+        String recipientEmail = "jommakan2007@gmail.com";
         String senderEmail = "jommakan2007@gmail.com"; //jommakan2007@gmail.com
         final String password = "krbxgibdrqntiwuu"; //Jommakan2007!
 

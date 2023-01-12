@@ -55,7 +55,11 @@ public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdap
         holder.increment_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count[0] = count[0] + 1;
+                if (count[0] < 10) {
+                    count[0]++;
+                } else {
+                    count[0] = 10;
+                }
                 holder.quantity.setText(String.valueOf(count[0]));
                 sum_of_price = count[0] * cart_food_list.get(position).getPrice();
                 holder.cart_food_price.setText(String.format("%.2f", sum_of_price));

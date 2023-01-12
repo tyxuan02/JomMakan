@@ -72,7 +72,7 @@ public class LoginPage extends AppCompatActivity {
                         fos.write(Email.getBytes());
                         fos.write(10);
                         fos.write(Password.getBytes());
-                        fos.close();
+
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {

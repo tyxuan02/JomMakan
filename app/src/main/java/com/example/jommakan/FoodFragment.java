@@ -123,7 +123,11 @@ public class FoodFragment extends Fragment {
         increment_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count++;
+                if (count < 10) {
+                    count++;
+                } else {
+                    count = 10;
+                }
                 quantity.setText(String.valueOf(count));
             }
         });
