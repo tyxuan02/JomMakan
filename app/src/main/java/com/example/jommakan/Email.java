@@ -25,10 +25,21 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+/**
+ * A class that is responsible for sending verification code to user gmail
+ */
 public class Email {
 
+    /**
+     * A string that is used to store verification code
+     */
     private String verificationCode;
 
+    /**
+     * A method that is used to send verification code to user gmail after checking type of email to send
+     * @param recipientEmail user email address
+     * @param typeOfEmail type of email to send (user registration or forgot password)
+     */
     public void sendVerificationEmail(String recipientEmail, String typeOfEmail) throws MessagingException {
 
         String senderEmail = "jommakan2007@gmail.com"; //jommakan2007@gmail.com
@@ -70,7 +81,6 @@ public class Email {
      * @param session a session created in sendVerificationEmail method
      * @param senderEmail email address of the sender
      * @param recipientEmail email address of the recipient
-     * @return message that contains html part and embedded image
      */
     private Message prepareMessageForUser(Session session, String senderEmail, String recipientEmail) {
         try {
@@ -97,7 +107,6 @@ public class Email {
      * @param session a session created in sendVerificationEmail method
      * @param senderEmail email address of the sender
      * @param recipientEmail email address of the recipient
-     * @return message that contains html part and embedded image
      */
     private Message prepareMessageForForgetPassword(Session session, String senderEmail, String recipientEmail) {
         try {
@@ -119,6 +128,13 @@ public class Email {
         return null;
     }
 
+    /**
+     * Prepare a message that will be sent to app account for report-an-issue purpose
+     * @param user_email_address user email address
+     * @param description detail of the issue
+     * @param image screenshot of the issue
+     * @param context context
+     */
     public void sendReportedIssue(String user_email_address, String description, Bitmap image, Context context) throws MessagingException {
         String recipientEmail = "jommakan2007@gmail.com";
         String senderEmail = "jommakan2007@gmail.com"; //jommakan2007@gmail.com

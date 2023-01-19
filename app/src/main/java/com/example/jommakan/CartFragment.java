@@ -18,12 +18,34 @@ import androidx.room.Room;
 
 import java.util.ArrayList;
 
+/**
+ * A fragment that is responsible for display and managing cart item
+ * It allows the users to edit item in their carts
+ */
 public class CartFragment extends Fragment {
 
+    /**
+     * An instance of the class CartItemDatabase
+     */
     CartItemDatabase cartItemDatabase;
+
+    /**
+     * An array list that is used to store cart items
+     */
     ArrayList<CartItem> cart_item_list;
+
+    /**
+     * A recycle view that is used to display a list of cart items
+     */
     RecyclerView cart_item_recycle_view;
 
+    /**
+     * Called to have the fragment instantiate its user interface view
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state
+     * @return view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -31,9 +53,15 @@ public class CartFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Called immediately after onCreateView has returned, but before any saved state has been restored in to the view
+     * @param view The View returned by onCreateView
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        // Declare and assign views here
+
+        // Toolbar
         Toolbar toolbar = ((MainActivity) getActivity()).findViewById(R.id.toolbar);
         toolbar.setVisibility(View.VISIBLE);
         TextView toolbar_title = getActivity().findViewById(R.id.toolbar_title);
@@ -48,7 +76,7 @@ public class CartFragment extends Fragment {
         // Get all cart items from database
         getCartItems(UserInstance.getUser_email_address());
 
-
+        // Display cart items that get from the database
         cart_item_recycle_view = view.findViewById(R.id.cart_item_recycle_view);
         if (cart_item_list.size() != 0) {
             ParentCartItemAdapter parentCartItemAdapter = new ParentCartItemAdapter(getActivity(), cart_item_list, getChildFragmentManager());
@@ -59,7 +87,10 @@ public class CartFragment extends Fragment {
         }
     }
 
-    // Get all cart items from database
+    /**
+     * Get all cart items from database
+     * @param email_address user email address
+     */
     private void getCartItems(String email_address) {
         try {
             cart_item_list = (ArrayList<CartItem>) cartItemDatabase.cartItemDAO().getAllCartItems(email_address);        } catch (SQLiteException e) {

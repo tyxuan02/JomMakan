@@ -14,16 +14,53 @@ import androidx.room.Room;
 
 import java.util.ArrayList;
 
+/**
+ * An adapter class that is used to display a list of items in a cart item
+ */
 public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdapter.MyViewHolder> {
 
+    /**
+     * An array list that is used to store a list of food in a cart item
+     */
     ArrayList<CartFood> cart_food_list;
+
+    /**
+     * A string that is used to store location name
+     */
     String location;
+
+    /**
+     * A string that is used to store stall name
+     */
     String stall;
+
+    /**
+     * Provides access to global information about an application environment.
+     */
     Context context;
+
+    /**
+     * A layout inflater that is used to instantiate layout XML file into its corresponding View objects
+     */
     LayoutInflater layoutInflater;
+
+    /**
+     * A double that is used to store total price of all food in a cart item
+     */
     double sum_of_price;
+
+    /**
+     * An instance of the class CartItemDatabase
+     */
     CartItemDatabase cartItemDatabase;
 
+    /**
+     * Constructor of ChildCartItemAdapter class
+     * @param cart_food_list a list of food
+     * @param location location name
+     * @param stall stall name
+     * @param context context
+     */
     public ChildCartItemAdapter(ArrayList<CartFood> cart_food_list, String location, String stall, Context context) {
         this.cart_food_list = cart_food_list;
         this.location = location;
@@ -35,6 +72,9 @@ public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdap
         cartItemDatabase = Room.databaseBuilder(context, CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
     }
 
+    /**
+     * Inflates a layout file (R.layout.cart_food_item) and creates a new instance of the class ChildCartItemAdapter.MyViewHolder
+     */
     @NonNull
     @Override
     public ChildCartItemAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,6 +82,9 @@ public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdap
         return new ChildCartItemAdapter.MyViewHolder(view);
     }
 
+    /**
+     * This method binds the data to the views, which is at the position passed as an argument.
+     */
     @Override
     public void onBindViewHolder(@NonNull ChildCartItemAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.cart_food_name.setText(cart_food_list.get(position).getFood_name());
@@ -53,6 +96,11 @@ public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdap
         holder.cart_food_price.setText(String.format("%.2f", sum_of_price));
 
         holder.increment_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Increase the quantity of a food after clicking on it
+             * Maximum quantity of a food is 10
+             */
             @Override
             public void onClick(View v) {
                 if (count[0] < 10) {
@@ -68,6 +116,11 @@ public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdap
         });
 
         holder.decrement_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Decrease the quantity of a food after clicking on it
+             * Minimum quantity of a food is 0
+             */
             @Override
             public void onClick(View v) {
                 if (count[0] <= 0) {
@@ -83,11 +136,18 @@ public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdap
         });
     }
 
+    /**
+     * Get the size of the cart food array list
+     * @return int
+     */
     @Override
     public int getItemCount() {
         return cart_food_list.size();
     }
 
+    /**
+     * This class is used to hold references to the various views that make up an item in a RecyclerView
+     */
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView cart_food_name;
@@ -107,6 +167,9 @@ public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdap
         }
     }
 
+    /**
+     * Update quantity in the cart food array list
+     */
     public void updateQuantity() {
         for (int i = 0; i < cart_food_list.size(); i++) {
             if (cart_food_list.get(i).getQuantity() <= 0) {
@@ -114,7 +177,7 @@ public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdap
             }
         }
 
-        // Close and handle errors in room database
+        // Close connection and handle errors in room database
         try {
             if (cart_food_list.size() <= 0) {
                 cartItemDatabase.cartItemDAO().deleteCartItem(UserInstance.getUser_email_address(), location, stall);
@@ -125,7 +188,6 @@ public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdap
             // Handle errors
             e.printStackTrace();
         }
-
         notifyDataSetChanged();
     }
 }

@@ -23,27 +23,119 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * A fragment that is responsible for displaying food information
+ * It allows the user to check the food information and add the food to cart
+ */
 public class FoodFragment extends Fragment {
 
+    /**
+     * An image button that allows users go back to previous page
+     */
     ImageButton back_button;
+
+    /**
+     * An image view that is used to display food image
+     */
     ImageView food_image;
+
+    /**
+     * A text view that is used to display food name
+     */
     TextView food_name;
+
+    /**
+     * A text view that is used to display food price
+     */
     TextView food_price;
+
+    /**
+     * A text view that is used to display food description
+     */
     TextView food_description;
-    Date currentTime, open, close;
-    ImageButton decrement_button, increment_button;
+
+    /**
+     * A date that is used to store current time
+     */
+    Date currentTime;
+
+    /**
+     * A date that is used to store stall open time
+     */
+    Date open;
+
+    /**
+     * A date that is used to store stall close time
+     */
+    Date close;
+
+    /**
+     * A image button that allows user to increase quantity of the food
+     */
+    ImageButton decrement_button;
+
+    /**
+     * A image button that allows user to decrease quantity of the food
+     */
+    ImageButton increment_button;
+
+    /**
+     * A text view that is used to display quantity of the food that users chose
+     */
     TextView quantity;
+
+    /**
+     * A button that allows users to add the food to cart
+     */
     Button add_to_cart_button;
+
+    /**
+     * A text view that is used to display "Quantity" word
+     */
     TextView quantity_text;
+
+    /**
+     * A text view that is used to display "Unavailable" word
+     */
     TextView unavailable_text_view;
+
+    /**
+     * An array list that is used to store cart food
+     */
     ArrayList<CartFood> cart_food_list;
+
+    /**
+     * An instance of the class CartItemDatabase
+     */
     CartItemDatabase cartItemDatabase;
+
+    /**
+     * A food that is used to store food that is chosen by the user
+     */
     Food chosen_food;
+
+    /**
+     * A string that is used to store the location name of the food that is chosen by the user
+     */
     String chosen_location_name;
+
+    /**
+     * A string that is used to store the stall name of the food that is chosen by the user
+     */
     String chosen_stall_name;
 
+    /**
+     * An integer that is used to store the quantity of the food that users chose
+     */
     int count;
 
+    /**
+     * Called to have the fragment instantiate its user interface view
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state
+     * @return view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,6 +143,11 @@ public class FoodFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Called immediately after onCreateView has returned, but before any saved state has been restored in to the view
+     * @param view The View returned by onCreateView
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
@@ -75,6 +172,11 @@ public class FoodFragment extends Fragment {
 
         // Back button
         back_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Direct users to previous page after clicking on it
+             * @param v view
+             */
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();
@@ -99,8 +201,9 @@ public class FoodFragment extends Fragment {
 
         count = getFoodQuantityInCartItem();
         checkOpenClose(chosen_food.getOpenAndClose().get(0), chosen_food.getOpenAndClose().get(1));
+        // Check whether the stall of the food chosen is open
         if (currentTime.after(open) && currentTime.before(close)) {
-            // Display increment, decrement and add to cart buttons
+            // Display increment, decrement and add to cart buttons if the stall is open
             increment_button.setVisibility(View.VISIBLE);
             decrement_button.setVisibility(View.VISIBLE);
             add_to_cart_button.setVisibility(View.VISIBLE);
@@ -110,7 +213,7 @@ public class FoodFragment extends Fragment {
             quantity.setText(String.valueOf(count));
             unavailable_text_view.setVisibility(View.INVISIBLE);
         } else {
-            // Hide increment, decrement and add to cart buttons
+            // Hide increment, decrement and add to cart buttons if the stall is close
             increment_button.setVisibility(View.INVISIBLE);
             decrement_button.setVisibility(View.INVISIBLE);
             add_to_cart_button.setVisibility(View.INVISIBLE);
@@ -119,8 +222,12 @@ public class FoodFragment extends Fragment {
             unavailable_text_view.setVisibility(View.VISIBLE);
         }
 
-        // Increment, decrement and add to cart buttons
         increment_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Increase the quantity of a food after clicking on it
+             * Maximum quantity of a food is 10
+             */
             @Override
             public void onClick(View v) {
                 if (count < 10) {
@@ -133,6 +240,11 @@ public class FoodFragment extends Fragment {
         });
 
         decrement_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Decrease the quantity of a food after clicking on it
+             * Minimum quantity of a food is 0
+             */
             @Override
             public void onClick(View v) {
                 if (count <= 0) {
@@ -153,6 +265,11 @@ public class FoodFragment extends Fragment {
             add_to_cart_button.setText("Add To Cart");
         }
         add_to_cart_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Add the food into cart after clicking on it if it satisfy all the if-else conditions
+             * @param v view
+             */
             @Override
             public void onClick(View v) {
                 try {
@@ -215,7 +332,11 @@ public class FoodFragment extends Fragment {
         });
     }
 
-    // Check if the stall is open or close
+    /**
+     * Check if the stall is open
+     * @param openTime stall open time
+     * @param closeTime stall close time
+     */
     private void checkOpenClose(String openTime, String closeTime) {
         SimpleDateFormat format = new SimpleDateFormat("h.mm a");
         Calendar time = Calendar.getInstance();
@@ -242,12 +363,18 @@ public class FoodFragment extends Fragment {
         close = time2.getTime();
     }
 
-    // Check if the number of food from that stall in the cart item
+    /**
+     * Check if the number of food from that stall in the cart item
+     * @return integer
+     */
     private int checkNumberOfFoodInCartItem() {
         return cart_food_list.size();
     }
 
-    // Check if the food from that stall is already in the cart item
+    /**
+     * Check if the food from that stall is already in the cart item
+     * @return integer
+     */
     private int checkIfFoodExistInCartItem() {
         for (int i = 0; i < cart_food_list.size(); i++) {
             if (cart_food_list.get(i).food_name.equals(chosen_food.getName())) {
@@ -257,6 +384,10 @@ public class FoodFragment extends Fragment {
         return -1;
     }
 
+    /**
+     * Get the quantity of the food from cart item
+     * @return int
+     */
     private int getFoodQuantityInCartItem() {
         int index = checkIfFoodExistInCartItem();
         if (index == -1) {
@@ -266,7 +397,10 @@ public class FoodFragment extends Fragment {
         }
     }
 
-    // Change the quantity of a food from that stall in the cart item
+    /**
+     * Change the quantity of a food from that stall in the cart item
+     * @param index index
+     */
     private void changeFoodQuantityInCartItem(int index) {
         if (index == -1) {
             cart_food_list.add(new CartFood(chosen_food.getName(), Integer.parseInt(String.valueOf(quantity.getText())), chosen_food.price));
@@ -275,7 +409,10 @@ public class FoodFragment extends Fragment {
         }
     }
 
-    // Remove the food from that stall from cart item
+    /**
+     * Remove the food from that stall from cart item
+     * @param index index
+     */
     private void removeFoodFromCartItem(int index) {
         cart_food_list.remove(index);
     }

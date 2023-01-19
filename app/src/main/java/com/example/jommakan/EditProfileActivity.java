@@ -15,18 +15,52 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
+/**
+ * An activity that is responsible for display and managing user's account information
+ * It allows the users to navigate to edit their account credentials
+ */
 public class EditProfileActivity extends AppCompatActivity {
 
-    TextView inputName, inputEmail, inputPhoneNum;
+    /**
+     * A text view that is used to display username
+     */
+    TextView inputName;
+
+    /**
+     * A text view that is used to display user email address
+     */
+    TextView inputEmail;
+
+    /**
+     * A text view that is used to display user phone number
+     */
+    TextView inputPhoneNum;
+
+    /**
+     * A edit text that is used to let users edit their account passwords
+     */
     EditText inputPassword;
+
+    /**
+     * A button that is used to let users save their account credentials after editing
+     */
     Button save_button;
+
+    /**
+     * An instance of the class userDatabase
+     */
     UserDatabase userDatabase;
 
+    /**
+     * This method is used to set up the initial state of the activity, such as initializing variables and setting the layout for the activity
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        // Toolbar
         Toolbar toolbarActivity = findViewById(R.id.toolbarActivity);
         setSupportActionBar(toolbarActivity);
 
@@ -39,7 +73,7 @@ public class EditProfileActivity extends AppCompatActivity {
             toolbar_title.setText("Edit profile");
         }
 
-        // showing the back button in action bar
+        // Shows the back button in action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Database connection
@@ -58,6 +92,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
         save_button = findViewById(R.id.save_button);
         save_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Save user account credentials after clicking on it if the password entered by the user is valid
+             * @param v view
+             */
             @Override
             public void onClick(View v) {
                 if (isValidPassword(String.valueOf(inputPassword.getText()))) {
@@ -65,6 +104,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         Toast.makeText(EditProfileActivity.this, "Password changed successfully.", Toast.LENGTH_SHORT).show();
                         UserInstance.setPassword(String.valueOf(inputPassword.getText()));
 
+                        // Close connection and handle errors in room database
                         try {
                             userDatabase.userDAO().changePassword(UserInstance.getUser_email_address(), UserInstance.getPassword());
                         } catch (SQLiteException e) {
@@ -84,7 +124,11 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
-    // this event will enable the back function to the button on press
+    /**
+     * Enable the back function to the button on press
+     * @param item MenuItem
+     * @return boolean
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -95,8 +139,12 @@ public class EditProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Check the validity of password
+     * @param Pass password
+     * @return boolean
+     */
     private boolean isValidPassword(String Pass){
-        //Check the validity of password
         if (Pass.isEmpty()) {
             Toast.makeText(this, "Invalid password. Password cannot be empty.", Toast.LENGTH_SHORT).show();
             return false;

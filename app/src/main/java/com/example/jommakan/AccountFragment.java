@@ -22,7 +22,7 @@ import androidx.lifecycle.Lifecycle;
 
 /**
  * A fragment that is responsible for display and managing user's account information
- * It allows the user to edit profile, top up wallet, show order history, rate our application and report an issue
+ * It allows the user to navigate to edit profile, top up wallet, show order history, rate our application and report an issue pages
  */
 public class AccountFragment extends Fragment {
 
@@ -60,7 +60,6 @@ public class AccountFragment extends Fragment {
 
     /**
      * Called immediately after onCreateView has returned, but before any saved state has been restored in to the view
-     * Display toolbar
      * @param view The View returned by onCreateView
      * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state
      */
@@ -86,10 +85,8 @@ public class AccountFragment extends Fragment {
         context = view.getContext();
         logOutBtn.setOnClickListener(new View.OnClickListener() {
 
-            /**
-             * Direct user to Login Page after clicking on it
-             * @param v view
-             */
+
+            // Direct user to Login Page after clicking on it
             @Override
             public void onClick(View v) {
                 context.deleteFile("user_file");
@@ -106,11 +103,7 @@ public class AccountFragment extends Fragment {
                 menuInflater.inflate(R.menu.menu_options, menu);
             }
 
-            /**
-             * Display Rate Our App popup window or direct user to Report Page depending on the option that user selects in the option menu
-             * @param menuItem MenuItem
-             * @return boolean
-             */
+            // Display Rate Our App popup window or direct user to Report Page depending on the option that user selects in the option menu
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
                 int id= menuItem.getItemId();
@@ -132,10 +125,7 @@ public class AccountFragment extends Fragment {
         Button editProfileBtn = (Button) view.findViewById(R.id.edit_profile_btn);
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
 
-            /**
-             * Direct user to Edit Profile Page after clicking on it
-             * @param v view
-             */
+            // Direct user to Edit Profile Page after clicking on it
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(getActivity(), EditProfileActivity.class);
@@ -146,6 +136,8 @@ public class AccountFragment extends Fragment {
         // Order history button
         Button order_history_btn = view.findViewById(R.id.order_history_btn);
         order_history_btn.setOnClickListener(new View.OnClickListener() {
+
+            // Direct user to Order History Page after clicking on it
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), OrderHistoryPage.class);
@@ -157,10 +149,7 @@ public class AccountFragment extends Fragment {
         Button myWalletBtn = (Button) view.findViewById(R.id.my_wallet_btn);
         myWalletBtn.setOnClickListener(new View.OnClickListener() {
 
-            /**
-             * Direct user to My Wallet Page after clicking on it
-             * @param v view
-             */
+            // Direct user to My Wallet Page after clicking on it
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(getActivity(), MyWalletActivity.class);
@@ -168,5 +157,4 @@ public class AccountFragment extends Fragment {
             }
         });
     }
-
 }
