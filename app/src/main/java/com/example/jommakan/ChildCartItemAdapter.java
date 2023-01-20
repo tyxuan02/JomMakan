@@ -15,7 +15,7 @@ import androidx.room.Room;
 import java.util.ArrayList;
 
 /**
- * An adapter class that is used to display a list of items in a cart item
+ * An adapter class that is used to display a list of items in a cart item in cart page
  */
 public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdapter.MyViewHolder> {
 

@@ -16,19 +16,40 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-// Adapter for menu on homepage
+/**
+ * An adapter class that is used to display a list of locations in homepage
+ */
 public class HomeLocationItemAdapter extends RecyclerView.Adapter<HomeLocationItemAdapter.ViewHolder> {
 
+    /**
+     * Provides access to global information about an application environment.
+     */
     Context context;
+
+    /**
+     * An array list that is used to store locations
+     */
     ArrayList<Location> location_list;
+
+    /**
+     * A layout inflater that is used to instantiate layout XML file into its corresponding View objects
+     */
     LayoutInflater layoutInflater;
 
+    /**
+     * Constructor of HomeLocationItemAdapter
+     * @param context context
+     * @param location_list a list of locations
+     */
     public HomeLocationItemAdapter (Context context, ArrayList<Location> location_list) {
         this.context = context;
         this.location_list = location_list;
         this.layoutInflater = LayoutInflater.from(context);
     }
 
+    /**
+     * Inflates a layout file (R.layout.home_location_item) and creates a new instance of the class HomeLocationItemAdapter.MyViewHolder
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,14 +57,21 @@ public class HomeLocationItemAdapter extends RecyclerView.Adapter<HomeLocationIt
         return new ViewHolder(view);
     }
 
+    /**
+     * This method binds the data to the views, which is at the position passed as an argument.
+     */
     @Override
     public void onBindViewHolder(@NonNull HomeLocationItemAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.home_location_card_view_image.setImageResource(location_list.get(position).getLocation_image());
         holder.home_location_card_view_location_name.setText(location_list.get(position).getLocation());
         holder.home_location_item_card_view.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Pass location name to Menu Stall Fragment using bundle
+             * @param v view
+             */
             @Override
             public void onClick(View v) {
-                // Pass data between fragments using bundle
                 Bundle bundle = new Bundle();
                 bundle.putString("location_name", location_list.get(position).getLocation());
                 Navigation.findNavController(v).navigate(R.id.DestMenuStall, bundle);
@@ -51,11 +79,18 @@ public class HomeLocationItemAdapter extends RecyclerView.Adapter<HomeLocationIt
         });
     }
 
+    /**
+     * Get the size of the location array list
+     * @return int
+     */
     @Override
     public int getItemCount() {
         return location_list.size();
     }
 
+    /**
+     * This class is used to hold references to the various views that make up an item in a RecyclerView
+     */
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView home_location_card_view_image;

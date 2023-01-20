@@ -19,16 +19,46 @@ import androidx.room.Room;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-// Adapter for menu on homepage
+/**
+ * An adapter class that is used to display a list of foods in homepage
+ */
 public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapter.ViewHolder> {
 
+    /**
+     * Provides access to global information about an application environment.
+     */
     Context context;
+
+    /**
+     * An array list that is used to store a list of food
+     */
     ArrayList<Food> food_list;
+
+    /**
+     * A layout inflater that is used to instantiate layout XML file into its corresponding View objects
+     */
     LayoutInflater layoutInflater;
+
+    /**
+     * A cart item object that is used to store a cart item
+     */
     CartItem cartItem;
+
+    /**
+     * An array list that is used to store food in a cart item
+     */
     ArrayList<CartFood> cart_food_list;
+
+    /**
+     * An instance of cartItemDatabase
+     */
     CartItemDatabase cartItemDatabase;
 
+    /**
+     * Constructor of HomeMenuItemAdapter
+     * @param context context
+     * @param food_list a list of food
+     */
     public HomeMenuItemAdapter (Context context, ArrayList<Food> food_list) {
         this.context = context;
         this.food_list = food_list;
@@ -38,6 +68,9 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
         cartItemDatabase = Room.databaseBuilder(context, CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
     }
 
+    /**
+     * Inflates a layout file (R.layout.home_menu_item) and creates a new instance of the class HomeLocationItemAdapter.MyViewHolder
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,6 +78,9 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
         return new ViewHolder(view);
     }
 
+    /**
+     * This method binds the data to the views, which is at the position passed as an argument.
+     */
     @Override
     public void onBindViewHolder(@NonNull HomeMenuItemAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.home_menu_card_view_image.setImageResource(food_list.get(position).getImage());
@@ -53,9 +89,13 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
         holder.home_menu_card_view_food_price.setText("RM " + String.format("%.2f", food_list.get(position).getPrice()));
 
         holder.home_menu_item_card_view.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Pass food object and its information to Food Fragment using bundle
+             * @param v view
+             */
             @Override
             public void onClick(View v) {
-                // Pass data between fragments using bundle
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("food", (Serializable) food_list.get(position));
                 getCartFoodList(food_list.get(position).getLocation(), food_list.get(position).getStall());
@@ -67,11 +107,18 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
         });
     }
 
+    /**
+     * Get the size of the food array list
+     * @return int
+     */
     @Override
     public int getItemCount() {
         return food_list.size();
     }
 
+    /**
+     * This class is used to hold references to the various views that make up an item in a RecyclerView
+     */
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         ImageView home_menu_card_view_image;
@@ -91,7 +138,11 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
         }
     }
 
-    // Get the food of that stall that user has added to cart from database
+    /**
+     * Get the food of that stall that user has added to cart from database
+     * @param location location name
+     * @param stall stall name
+     */
     private void getCartFoodList(String location, String stall) {
         try {
             cartItem = cartItemDatabase.cartItemDAO().getCartItem(UserInstance.getUser_email_address(), location, stall);

@@ -4,6 +4,9 @@ import androidx.room.TypeConverter;
 
 import java.util.ArrayList;
 
+/**
+ * Convert integer list to String
+ */
 public class IntegerArrayListConverter {
     @TypeConverter
     public ArrayList<Integer> gettingListFromString(String genreIds) {

@@ -91,7 +91,7 @@ public class CartFood implements Serializable {
 }
 
 /**
- * Convert cart food list type to String
+ * Convert cart food list to String
  */
 class CartFoodListTypeConverter {
     @TypeConverter

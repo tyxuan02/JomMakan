@@ -17,11 +17,25 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * An activity that is responsible for displaying landing page when users open the app
+ */
 public class LoadingPage extends AppCompatActivity {
 
+    /**
+     * A string that is used to store the name of the file that is used to store user account email address and password
+     */
     private static final String USER_FILE_NAME = "user_file";
+
+    /**
+     * An instance of userDatabase
+     */
     UserDatabase userDatabase;
 
+    /**
+     * This method is used to set up the initial state of the activity, such as initializing variables and setting the layout for the activity
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,15 +44,11 @@ public class LoadingPage extends AppCompatActivity {
         Context context = getApplicationContext();
         File userFile = new File(context.getFilesDir(), USER_FILE_NAME);
 
-        // database connection
+        // Database connection
         userDatabase = Room.databaseBuilder(this, UserDatabase.class, "UserDB").allowMainThreadQueries().build();
 
-        // user has already log in - check if local storage has 'user_file'
-        // which stores the user email and password
-        // if no user_file exist, ask the user to log in
-        // jump to log in page
-        // Context context = v.getContext();
-
+        // If user has already log in, it will check if local storage has 'user_file', which stores the user email and password
+        // If no user_file exist, ask the user to log in and jump to log in page
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -58,10 +68,12 @@ public class LoadingPage extends AppCompatActivity {
                         userDatabase.close();
                     }
 
+                    // If 'user_file' exists, direct user to homepage
                     Intent intent = new Intent(LoadingPage.this, MainActivity.class);
                     intent.putExtra("user", user);
                     startActivity(intent);
                 } else {
+                    // If 'user_file doesn't exist, direct user to login page
                     startActivity(new Intent(LoadingPage.this,LoginPage.class));
                 }
                 finish();
@@ -69,7 +81,10 @@ public class LoadingPage extends AppCompatActivity {
             },1000);
     }
 
-    // Read user credentials
+    /**
+     * Read user credentials from 'user_file'
+     * @return A string that contains user account email address and password
+     */
     protected String[] readUserCredential() {
         String [] user_credentials = new String[2];
         FileInputStream fis = null;
