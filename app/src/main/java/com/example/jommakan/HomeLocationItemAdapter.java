@@ -48,7 +48,7 @@ public class HomeLocationItemAdapter extends RecyclerView.Adapter<HomeLocationIt
     }
 
     /**
-     * Inflates a layout file (R.layout.home_location_item) and creates a new instance of the class HomeLocationItemAdapter.MyViewHolder
+     * Inflates a layout file (R.layout.home_location_item) and creates a new instance of the class HomeLocationItemAdapter.ViewHolder
      */
     @NonNull
     @Override

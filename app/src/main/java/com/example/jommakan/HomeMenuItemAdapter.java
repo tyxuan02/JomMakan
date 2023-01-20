@@ -69,7 +69,7 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
     }
 
     /**
-     * Inflates a layout file (R.layout.home_menu_item) and creates a new instance of the class HomeLocationItemAdapter.MyViewHolder
+     * Inflates a layout file (R.layout.home_menu_item) and creates a new instance of the class HomeLocationItemAdapter.ViewHolder
      */
     @NonNull
     @Override

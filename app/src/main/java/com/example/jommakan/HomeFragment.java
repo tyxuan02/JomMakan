@@ -27,6 +27,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * A fragment that is responsible for displaying and managing homepage information
+ */
 public class HomeFragment extends Fragment {
 
     /**
@@ -90,7 +93,7 @@ public class HomeFragment extends Fragment {
     ImageButton location_view_all_button;
 
     /**
-     * An instance of the class locationDatabase
+     * An instance of the class LocationDatabase
      */
     LocationDatabase locationDatabase;
 
@@ -110,7 +113,7 @@ public class HomeFragment extends Fragment {
     CartItem cartItem;
 
     /**
-     * An instance of the class cartItemDatabase
+     * An instance of the class CartItemDatabase
      */
     CartItemDatabase cartItemDatabase;
 

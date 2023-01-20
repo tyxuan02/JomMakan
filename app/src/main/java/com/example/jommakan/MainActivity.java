@@ -3,11 +3,9 @@ package com.example.jommakan;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,21 +17,42 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Main Activity class is the main class of the JomMakan app
+ * It is responsible for displaying the initial UI to the user when the app is launched
+ * In this class, we have implemented a toolbar at the top of the screen and a bottom navigation bar to provide easy navigation to the users.
+ */
 public class MainActivity extends AppCompatActivity {
 
-    TextView toolbar_title;
-    FragmentContainerView fragment_container;
-
+    /**
+     * NavController is a class from the Android Navigation Library that is responsible for handling navigation between destinations in JomMakan
+     */
     NavController navController;
+
+    /**
+     * It is used in conjunction with a the toolbar and provides a way to specify which destinations should be considered the top-level destinations of the app
+     */
     AppBarConfiguration appBarConfiguration;
 
-    // Database class
+    /**
+     * An instance of FoodDatabase
+     */
     FoodDatabase foodDatabase;
+
+    /**
+     * An instance of LocationDatabase
+     */
     LocationDatabase locationDatabase;
+
+    /**
+     * An instance of StallDatabase
+     */
     StallDatabase stallDatabase;
 
-    private static final String USER_FILE_NAME = "user_file";
-
+    /**
+     * This method is used to set up the initial state of the activity, such as initializing variables and setting the layout for the activity
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,19 +69,17 @@ public class MainActivity extends AppCompatActivity {
         UserInstance.setPassword(user.getPassword());
         UserInstance.setWallet_balance(user.getWallet_balance());
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // TextView toolbar_title = findViewById(R.id.toolbar_title);
+        // Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // toolbar_title.setText(toolbar.getTitle());
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        // Bottom navigation bar
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         navController = host.getNavController();
-
         appBarConfiguration = new AppBarConfiguration.Builder(R.id.DestHome, R.id.DestMenu, R.id.DestCart, R.id.DestAccount)
                 .build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
         setupBottomNavMenu(navController);
 
         // Database connection
@@ -70,13 +87,13 @@ public class MainActivity extends AppCompatActivity {
         locationDatabase = Room.databaseBuilder(this, LocationDatabase.class, "LocationDB").allowMainThreadQueries().build();
         stallDatabase = Room.databaseBuilder(this, StallDatabase.class, "StallDB").allowMainThreadQueries().build();
 
-        // Add necessary data into database
+        // Add necessary food, location and stall into database
         addFood();
         addLocation();
         addStall();
     }
 
-    // Bottom Navigation Bar
+    // Set up bottom Navigation Bar
     private void setupBottomNavMenu (NavController navController) {
         BottomNavigationView bottom_navigation_bar = findViewById(R.id.bottom_navigation_bar);
         NavigationUI.setupWithNavController(bottom_navigation_bar, navController, false);

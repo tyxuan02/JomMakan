@@ -26,17 +26,66 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * An adapter class that is used to display a list of food in menu-food tab
+ */
 public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapter.ViewHolder> implements Filterable {
 
+    /**
+     * Provides access to global information about an application environment.
+     */
     Context context;
+
+    /**
+     * An array list that is used to store all food get from database
+     */
     ArrayList<Food> food_list_all;
+
+    /**
+     * An array list that is used to store food search by users
+     */
     ArrayList<Food> food_list;
+
+    /**
+     * A layout inflater that is used to instantiate layout XML file into its corresponding View objects
+     */
     LayoutInflater layoutInflater;
-    Date currentTime, open, close;
+
+    /**
+     * A date that is used to store current time
+     */
+    Date currentTime;
+
+    /**
+     * A date that is used to store stall open time
+     */
+    Date open;
+
+    /**
+     * A date that is used to store stall close time
+     */
+    Date close;
+
+    /**
+     * A cart item object that is used to store information about a cart item
+     */
     CartItem cartItem;
+
+    /**
+     * An array list that is used to store cart food in a cart item
+     */
     ArrayList<CartFood> cart_food_list;
+
+    /**
+     * An instance of CartItemDatabase
+     */
     CartItemDatabase cartItemDatabase;
 
+    /**
+     * Constructor of MenuFoodItemAdapter
+     * @param food_list a list of food
+     * @param context context
+     */
     public MenuFoodItemAdapter(ArrayList<Food> food_list, Context context) {
         this.food_list = food_list;
         this.context = context;
@@ -47,6 +96,9 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
         cartItemDatabase = Room.databaseBuilder(context, CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
     }
 
+    /**
+     * Inflates a layout file (R.layout.menu_food_item) and creates a new instance of the class MenuFoodItemAdapter.ViewHolder
+     */
     @NonNull
     @Override
     public MenuFoodItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -54,6 +106,9 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
         return new ViewHolder(view);
     }
 
+    /**
+     * This method binds the data to the views, which is at the position passed as an argument.
+     */
     @Override
     public void onBindViewHolder(@NonNull MenuFoodItemAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
@@ -64,6 +119,9 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
         holder.operation_time.setText(food_list.get(position).getOpenAndClose().get(0) + " to " + food_list.get(position).getOpenAndClose().get(1));
         holder.food_price.setText("RM " + String.format("%.2f", food_list.get(position).getPrice()));
 
+         // Check whether the stall is open
+         // If the stall is open, hide shadow background and not available text
+         // If the stall is close, display shadow background and not available text
         checkOpenClose(position);
         if (currentTime.after(open) && currentTime.before(close)) {
             holder.shadow_background.setVisibility(View.INVISIBLE);
@@ -74,9 +132,13 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
         }
 
         holder.menu_food_item_card_view.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Pass food object, cart food array list, stall name and location name to Food Fragment using bundle
+             * @param v view
+             */
             @Override
             public void onClick(View v) {
-                // Pass data between fragments using bundle
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("food", (Serializable) food_list.get(position));
                 getCartFoodList(food_list.get(position).getLocation(), food_list.get(position).getStall());
@@ -88,6 +150,9 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
         });
     }
 
+    /**
+     * This class is used to hold references to the various views that make up an item in a RecyclerView
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ShapeableImageView menu_food_card_view_image;
@@ -111,17 +176,32 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
         }
     }
 
+    /**
+     * Get the size of the food array list
+     * @return int
+     */
     @Override
     public int getItemCount() {
         return food_list.size();
     }
 
+    /**
+     * Filter out the food that doesn't match with the food that searched by users
+     * Therefore, it will only display the food that match with the food that searched by users
+     * @return
+     */
     @Override
     public Filter getFilter() {
         return filter;
     }
 
     Filter filter = new Filter() {
+
+        /**
+         * Filter out the food that doesn't match with the food that searched by users
+         * @param keyword CharSequence
+         * @return FilterResults
+         */
         @Override
         protected FilterResults performFiltering(CharSequence keyword) {
             ArrayList<Food> filter_list = new ArrayList<>();
@@ -140,6 +220,11 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
             return results;
         }
 
+        /**
+         * Add the filtered results to food array list
+         * @param constraint CharSequence
+         * @param results FilterResults
+         */
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             food_list.clear();
@@ -148,6 +233,10 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
         }
     };
 
+    /**
+     * Check whether the stall is open
+     * @param position int
+     */
     private void checkOpenClose(int position) {
         SimpleDateFormat format = new SimpleDateFormat("h.mm a");
         Calendar time = Calendar.getInstance();
@@ -174,7 +263,11 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
         close = time2.getTime();
     }
 
-    // Get the food of that stall that user has added to cart from database
+    /**
+     * Get the food of that stall that user has added to cart from database
+     * @param location location name
+     * @param stall stall name
+     */
     private void getCartFoodList(String location, String stall) {
         try {
             cartItem = cartItemDatabase.cartItemDAO().getCartItem(UserInstance.getUser_email_address(), location, stall);

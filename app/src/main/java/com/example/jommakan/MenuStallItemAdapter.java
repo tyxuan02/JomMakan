@@ -15,27 +15,61 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.imageview.ShapeableImageView;
 
-import java.io.Serializable;
-import java.sql.Struct;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * An adapter class that is used to display a list of stalls in Menu Stall page
+ */
 public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdapter.ViewHolder>{
 
+    /**
+     * Provides access to global information about an application environment.
+     */
     Context context;
-    ArrayList<Stall> stall_list;
-    LayoutInflater layoutInflater;
-    Date currentTime, open, close;
 
+    /**
+     * An array list that is used to store a list of stalls
+     */
+    ArrayList<Stall> stall_list;
+
+    /**
+     * A layout inflater that is used to instantiate layout XML file into its corresponding View objects
+     */
+    LayoutInflater layoutInflater;
+
+    /**
+     * A date that is used to store current time
+     */
+    Date currentTime;
+
+    /**
+     * A date that is used to store stall open time
+     */
+    Date open;
+
+    /**
+     * A date that is used to store stall close time
+     */
+    Date close;
+
+    /**
+     * A constructor of MenuStallItemAdapter
+     * @param context context
+     * @param stall_list a list of stalls
+     */
     public MenuStallItemAdapter(Context context, ArrayList<Stall> stall_list) {
         this.context = context;
         this.stall_list = stall_list;
         this.layoutInflater = LayoutInflater.from(context);
     }
 
+    /**
+     * Inflates a layout file (R.layout.menu_stall_item) and creates a new instance of the class MenuStallItemAdapter.ViewHolder
+     */
     @NonNull
     @Override
     public MenuStallItemAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,11 +77,17 @@ public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdap
         return new MenuStallItemAdapter.ViewHolder(view);
     }
 
+    /**
+     * This method binds the data to the views, which is at the position passed as an argument.
+     */
     @Override
     public void onBindViewHolder(@NonNull MenuStallItemAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.menu_food_card_view_image.setImageResource(stall_list.get(position).getStall_image());
         holder.stall_name.setText(stall_list.get(position).getStall_name());
 
+        // Check whether the stall is open
+        // If the stall is open, hide shadow background and not available text
+        // If the stall is close, display shadow background and not available text
         checkOpenClose(position);
         if (currentTime.after(open) && currentTime.before(close)) {
             holder.shadow_background.setVisibility(View.INVISIBLE);
@@ -59,9 +99,13 @@ public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdap
 
         holder.operation_time.setText(stall_list.get(position).getOpenAndClose().get(0) + " to " + stall_list.get(position).getOpenAndClose().get(1));
         holder.menu_stall_item_card_view.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Pass location name and location name to Stall Fragment using bundle
+             * @param v view
+             */
             @Override
             public void onClick(View v) {
-                // Pass data between fragments using bundle
                 Bundle bundle = new Bundle();
                 bundle.putString("selected_stall_name", stall_list.get(position).getStall_name());
                 bundle.putString("selected_location_name", stall_list.get(position).getLocation());
@@ -70,11 +114,18 @@ public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdap
         });
     }
 
+    /**
+     * Get the size of the food array list
+     * @return int
+     */
     @Override
     public int getItemCount() {
         return stall_list.size();
     }
 
+    /**
+     * This class is used to hold references to the various views that make up an item in a RecyclerView
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         CardView menu_stall_item_card_view;
@@ -96,6 +147,10 @@ public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdap
         }
     }
 
+    /**
+     * Check whether the stall is open
+     * @param position int
+     */
     private void checkOpenClose(int position) {
         SimpleDateFormat format = new SimpleDateFormat("h.mm a");
         Calendar time = Calendar.getInstance();
