@@ -11,12 +11,31 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+/**
+ * An activity that is responsible for displaying and managing wallet balance information in My Wallet Page
+ */
 public class MyWalletActivity extends AppCompatActivity {
 
+    /**
+     * A dialog that acts as a pop up window
+     * It allows users to top up their account wallet balance after clicking on it
+     */
     Dialog topUpDialog;
+
+    /**
+     * A text view that is used to display account wallet balance
+     */
     TextView wallet_balance;
+
+    /**
+     * A text view that is used to display username
+     */
     TextView name;
 
+    /**
+     * This method is used to set up the initial state of the activity, such as initializing variables and setting the layout for the activity
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +44,7 @@ public class MyWalletActivity extends AppCompatActivity {
         wallet_balance = findViewById(R.id.wallet_balance);
         name = findViewById(R.id.name);
 
+        // Toolbar
         Toolbar toolbarActivity = findViewById(R.id.toolbarActivity);
         setSupportActionBar(toolbarActivity);
 
@@ -37,7 +57,7 @@ public class MyWalletActivity extends AppCompatActivity {
             toolbar_title.setText("My Wallet");
         }
 
-        // showing the back button in action bar
+        // Show the back button in toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         topUpDialog = new Dialog(this);
@@ -47,12 +67,20 @@ public class MyWalletActivity extends AppCompatActivity {
         wallet_balance.setText(String.format("%.2f", UserInstance.getWallet_balance()));
     }
 
+    /**
+     * This event will display a pop up window that allows users to top up their account wallet balance after clicking on it
+     * @param v view
+     */
     public void show_TopUpDialog(View v){
         TopUpDialogFragment topUpDialogFragment = new TopUpDialogFragment();
         topUpDialogFragment.show(getSupportFragmentManager(),"top up dialog");
     }
 
-    // this event will enable the back function to the button on press
+    /**
+     * This event will enable the back function to the button on press
+     * @param item MenuItem
+     * @return boolean
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

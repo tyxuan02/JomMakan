@@ -27,15 +27,50 @@ import java.io.InputStream;
 
 import javax.mail.MessagingException;
 
+/**
+ * An activity that is responsible for displaying Report Page
+ */
 public class ReportPage extends AppCompatActivity {
 
-    EditText email_edit_text, description_edit_text;
-    ImageButton screenshot_image_button,remove_screenshot_button;
+    /**
+     * An edit text view that allows users to enter email address
+     */
+    EditText email_edit_text;
+
+    /**
+     * An edit text view that allows users to enter the issue faced
+     */
+    EditText description_edit_text;
+
+    /**
+     * An image button that allows users to upload an image after clicking on it
+     */
+    ImageButton screenshot_image_button;
+
+    /**
+     * An image button that allows users to remove the image uploaded after clicking on it
+     */
+    ImageButton remove_screenshot_button;
+
+    /**
+     * A button that allows users to submit the issue faced after clicking on it
+     */
     Button submit_button;
+
+    /**
+     * An image view that is used to display upload-screenshot section
+     */
     ImageView screenshot_image_view;
+
+    /**
+     * It is used to start another activity and receive a result from it
+     */
     ActivityResultLauncher<String>activityResultLauncher;
 
-
+    /**
+     * This method is used to set up the initial state of the activity, such as initializing variables and setting the layout for the activity
+     * @param savedInstanceState savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +83,7 @@ public class ReportPage extends AppCompatActivity {
         submit_button = findViewById(R.id.submit_button);
         screenshot_image_view = findViewById(R.id.screenshot_image_view);
 
+        // Toolbar
         Toolbar toolbarActivity = findViewById(R.id.toolbarActivity);
         setSupportActionBar(toolbarActivity);
 
@@ -61,15 +97,26 @@ public class ReportPage extends AppCompatActivity {
         }
 
         toolbarActivity.setNavigationOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Direct users to previous page after clicking on it
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
 
+        // Display back button in toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), new ActivityResultCallback<Uri>() {
+
+            /**
+             * This method allows users to upload an image
+             * @param result
+             */
             @Override
             public void onActivityResult(Uri result) {
                 if(result!=null){
@@ -99,13 +146,18 @@ public class ReportPage extends AppCompatActivity {
                     remove_screenshot_button.setVisibility(View.GONE);
                     return;
                 }
-
-
-
             }
         });
 
         screenshot_image_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * This method allows users to upload an image after clicking on it by calling the activityResultLauncher.launch(image/*)
+             * So that users can choose image from the shared storage
+             * Screenshot image button will be hidden and remove screenshot image button will be shown after an image is uploaded
+             * Screenshot image button will be shown and remove screenshot image button will be hidden after the image is removed
+             * @param v view
+             */
             @Override
             public void onClick(View v) {
                 activityResultLauncher.launch("image/*");
@@ -127,9 +179,15 @@ public class ReportPage extends AppCompatActivity {
         });
 
         remove_screenshot_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Remove the image uploaded after clicking on it'
+             * Screenshot image button will be hidden and remove screenshot image button will be shown after an image is uploaded
+             * Screenshot image button will be shown and remove screenshot image button will be hidden after the image is removed
+             * @param v view
+             */
             @Override
             public void onClick(View v) {
-                // Clear the displayed image
                 screenshot_image_view.setImageDrawable(null);
                 remove_screenshot_button.setVisibility(View.GONE);
                 screenshot_image_button.setVisibility(View.VISIBLE);
@@ -137,6 +195,12 @@ public class ReportPage extends AppCompatActivity {
         });
 
         submit_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Submit the issue after clicking on it
+             * The issue reported will be sent to JomMakan gmail
+             * @param v view
+             */
             @Override
             public void onClick(View v) {
                 if (isValidEmail(email_edit_text.getText().toString())) {
@@ -152,8 +216,12 @@ public class ReportPage extends AppCompatActivity {
         });
     }
 
+    /**
+     * Check the validity of email address
+     * @param Email email address entered
+     * @return boolean
+     */
     private boolean isValidEmail(String Email){
-        //Check the validity of email
         if (Patterns.EMAIL_ADDRESS.matcher(Email).matches()) {
             return true;
         } else {
@@ -162,7 +230,9 @@ public class ReportPage extends AppCompatActivity {
         }
     }
 
-    // Send verification code to user Gmail
+    /**
+     * Send the reported issue to JomMakan gmail
+     */
     private class SendEmailTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {

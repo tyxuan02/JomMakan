@@ -37,7 +37,7 @@ public class HomeLocationItemAdapter extends RecyclerView.Adapter<HomeLocationIt
     LayoutInflater layoutInflater;
 
     /**
-     * Constructor of HomeLocationItemAdapter
+     * Constructor of HomeLocationItemAdapter class
      * @param context context
      * @param location_list a list of locations
      */

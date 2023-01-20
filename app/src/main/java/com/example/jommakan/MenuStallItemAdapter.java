@@ -57,7 +57,7 @@ public class MenuStallItemAdapter extends RecyclerView.Adapter<MenuStallItemAdap
     Date close;
 
     /**
-     * A constructor of MenuStallItemAdapter
+     * A constructor of MenuStallItemAdapter class
      * @param context context
      * @param stall_list a list of stalls
      */

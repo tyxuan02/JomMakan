@@ -19,18 +19,57 @@ import androidx.room.Room;
 
 import java.util.ArrayList;
 
+/**
+ * An adapter class that is used to display a list of cart items in Cart Page
+ */
 public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAdapter.MyViewHolder> {
 
+    /**
+     * Provides access to global information about an application environment.
+     */
     Context context;
+
+    /**
+     * An array list that is used to store cart items
+     */
     ArrayList<CartItem> cart_item_list;
+
+    /**
+     * An array list that is used to store food in a cart item
+     */
     ArrayList<CartFood> cart_food_list;
+
+    /**
+     * A layout inflater that is used to instantiate layout XML file into its corresponding View objects
+     */
     LayoutInflater layoutInflater;
+
+    /**
+     * A double that is used to store the total price of all food in a cart item
+     */
     double total_price;
+
+    /**
+     * An instance of CartItemDatabase
+     */
     CartItemDatabase cartItemDatabase;
+
+    /**
+     * A fragment manager that is used for managing fragments and their transactions.
+     */
     FragmentManager fragmentManager;
 
+    /**
+     * An array list that is used to store ChildCartItemAdapters
+     */
     private ArrayList<ChildCartItemAdapter> childCartItemAdapterList = new ArrayList<>();
 
+    /**
+     * Constructor of ParentCartItemAdapter class
+     * @param context context
+     * @param cart_item_list a list of cart item
+     * @param fragmentManager FragmentManager
+     */
     public ParentCartItemAdapter(Context context, ArrayList<CartItem> cart_item_list, FragmentManager fragmentManager) {
         this.context = context;
         this.cart_item_list = cart_item_list;
@@ -42,6 +81,9 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
         cartItemDatabase = Room.databaseBuilder(context, CartItemDatabase.class, "CartItemDB").allowMainThreadQueries().build();
     }
 
+    /**
+     * Inflates a layout file (R.layout.cart_item) and creates a new instance of the class ChildCartItemAdapter.MyViewHolder
+     */
     @NonNull
     @Override
     public ParentCartItemAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -49,12 +91,16 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
         return new ParentCartItemAdapter.MyViewHolder(view);
     }
 
+    /**
+     * This method binds the data to the views, which is at the position passed as an argument.
+     */
     @Override
     public void onBindViewHolder(@NonNull ParentCartItemAdapter.MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
-
         if (checkCartFood(position)) {
+            // Display cart items that users haven't made payment
             holder.location_and_stall_name.setText(cart_item_list.get(position).getLocation() + " - " + cart_item_list.get(position).getStall());
 
+            // Display all food from a cart item in vertical list view
             ChildCartItemAdapter cartItemAdapter = new ChildCartItemAdapter(cart_item_list.get(position).getCart_food_list(), cart_item_list.get(position).getLocation(), cart_item_list.get(position).getStall(), context);
             childCartItemAdapterList.add(cartItemAdapter);
             holder.cart_food_recycle_view.setAdapter(cartItemAdapter);
@@ -63,6 +109,11 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
             holder.cart_food_recycle_view.setNestedScrollingEnabled(true);
 
             holder.edit_button.setOnClickListener(new View.OnClickListener() {
+
+                /**
+                 * Update the new total price of a cart item after clicking on it
+                 * @param v view
+                 */
                 @Override
                 public void onClick(View v) {
                     updateTotalPrice(position);
@@ -75,6 +126,12 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
             holder.total_price.setText(String.format("%.2f", total_price));
 
             holder.cart_pay_button.setOnClickListener(new View.OnClickListener() {
+
+                /**
+                 * A payment confirmation pop up window will be display after clicking on it
+                 * Pass cart item and total price of the cart item to Payment Confirmation Fragment
+                 * @param v view
+                 */
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
@@ -87,15 +144,23 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
                 }
             });
         } else {
+            // Remove the cart item from Cart Page after users have made payment
             holder.cart_item_card_view.setVisibility(View.GONE);
         }
     }
 
+    /**
+     * Get the size of the cart item array list
+     * @return int
+     */
     @Override
     public int getItemCount() {
         return cart_item_list.size();
     }
 
+    /**
+     * This class is used to hold references to the various views that make up an item in a RecyclerView
+     */
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         CardView cart_item_card_view;
         TextView location_and_stall_name;
@@ -116,6 +181,9 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
         }
     }
 
+    /**
+     * This method is used to calculate the total price of all food in a cart item
+     */
     private void calcTotalPrice () {
         total_price = 0;
         for (int i = 0; i < cart_food_list.size(); i++) {
@@ -123,11 +191,21 @@ public class ParentCartItemAdapter extends RecyclerView.Adapter<ParentCartItemAd
         }
     }
 
+    /**
+     * This method is used to update the total price of all food in a cart item
+     * @param position int
+     */
     public void updateTotalPrice(int position) {
         ChildCartItemAdapter childCartItemAdapter = childCartItemAdapterList.get(position);
         childCartItemAdapter.updateQuantity();
     }
 
+    /**
+     * This method is used to check whether the cart item still exist in the Cart Page
+     * This method is used to ensure that the cart item is removed whenever users have made payment for it
+     * @param position int
+     * @return boolean
+     */
     private boolean checkCartFood(int position) {
         CartItem checkCartItem = null;
         try {

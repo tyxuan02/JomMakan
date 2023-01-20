@@ -8,6 +8,9 @@ import com.google.gson.Gson;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * Convert String array list to String
+ */
 public class StringArrayListConverter {
     @TypeConverter
     public ArrayList<String> fromString(String value) {

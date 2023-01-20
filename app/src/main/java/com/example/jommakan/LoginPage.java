@@ -72,9 +72,13 @@ public class LoginPage extends AppCompatActivity {
 
         // Login (need to check the validity of email and password)
         login_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * It will direct users to homepage after clicking on it if it satisfies all the if-else conditions in this method
+             * @param v
+             */
             @Override
             public void onClick(View v) {
-
                 // If user has already log in before, check if local storage has 'user_file', which stores the user email and password
                 // If no user_file exist, ask the user to log in abd jump to log in page
                 Context context = v.getContext();

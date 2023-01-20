@@ -15,7 +15,7 @@ import androidx.room.Room;
 import java.util.ArrayList;
 
 /**
- * An adapter class that is used to display a list of items in a cart item in cart page
+ * An adapter class that is used to display a list of items in a cart item in Cart Page
  */
 public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdapter.MyViewHolder> {
 
@@ -177,7 +177,6 @@ public class ChildCartItemAdapter extends RecyclerView.Adapter<ChildCartItemAdap
             }
         }
 
-        // Close connection and handle errors in room database
         try {
             if (cart_food_list.size() <= 0) {
                 cartItemDatabase.cartItemDAO().deleteCartItem(UserInstance.getUser_email_address(), location, stall);

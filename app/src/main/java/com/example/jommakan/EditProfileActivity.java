@@ -16,7 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 /**
- * An activity that is responsible for display and managing user's account information
+ * An activity that is responsible for displaying and managing user's account information
  * It allows the users to navigate to edit their account credentials
  */
 public class EditProfileActivity extends AppCompatActivity {

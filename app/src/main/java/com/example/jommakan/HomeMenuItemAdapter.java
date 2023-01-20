@@ -55,7 +55,7 @@ public class HomeMenuItemAdapter extends RecyclerView.Adapter<HomeMenuItemAdapte
     CartItemDatabase cartItemDatabase;
 
     /**
-     * Constructor of HomeMenuItemAdapter
+     * Constructor of HomeMenuItemAdapter class
      * @param context context
      * @param food_list a list of food
      */

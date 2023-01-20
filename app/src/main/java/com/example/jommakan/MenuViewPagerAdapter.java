@@ -12,7 +12,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 public class MenuViewPagerAdapter extends FragmentStateAdapter {
 
     /**
-     * Constructor of MenuViewPagerAdapter
+     * Constructor of MenuViewPagerAdapter class
      * @param fragmentManager FragmentManager
      * @param lifecycle Lifecycle
      */

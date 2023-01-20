@@ -21,21 +21,80 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
+/**
+ * A dialog fragment that is responsible for displaying and managing make-payment process
+ * It act as a pop up window
+ * It allows users to make payment for an order
+ */
 public class PaymentConfirmationDialogFragment extends DialogFragment {
 
+    /**
+     * A text view that is used to display order pickup time
+     */
     TextView pick_up_time;
+
+    /**
+     * A text view that is used to display total price of an order
+     */
     TextView total_price_text_view;
+
+    /**
+     * A text view that is used to display account wallet balance
+     */
     TextView wallet_balance;
+
+    /**
+     * A button that is used to close the pop up window
+     */
     Button cancel_button;
+
+    /**
+     * A button that is used to confirm the payment
+     */
     Button confirm_button;
+
+    /**
+     * An instance of OrderDatabase
+     */
     OrderDatabase orderDatabase;
+
+    /**
+     * An instance of CartItemDatabase
+     */
     CartItemDatabase cartItemDatabase;
+
+    /**
+     * An instance of UserDatabase
+     */
     UserDatabase userDatabase;
+
+    /**
+     * A cart item object that is used to store information about cart item
+     */
     CartItem cartItem;
+
+    /**
+     * A string that is used to store location name of the order
+     */
     String location;
+
+    /**
+     * A string that is used to store stall name of the order
+     */
     String stall;
+
+    /**
+     * A double that is used to store the total price of an order
+     */
     Double total_price;
 
+    /**
+     * Called to have the fragment instantiate its user interface view
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state
+     * @return view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,6 +102,11 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
         return view;
     }
 
+    /**
+     * Called immediately after onCreateView has returned, but before any saved state has been restored in to the view
+     * @param view The View returned by onCreateView
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         pick_up_time = view.findViewById(R.id.pick_up_time);
@@ -62,11 +126,17 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
         location = cartItem.getLocation();
         stall = cartItem.getStall();
 
+        // Display pickup time, total price of the order and account wallet balance
         pick_up_time.setText(getEstimatedTime());
         total_price_text_view.setText("RM "  + String.format("%.2f", total_price));
         wallet_balance.setText("RM "  + String.format("%.2f", UserInstance.getWallet_balance()));
 
         cancel_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Close the payment confirmation pop up window after clicking on it
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 dismiss();
@@ -74,10 +144,15 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
         });
 
         confirm_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Confirm the payment and close the pop up window after clicking on it if it satisfies all the if-else conditions in the mehtod
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 if (UserInstance.getWallet_balance() >= total_price) {
-                    // If user has sufficient wallet balance
+                    // If the wallet balance is sufficient
                     removeCartItem();
                     addToOrderHistory();
                     updateWalletBalance(total_price);
@@ -87,13 +162,16 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
                     navController.navigate(R.id.DestCart);
                     Toast.makeText(getActivity(), "Your purchase was successful. Please be sure to pick up your order at the estimated time.", Toast.LENGTH_SHORT).show();
                 } else {
+                    // If the wallet balance is not sufficient
                     Toast.makeText(getActivity(), "Your balance is insufficient. Please top up your wallet to continue.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    // Remove cart item from cart
+    /**
+     * Remove cart item from Cart Page after users have made payment
+     */
     private void removeCartItem() {
         try {
             cartItemDatabase.cartItemDAO().deleteCartItem(UserInstance.getUser_email_address(), location, stall);
@@ -107,8 +185,12 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
         }
     }
 
-    // Add a new order to order history
+    /**
+     * Add a new order to Order History page after users have made payment
+     */
     private void addToOrderHistory() {
+
+        // Randomly generate a number for an order as an order number
         Random random = new Random();
         int min = 100000000;
         int max = 999999999;
@@ -125,7 +207,11 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
         }
     }
 
-    // Update user wallet balance
+    /**
+     * Update account wallet balance after users have made payment
+     * Account wallet balance will be deducted
+     * @param total_price double
+     */
     private void updateWalletBalance(double total_price) {
         double wallet_balance = UserInstance.getWallet_balance() - total_price;
         UserInstance.setWallet_balance(wallet_balance);
@@ -141,7 +227,10 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
         }
     }
 
-    // Get current date
+    /**
+     * Get the current date as it will be used as the order date for an order
+     * @return String
+     */
     private String getCurrentDate() {
         Calendar calendar = Calendar.getInstance();
         Date currentDate = calendar.getTime();
@@ -151,7 +240,10 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
         return dateFormat.format(currentDate);
     }
 
-    // Get current time
+    /**
+     * Get the current time as it will be used as the order time for an order
+     * @return String
+     */
     private String getCurrentTime() {
         Calendar calendar = Calendar.getInstance();
         Date currentTime = calendar.getTime();
@@ -160,7 +252,10 @@ public class PaymentConfirmationDialogFragment extends DialogFragment {
         return timeFormat.format(currentTime);
     }
 
-    // Get estimated pickup time
+    /**
+     * Get estimated pickup time for an order
+     * @return String
+     */
     private String getEstimatedTime() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, 30);

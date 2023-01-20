@@ -5,7 +5,7 @@ import androidx.room.TypeConverter;
 import java.util.ArrayList;
 
 /**
- * Convert integer list to String
+ * Convert integer array list to String
  */
 public class IntegerArrayListConverter {
     @TypeConverter

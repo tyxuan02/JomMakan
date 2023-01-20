@@ -23,18 +23,83 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * A fragment that is responsible for displaying stall information and its food
+ */
 public class StallFragment extends Fragment {
 
+    /**
+     * An image view that is used to display stall image
+     */
     ImageView stall_image;
+
+    /**
+     * An image button that will direct users to previous page after clicking on it
+     */
     ImageButton back_button;
-    TextView location_name, stall_name, open_or_close, operation_time, stall_description;
+
+    /**
+     * A text view that is used to display location name
+     */
+    TextView location_name;
+
+    /**
+     * A text view that is used to display stall name
+     */
+    TextView stall_name;
+
+    /**
+     * A text view that is used to display whether the stall is open or close
+     */
+    TextView open_or_close;
+
+    /**
+     * A text view that is used to display stall operation time
+     */
+    TextView operation_time;
+
+    /**
+     * A text view that is used to display stall description
+     */
+    TextView stall_description;
+
+    /**
+     * An array list that is used to store food
+     */
     ArrayList<Food> food_list;
+
+    /**
+     * A adapter that is used by food recycler view
+     */
     StallFoodItemAdapter stallFoodItemAdapter;
+
+    /**
+     * A recycler view that is used to display a list of food
+     */
     RecyclerView food_recycle_view;
+
+    /**
+     * A stall object that is used to store information about a stall
+     */
     Stall stall;
+
+    /**
+     * An instance of StallDatabase
+     */
     StallDatabase stallDatabase;
+
+    /**
+     * An instance of FoodDatabase
+     */
     FoodDatabase foodDatabase;
 
+    /**
+     * Called to have the fragment instantiate its user interface view
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state
+     * @return view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,6 +107,11 @@ public class StallFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Called immediately after onCreateView has returned, but before any saved state has been restored in to the view
+     * @param view The View returned by onCreateView
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         stall_image = view.findViewById(R.id.stall_image);
@@ -58,6 +128,11 @@ public class StallFragment extends Fragment {
 
         // Back button
         back_button.setOnClickListener(new View.OnClickListener() {
+
+            /**
+             * Direct users to previous page after clicking on it
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();
@@ -67,7 +142,6 @@ public class StallFragment extends Fragment {
         // Database connection
         foodDatabase = Room.databaseBuilder(getActivity(), FoodDatabase.class, "FoodDB").allowMainThreadQueries().build();
         stallDatabase = Room.databaseBuilder(getActivity(), StallDatabase.class, "StallDB").allowMainThreadQueries().build();
-
 
         // Extract the data from the bundle (Determine which location user has chosen)
         String selected_stall_name = getArguments().getString("selected_stall_name");
@@ -83,18 +157,22 @@ public class StallFragment extends Fragment {
 
         // Get all stalls in a location from database
         food_list = new ArrayList<>();
-        getAllStalls(stall.getStall_name(), stall.getLocation());
+        getAllFood(stall.getStall_name(), stall.getLocation());
 
-        // Prepare recycle view and adapter to display all food in a stall
+        // Display all food in a stall in grid view
         stallFoodItemAdapter = new StallFoodItemAdapter(getContext(), food_list);
         food_recycle_view = view.findViewById(R.id.food_recycle_view);
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
         food_recycle_view.setLayoutManager(gridLayoutManager);
         food_recycle_view.setAdapter(stallFoodItemAdapter);
     }
 
-    private void getAllStalls(String location, String stall_name) {
+    /**
+     * Get all food in a stall from database
+     * @param location location name
+     * @param stall_name stall name
+     */
+    private void getAllFood(String location, String stall_name) {
         try {
             food_list.addAll(foodDatabase.foodDAO().getStallFood(location, stall_name));
         } catch (SQLiteException e) {
@@ -106,6 +184,12 @@ public class StallFragment extends Fragment {
         }
     }
 
+    /**
+     * Check whether a stall is open
+     * @param open_time stall open time
+     * @param close_time stall close time
+     * @return String
+     */
     private String checkOpenOrClose(String open_time, String close_time) {
         String result = "";
 
@@ -143,6 +227,11 @@ public class StallFragment extends Fragment {
         return result;
     }
 
+    /**
+     * Get the stall information in a location from database
+     * @param location_name location name
+     * @param stall_name stall name
+     */
     private void getStall(String location_name, String stall_name) {
         try {
             stall = stallDatabase.stallDAO().getStall(location_name, stall_name);

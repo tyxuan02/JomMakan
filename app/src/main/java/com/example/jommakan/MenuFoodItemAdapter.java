@@ -82,7 +82,7 @@ public class MenuFoodItemAdapter extends RecyclerView.Adapter<MenuFoodItemAdapte
     CartItemDatabase cartItemDatabase;
 
     /**
-     * Constructor of MenuFoodItemAdapter
+     * Constructor of MenuFoodItemAdapter class
      * @param food_list a list of food
      * @param context context
      */
