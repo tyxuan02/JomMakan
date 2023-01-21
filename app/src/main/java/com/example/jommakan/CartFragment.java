@@ -93,7 +93,8 @@ public class CartFragment extends Fragment {
      */
     private void getCartItems(String email_address) {
         try {
-            cart_item_list = (ArrayList<CartItem>) cartItemDatabase.cartItemDAO().getAllCartItems(email_address);        } catch (SQLiteException e) {
+            cart_item_list = (ArrayList<CartItem>) cartItemDatabase.cartItemDAO().getAllCartItems(email_address);
+        } catch (SQLiteException e) {
             // Handle errors
             e.printStackTrace();
         } finally {

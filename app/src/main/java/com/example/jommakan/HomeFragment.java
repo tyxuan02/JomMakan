@@ -123,6 +123,11 @@ public class HomeFragment extends Fragment {
     ArrayList<CartFood> cart_food_list;
 
     /**
+     * A text view that is used to display username
+     */
+    TextView welcome_text_with_name;
+
+    /**
      * Called to have the fragment instantiate its user interface view
      * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
      * @param container If non-null, this is the parent view that the fragment's UI should be attached to
@@ -152,6 +157,10 @@ public class HomeFragment extends Fragment {
             toolbar_title.setTextAppearance(R.style.toolbar_text_main);
             toolbar_title.setText("JomMakan");
         }
+
+        // Display username
+        welcome_text_with_name = view.findViewById(R.id.welcome_text_with_name);
+        welcome_text_with_name.setText(UserInstance.getUsername());
 
         // Database connection
         foodDatabase = Room.databaseBuilder(getActivity(), FoodDatabase.class, "FoodDB").allowMainThreadQueries().build();
@@ -276,7 +285,16 @@ public class HomeFragment extends Fragment {
      * @param stall stall name
      */
     private void getCartFoodList(String location, String stall) {
-        cartItem = cartItemDatabase.cartItemDAO().getCartItem(UserInstance.getUser_email_address(), location, stall);
+        try {
+            cartItem = cartItemDatabase.cartItemDAO().getCartItem(UserInstance.getUser_email_address(), location, stall);
+        } catch (SQLiteException e) {
+            // Handle errors
+            e.printStackTrace();
+        } finally {
+            // Close connection
+            cartItemDatabase.close();
+        }
+
         if (cartItem == null) {
             cart_food_list = new ArrayList<>();
         } else {
