@@ -7,4 +7,4 @@ Group members:
 - Ham Zhi Ying
 - Chow Jie Lun
 
-Run this app on Pixel 60 API 30 emulator to get a better user experience.
+Run this app on Pixel 6 API 30 emulator to have a better user experience.
